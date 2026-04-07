@@ -11,10 +11,10 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/microcks/refs/heads/main/apis.yml
 tags:
   - API Testing
-  - Mocking
-  - Open Source
   - Cloud Native
   - DevOps
+  - Mocking
+  - Open Source
 created: '2025-01-08'
 modified: '2026-03-16'
 specificationVersion: '0.19'
