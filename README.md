@@ -16,7 +16,7 @@ Microcks is an open source, cloud-native tool for API mocking and testing. It pr
 ## Timestamps
 
 - **Created:** 2025-01-08 
-- **Modified:** 2026-03-16 
+- **Modified:** 2026-04-28 
 
 ## APIs
 
@@ -34,6 +34,7 @@ The Microcks platform API provides endpoints for managing services, test suites,
 
 - [Documentation](https://microcks.io/documentation/)
 - [Getting Started](https://microcks.io/documentation/getting-started/)
+- [OpenAPI](openapi/microcks-openapi.yml)
 
 ## Common Properties
 
