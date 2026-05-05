@@ -1,0 +1,13 @@
+{
+  "repo": "microcks",
+  "feeds": [
+    {
+      "source": "https://microcks.io/blog/",
+      "feed_url": "https://microcks.io/blog/index.xml",
+      "saved": 10,
+      "title": "Latest News on API Mocking and Testing | Microcks.io"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:31:24Z"
+}
