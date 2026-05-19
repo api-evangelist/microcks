@@ -16,7 +16,7 @@ tags:
   - Mocking
   - Open Source
 created: '2025-01-08'
-modified: '2026-04-28'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
   - aid: microcks:microcks-api
@@ -47,6 +47,9 @@ common:
     url: https://microcks.io/community/
   - type: Blog
     url: https://microcks.io/blog/
+  - name: MCP Server
+    url: https://github.com/microcks/microcks-mcp-server
+    type: MCPServer
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
