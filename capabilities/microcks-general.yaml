@@ -1,0 +1,101 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Microcks API v1.14
+  description: 'Microcks API v1.14. 2 operations. Lead operation: Get Resources by Service. Self-contained Naftiko capability
+    covering one Microcks business surface.'
+  tags:
+  - Microcks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks-general
+    baseUri: http://microcks.example.com/api
+    description: Microcks API v1.14 business capability. Self-contained, no shared references.
+    resources:
+    - name: resources-service-serviceId
+      path: /resources/service/{serviceId}
+      operations:
+      - name: getresourcesbyservice
+        method: GET
+        description: Get Resources by Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: resources-name
+      path: /resources/{name}
+      operations:
+      - name: getresource
+        method: GET
+        description: Get Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.MICROCKS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: microcks-general-rest
+    port: 8080
+    description: REST adapter for Microcks API v1.14. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/resources/service/{serviceid}
+      name: resources-service-serviceid
+      description: REST surface for resources-service-serviceId.
+      operations:
+      - method: GET
+        name: getresourcesbyservice
+        description: Get Resources by Service
+        call: microcks-general.getresourcesbyservice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/resources/{name}
+      name: resources-name
+      description: REST surface for resources-name.
+      operations:
+      - method: GET
+        name: getresource
+        description: Get Resource
+        call: microcks-general.getresource
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: microcks-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Microcks API v1.14. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-resources-service
+      description: Get Resources by Service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-general.getresourcesbyservice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-resource
+      description: Get Resource
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-general.getresource
+      outputParameters:
+      - type: object
+        mapping: $.

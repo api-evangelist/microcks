@@ -1,0 +1,313 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Microcks API v1.14 — metrics
+  description: 'Microcks API v1.14 — metrics. 7 operations. Lead operation: Get aggregation of conformance metrics. Self-contained
+    Naftiko capability covering one Microcks business surface.'
+  tags:
+  - Microcks
+  - metrics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks-metrics
+    baseUri: http://microcks.example.com/api
+    description: Microcks API v1.14 — metrics business capability. Self-contained, no shared references.
+    resources:
+    - name: metrics-conformance-aggregate
+      path: /metrics/conformance/aggregate
+      operations:
+      - name: getconformancemetricsaggregation
+        method: GET
+        description: Get aggregation of conformance metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: metrics-conformance-service-serviceId
+      path: /metrics/conformance/service/{serviceId}
+      operations:
+      - name: getservicetestconformancemetric
+        method: GET
+        description: Get conformance metrics for a Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: metrics-invocations-global
+      path: /metrics/invocations/global
+      operations:
+      - name: getaggregatedinvocationsstats
+        method: GET
+        description: Get aggregated invocation statistics for a day
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: day
+          in: query
+          type: string
+          description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
+    - name: metrics-invocations-global-latest
+      path: /metrics/invocations/global/latest
+      operations:
+      - name: getlatestaggregatedinvocationsstats
+        method: GET
+        description: Get aggregated invocations statistics for latest days
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Number of days to get back in time. Default is 20.
+    - name: metrics-invocations-top
+      path: /metrics/invocations/top
+      operations:
+      - name: gettopivnocationsstatsbyday
+        method: GET
+        description: Get top invocation statistics for a day
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: day
+          in: query
+          type: string
+          description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
+        - name: limit
+          in: query
+          type: integer
+          description: The number of top invoked mocks to return
+    - name: metrics-invocations-serviceName-serviceVersion
+      path: /metrics/invocations/{serviceName}/{serviceVersion}
+      operations:
+      - name: getinvocationstatsbyservice
+        method: GET
+        description: Get invocation statistics for Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: day
+          in: query
+          type: string
+          description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
+    - name: metrics-tests-latest
+      path: /metrics/tests/latest
+      operations:
+      - name: getlatesttestresults
+        method: GET
+        description: Get latest tests results
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Number of days to consider for test results to return. Default is 7 (one week)
+    authentication:
+      type: bearer
+      token: '{{env.MICROCKS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: microcks-metrics-rest
+    port: 8080
+    description: REST adapter for Microcks API v1.14 — metrics. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/metrics/conformance/aggregate
+      name: metrics-conformance-aggregate
+      description: REST surface for metrics-conformance-aggregate.
+      operations:
+      - method: GET
+        name: getconformancemetricsaggregation
+        description: Get aggregation of conformance metrics
+        call: microcks-metrics.getconformancemetricsaggregation
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metrics/conformance/service/{serviceid}
+      name: metrics-conformance-service-serviceid
+      description: REST surface for metrics-conformance-service-serviceId.
+      operations:
+      - method: GET
+        name: getservicetestconformancemetric
+        description: Get conformance metrics for a Service
+        call: microcks-metrics.getservicetestconformancemetric
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metrics/invocations/global
+      name: metrics-invocations-global
+      description: REST surface for metrics-invocations-global.
+      operations:
+      - method: GET
+        name: getaggregatedinvocationsstats
+        description: Get aggregated invocation statistics for a day
+        call: microcks-metrics.getaggregatedinvocationsstats
+        with:
+          day: rest.day
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metrics/invocations/global/latest
+      name: metrics-invocations-global-latest
+      description: REST surface for metrics-invocations-global-latest.
+      operations:
+      - method: GET
+        name: getlatestaggregatedinvocationsstats
+        description: Get aggregated invocations statistics for latest days
+        call: microcks-metrics.getlatestaggregatedinvocationsstats
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metrics/invocations/top
+      name: metrics-invocations-top
+      description: REST surface for metrics-invocations-top.
+      operations:
+      - method: GET
+        name: gettopivnocationsstatsbyday
+        description: Get top invocation statistics for a day
+        call: microcks-metrics.gettopivnocationsstatsbyday
+        with:
+          day: rest.day
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metrics/invocations/{servicename}/{serviceversion}
+      name: metrics-invocations-servicename-serviceversion
+      description: REST surface for metrics-invocations-serviceName-serviceVersion.
+      operations:
+      - method: GET
+        name: getinvocationstatsbyservice
+        description: Get invocation statistics for Service
+        call: microcks-metrics.getinvocationstatsbyservice
+        with:
+          day: rest.day
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metrics/tests/latest
+      name: metrics-tests-latest
+      description: REST surface for metrics-tests-latest.
+      operations:
+      - method: GET
+        name: getlatesttestresults
+        description: Get latest tests results
+        call: microcks-metrics.getlatesttestresults
+        with:
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: microcks-metrics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Microcks API v1.14 — metrics. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-aggregation-conformance-metrics
+      description: Get aggregation of conformance metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-metrics.getconformancemetricsaggregation
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-conformance-metrics-service
+      description: Get conformance metrics for a Service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-metrics.getservicetestconformancemetric
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-aggregated-invocation-statistics-day
+      description: Get aggregated invocation statistics for a day
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-metrics.getaggregatedinvocationsstats
+      with:
+        day: tools.day
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-aggregated-invocations-statistics-latest
+      description: Get aggregated invocations statistics for latest days
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-metrics.getlatestaggregatedinvocationsstats
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-top-invocation-statistics-day
+      description: Get top invocation statistics for a day
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-metrics.gettopivnocationsstatsbyday
+      with:
+        day: tools.day
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-invocation-statistics-service
+      description: Get invocation statistics for Service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-metrics.getinvocationstatsbyservice
+      with:
+        day: tools.day
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-latest-tests-results
+      description: Get latest tests results
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-metrics.getlatesttestresults
+      with:
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

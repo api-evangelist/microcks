@@ -1,0 +1,433 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Microcks API v1.14 — mock
+  description: 'Microcks API v1.14 — mock. 10 operations. Lead operation: Export a snapshot. Self-contained Naftiko capability
+    covering one Microcks business surface.'
+  tags:
+  - Microcks
+  - mock
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks-mock
+    baseUri: http://microcks.example.com/api
+    description: Microcks API v1.14 — mock business capability. Self-contained, no shared references.
+    resources:
+    - name: export
+      path: /export
+      operations:
+      - name: exportsnapshot
+        method: GET
+        description: Export a snapshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceIds
+          in: query
+          type: array
+          description: List of service identifiers to export
+          required: true
+    - name: import
+      path: /import
+      operations:
+      - name: importsnapshot
+        method: POST
+        description: Import a snapshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services
+      path: /services
+      operations:
+      - name: getservices
+        method: GET
+        description: Get Services and APIs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page of Services to retrieve (starts at and defaults to 0)
+        - name: size
+          in: query
+          type: integer
+          description: Size of a page. Maximum number of Services to include in a response (defaults to 20)
+    - name: services-count
+      path: /services/count
+      operations:
+      - name: getservicescounter
+        method: GET
+        description: Get the Services counter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-labels
+      path: /services/labels
+      operations:
+      - name: getserviceslabels
+        method: GET
+        description: Get the already used labels for Services
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-search
+      path: /services/search
+      operations:
+      - name: searchservices
+        method: GET
+        description: Search for Services and APIs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queryMap
+          in: query
+          type: object
+          description: Map of criterion. Key can be simply 'name' with value as the searched string. You can also search by
+            label using keys like 'labels.x' where 'x' is the label and
+          required: true
+    - name: services-id
+      path: /services/{id}
+      operations:
+      - name: getservice
+        method: GET
+        description: Get Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: messages
+          in: query
+          type: boolean
+          description: Whether to include details on services messages into result. Default is false
+      - name: deleteservice
+        method: DELETE
+        description: Delete Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: services-id-metadata
+      path: /services/{id}/metadata
+      operations:
+      - name: updateservicemetadata
+        method: PUT
+        description: Update Service Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-id-operation
+      path: /services/{id}/operation
+      operations:
+      - name: overrideserviceoperation
+        method: PUT
+        description: Override Service Operation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: operationName
+          in: query
+          type: string
+          description: Name of operation to update
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.MICROCKS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: microcks-mock-rest
+    port: 8080
+    description: REST adapter for Microcks API v1.14 — mock. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/export
+      name: export
+      description: REST surface for export.
+      operations:
+      - method: GET
+        name: exportsnapshot
+        description: Export a snapshot
+        call: microcks-mock.exportsnapshot
+        with:
+          serviceIds: rest.serviceIds
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/import
+      name: import
+      description: REST surface for import.
+      operations:
+      - method: POST
+        name: importsnapshot
+        description: Import a snapshot
+        call: microcks-mock.importsnapshot
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services
+      name: services
+      description: REST surface for services.
+      operations:
+      - method: GET
+        name: getservices
+        description: Get Services and APIs
+        call: microcks-mock.getservices
+        with:
+          page: rest.page
+          size: rest.size
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/count
+      name: services-count
+      description: REST surface for services-count.
+      operations:
+      - method: GET
+        name: getservicescounter
+        description: Get the Services counter
+        call: microcks-mock.getservicescounter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/labels
+      name: services-labels
+      description: REST surface for services-labels.
+      operations:
+      - method: GET
+        name: getserviceslabels
+        description: Get the already used labels for Services
+        call: microcks-mock.getserviceslabels
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/search
+      name: services-search
+      description: REST surface for services-search.
+      operations:
+      - method: GET
+        name: searchservices
+        description: Search for Services and APIs
+        call: microcks-mock.searchservices
+        with:
+          queryMap: rest.queryMap
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{id}
+      name: services-id
+      description: REST surface for services-id.
+      operations:
+      - method: GET
+        name: getservice
+        description: Get Service
+        call: microcks-mock.getservice
+        with:
+          messages: rest.messages
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteservice
+        description: Delete Service
+        call: microcks-mock.deleteservice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{id}/metadata
+      name: services-id-metadata
+      description: REST surface for services-id-metadata.
+      operations:
+      - method: PUT
+        name: updateservicemetadata
+        description: Update Service Metadata
+        call: microcks-mock.updateservicemetadata
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/services/{id}/operation
+      name: services-id-operation
+      description: REST surface for services-id-operation.
+      operations:
+      - method: PUT
+        name: overrideserviceoperation
+        description: Override Service Operation
+        call: microcks-mock.overrideserviceoperation
+        with:
+          operationName: rest.operationName
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: microcks-mock-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Microcks API v1.14 — mock. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: export-snapshot
+      description: Export a snapshot
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-mock.exportsnapshot
+      with:
+        serviceIds: tools.serviceIds
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: import-snapshot
+      description: Import a snapshot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: microcks-mock.importsnapshot
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-services-and-apis
+      description: Get Services and APIs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-mock.getservices
+      with:
+        page: tools.page
+        size: tools.size
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-services-counter
+      description: Get the Services counter
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-mock.getservicescounter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-already-used-labels-services
+      description: Get the already used labels for Services
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-mock.getserviceslabels
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-services-and-apis
+      description: Search for Services and APIs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-mock.searchservices
+      with:
+        queryMap: tools.queryMap
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-service
+      description: Get Service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: microcks-mock.getservice
+      with:
+        messages: tools.messages
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-service
+      description: Delete Service
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: microcks-mock.deleteservice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-service-metadata
+      description: Update Service Metadata
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: microcks-mock.updateservicemetadata
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: override-service-operation
+      description: Override Service Operation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: microcks-mock.overrideserviceoperation
+      with:
+        operationName: tools.operationName
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
