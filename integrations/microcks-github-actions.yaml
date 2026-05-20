@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Import OpenAPI specs into Microcks from GitHub Actions
+  description: On push to a spec repo, a GitHub Actions workflow uploads the changed OpenAPI / AsyncAPI artifact into Microcks via /artifact/upload so the mock service is always current with main.
+  tags:
+  - Microcks
+  - Integration
+  - CI/CD
+  - github-actions
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    GITHUB_ACTIONS_API_KEY: GITHUB_ACTIONS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: artifact-upload
+      path: /artifact/upload
+      operations:
+      - name: uploadartifact
+        method: POST
+        description: Upload an OpenAPI / AsyncAPI / Postman artifact into Microcks as a Service.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services
+      path: /services
+      operations:
+      - name: getservices
+        method: GET
+        description: List Microcks Services to confirm the import landed.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  - type: http
+    namespace: github-actions
+    baseUri: https://api.github.com
+    description: GitHub REST API operations consumed by this integration.
+    resources:
+    - name: repos-owner-repo-contents-path
+      path: /repos/{owner}/{repo}/contents/{path}
+      operations:
+      - name: getrepocontent
+        method: GET
+        description: 'GitHub REST API: getRepoContent'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: Path parameter owner.
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: Path parameter repo.
+          required: true
+        - name: path
+          in: path
+          type: string
+          description: Path parameter path.
+          required: true
+    - name: repos-owner-repo-check-runs
+      path: /repos/{owner}/{repo}/check-runs
+      operations:
+      - name: createcheckrun
+        method: POST
+        description: 'GitHub REST API: createCheckRun'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: Path parameter owner.
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: Path parameter repo.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-github-actions-mcp
+    description: MCP adapter for the microcks-github-actions integration.
+    tools:
+    - name: microcks_github_actions
+      description: Execute the microcks github actions integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-github-actions-rest
+    port: 8080
+    description: REST adapter for the microcks-github-actions integration.
+    resources:
+    - path: /microcks-github-actions
+      name: microcks-github-actions
+      description: REST surface for the microcks-github-actions integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-github-actions integration.
+        call: microcks_github_actions
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

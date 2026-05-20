@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Mirror Postman Collections as Microcks mocks
+  description: When a Postman Collection is published, import it into Microcks so the same collection drives a live mock and a contract-test baseline.
+  tags:
+  - Microcks
+  - Integration
+  - API design
+  - postman
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    POSTMAN_API_KEY: POSTMAN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: artifact-upload
+      path: /artifact/upload
+      operations:
+      - name: uploadartifact
+        method: POST
+        description: Upload a Postman Collection into Microcks as a Service.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-search
+      path: /services/search
+      operations:
+      - name: searchservices
+        method: GET
+        description: Locate the imported service for cross-linking.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  - type: http
+    namespace: postman
+    baseUri: https://api.getpostman.com
+    description: Postman API operations consumed by this integration.
+    resources:
+    - name: collections-collection-uid
+      path: /collections/{collection_uid}
+      operations:
+      - name: getcollection
+        method: GET
+        description: 'Postman API: getCollection'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: collection_uid
+          in: path
+          type: string
+          description: Path parameter collection_uid.
+          required: true
+    - name: workspaces-workspace-id
+      path: /workspaces/{workspace_id}
+      operations:
+      - name: getworkspace
+        method: GET
+        description: 'Postman API: getWorkspace'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          description: Path parameter workspace_id.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-postman-mcp
+    description: MCP adapter for the microcks-postman integration.
+    tools:
+    - name: microcks_postman
+      description: Execute the microcks postman integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-postman-rest
+    port: 8080
+    description: REST adapter for the microcks-postman integration.
+    resources:
+    - path: /microcks-postman
+      name: microcks-postman
+      description: REST surface for the microcks-postman integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-postman integration.
+        call: microcks_postman
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

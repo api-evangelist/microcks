@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Use Keycloak realms to gate access to Microcks mocks
+  description: Read the Microcks Keycloak configuration and mint per-developer access tokens in Keycloak so only authenticated users can hit privileged mock endpoints.
+  tags:
+  - Microcks
+  - Integration
+  - Identity / SSO
+  - keycloak
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    KEYCLOAK_API_KEY: KEYCLOAK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: keycloak-config
+      path: /keycloak/config
+      operations:
+      - name: getkeycloakconfig
+        method: GET
+        description: Discover the Keycloak realm and client Microcks expects.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: features-config
+      path: /features/config
+      operations:
+      - name: getfeaturesconfig
+        method: GET
+        description: Confirm which Microcks features require authentication.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  - type: http
+    namespace: keycloak
+    baseUri: https://keycloak.example.com
+    description: Keycloak Admin REST API operations consumed by this integration.
+    resources:
+    - name: admin-realms-realm-users
+      path: /admin/realms/{realm}/users
+      operations:
+      - name: createuser
+        method: POST
+        description: 'Keycloak Admin REST API: createUser'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: realm
+          in: path
+          type: string
+          description: Path parameter realm.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin-realms-realm-users-id-role-mappings-realm
+      path: /admin/realms/{realm}/users/{id}/role-mappings/realm
+      operations:
+      - name: assignrealmroles
+        method: PUT
+        description: 'Keycloak Admin REST API: assignRealmRoles'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: realm
+          in: path
+          type: string
+          description: Path parameter realm.
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-keycloak-mcp
+    description: MCP adapter for the microcks-keycloak integration.
+    tools:
+    - name: microcks_keycloak
+      description: Execute the microcks keycloak integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-keycloak-rest
+    port: 8080
+    description: REST adapter for the microcks-keycloak integration.
+    resources:
+    - path: /microcks-keycloak
+      name: microcks-keycloak
+      description: REST surface for the microcks-keycloak integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-keycloak integration.
+        call: microcks_keycloak
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

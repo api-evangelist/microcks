@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Run Microcks contract tests against a Pact-broker-published spec
+  description: When a consumer publishes a new Pact, fetch the provider spec from the Pact Broker, register it in Microcks, then trigger a Microcks contract test run against the deployed provider.
+  tags:
+  - Microcks
+  - Integration
+  - Contract testing
+  - pact
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    PACT_API_KEY: PACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: artifact-upload
+      path: /artifact/upload
+      operations:
+      - name: uploadartifact
+        method: POST
+        description: Upload the consumer-published contract into Microcks.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: tests
+      path: /tests
+      operations:
+      - name: createtest
+        method: POST
+        description: Launch a Microcks contract test run against the live provider.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: tests-id
+      path: /tests/{id}
+      operations:
+      - name: gettestresult
+        method: GET
+        description: Poll the contract test result.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+  - type: http
+    namespace: pact
+    baseUri: https://pact-broker.example.com
+    description: Pact Broker API operations consumed by this integration.
+    resources:
+    - name: pacts-provider-provider-consumer-consumer-latest
+      path: /pacts/provider/{provider}/consumer/{consumer}/latest
+      operations:
+      - name: getlatestpact
+        method: GET
+        description: 'Pact Broker API: getLatestPact'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: provider
+          in: path
+          type: string
+          description: Path parameter provider.
+          required: true
+        - name: consumer
+          in: path
+          type: string
+          description: Path parameter consumer.
+          required: true
+    - name: pacts-provider-provider-consumer-consumer-verification-resul
+      path: /pacts/provider/{provider}/consumer/{consumer}/verification-results
+      operations:
+      - name: postverificationresult
+        method: POST
+        description: 'Pact Broker API: postVerificationResult'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: provider
+          in: path
+          type: string
+          description: Path parameter provider.
+          required: true
+        - name: consumer
+          in: path
+          type: string
+          description: Path parameter consumer.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-pact-mcp
+    description: MCP adapter for the microcks-pact integration.
+    tools:
+    - name: microcks_pact
+      description: Execute the microcks pact integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-pact-rest
+    port: 8080
+    description: REST adapter for the microcks-pact integration.
+    resources:
+    - path: /microcks-pact
+      name: microcks-pact
+      description: REST surface for the microcks-pact integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-pact integration.
+        call: microcks_pact
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

@@ -1,0 +1,151 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bind Microcks AsyncAPI mocks to a Kafka cluster
+  description: Register an AsyncAPI document with Microcks and have its mock producer emit example messages onto a real Kafka topic for downstream consumer testing.
+  tags:
+  - Microcks
+  - Integration
+  - Event streaming
+  - kafka
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    KAFKA_API_KEY: KAFKA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: artifact-upload
+      path: /artifact/upload
+      operations:
+      - name: uploadartifact
+        method: POST
+        description: Upload an AsyncAPI document into Microcks.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-id
+      path: /services/{id}
+      operations:
+      - name: getservice
+        method: GET
+        description: Read back the registered AsyncAPI service.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+    - name: jobs-id-activate
+      path: /jobs/{id}/activate
+      operations:
+      - name: activateimportjob
+        method: PUT
+        description: Activate the import job so AsyncAPI mock messages start flowing.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  - type: http
+    namespace: kafka
+    baseUri: https://kafka-rest.example.com
+    description: Kafka REST Proxy operations consumed by this integration.
+    resources:
+    - name: topics-topic
+      path: /topics/{topic}
+      operations:
+      - name: producetotopic
+        method: POST
+        description: 'Kafka REST Proxy: produceToTopic'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: topic
+          in: path
+          type: string
+          description: Path parameter topic.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: topics
+      path: /topics
+      operations:
+      - name: listtopics
+        method: GET
+        description: 'Kafka REST Proxy: listTopics'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  exposes:
+  - type: mcp
+    namespace: microcks-kafka-mcp
+    description: MCP adapter for the microcks-kafka integration.
+    tools:
+    - name: microcks_kafka
+      description: Execute the microcks kafka integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-kafka-rest
+    port: 8080
+    description: REST adapter for the microcks-kafka integration.
+    resources:
+    - path: /microcks-kafka
+      name: microcks-kafka
+      description: REST surface for the microcks-kafka integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-kafka integration.
+        call: microcks_kafka
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

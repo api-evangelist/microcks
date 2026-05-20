@@ -1,0 +1,129 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Lint OpenAPI specs with Spectral before importing to Microcks
+  description: Run Spectral against the OpenAPI document and block the Microcks import if any error-level rule fires, so only governed specs become mocks.
+  tags:
+  - Microcks
+  - Integration
+  - Governance
+  - spectral
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    SPECTRAL_API_KEY: SPECTRAL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: artifact-upload
+      path: /artifact/upload
+      operations:
+      - name: uploadartifact
+        method: POST
+        description: Upload the lint-passing spec into Microcks.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services
+      path: /services
+      operations:
+      - name: getservices
+        method: GET
+        description: List Services to confirm only governed APIs are mocked.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  - type: http
+    namespace: spectral
+    baseUri: https://api.stoplight.io
+    description: Spectral / Stoplight API operations consumed by this integration.
+    resources:
+    - name: v1-projects-projectid-lint
+      path: /v1/projects/{projectId}/lint
+      operations:
+      - name: lintdocument
+        method: POST
+        description: 'Spectral / Stoplight API: lintDocument'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          description: Path parameter projectId.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-rulesets-rulesetid
+      path: /v1/rulesets/{rulesetId}
+      operations:
+      - name: getruleset
+        method: GET
+        description: 'Spectral / Stoplight API: getRuleset'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: rulesetId
+          in: path
+          type: string
+          description: Path parameter rulesetId.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-spectral-mcp
+    description: MCP adapter for the microcks-spectral integration.
+    tools:
+    - name: microcks_spectral
+      description: Execute the microcks spectral integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-spectral-rest
+    port: 8080
+    description: REST adapter for the microcks-spectral integration.
+    resources:
+    - path: /microcks-spectral
+      name: microcks-spectral
+      description: REST surface for the microcks-spectral integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-spectral integration.
+        call: microcks_spectral
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

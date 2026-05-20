@@ -1,0 +1,119 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Surface Microcks mocks in the Backstage software catalog
+  description: For every Microcks Service, materialize a matching Backstage Component entity with the mock URL, OpenAPI spec link, and latest test conformance metric so developers find mocks alongside the real API.
+  tags:
+  - Microcks
+  - Integration
+  - Developer portal
+  - backstage
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    BACKSTAGE_API_KEY: BACKSTAGE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: services
+      path: /services
+      operations:
+      - name: getservices
+        method: GET
+        description: List Microcks Services to enumerate Backstage entities for.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    - name: metrics-conformance-service-serviceid
+      path: /metrics/conformance/service/{serviceId}
+      operations:
+      - name: getservicetestconformancemetric
+        method: GET
+        description: Pull conformance score for the Backstage badge.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceId
+          in: path
+          type: string
+          description: Path parameter serviceId.
+          required: true
+  - type: http
+    namespace: backstage
+    baseUri: https://backstage.example.com/api
+    description: Backstage Catalog API operations consumed by this integration.
+    resources:
+    - name: catalog-locations
+      path: /catalog/locations
+      operations:
+      - name: registerlocation
+        method: POST
+        description: 'Backstage Catalog API: registerLocation'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: catalog-entities
+      path: /catalog/entities
+      operations:
+      - name: listentities
+        method: GET
+        description: 'Backstage Catalog API: listEntities'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  exposes:
+  - type: mcp
+    namespace: microcks-backstage-mcp
+    description: MCP adapter for the microcks-backstage integration.
+    tools:
+    - name: microcks_backstage
+      description: Execute the microcks backstage integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-backstage-rest
+    port: 8080
+    description: REST adapter for the microcks-backstage integration.
+    resources:
+    - path: /microcks-backstage
+      name: microcks-backstage
+      description: REST surface for the microcks-backstage integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-backstage integration.
+        call: microcks_backstage
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

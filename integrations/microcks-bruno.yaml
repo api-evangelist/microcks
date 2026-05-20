@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sync Bruno collections into Microcks
+  description: Translate a Bruno API collection into a Microcks Service so teams using Bruno locally get the same mock + contract test suite their CI runs against.
+  tags:
+  - Microcks
+  - Integration
+  - API design
+  - bruno
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    BRUNO_API_KEY: BRUNO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: artifact-upload
+      path: /artifact/upload
+      operations:
+      - name: uploadartifact
+        method: POST
+        description: Upload the converted Bruno collection into Microcks.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services
+      path: /services
+      operations:
+      - name: getservices
+        method: GET
+        description: Confirm the Bruno-sourced service is registered.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  - type: http
+    namespace: bruno
+    baseUri: https://docs.usebruno.com
+    description: Bruno File Collections operations consumed by this integration.
+    resources:
+    - name: collections-name
+      path: /collections/{name}
+      operations:
+      - name: getcollection
+        method: GET
+        description: 'Bruno File Collections: getCollection'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          description: Path parameter name.
+          required: true
+    - name: collections-name-requests
+      path: /collections/{name}/requests
+      operations:
+      - name: listrequests
+        method: GET
+        description: 'Bruno File Collections: listRequests'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          description: Path parameter name.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-bruno-mcp
+    description: MCP adapter for the microcks-bruno integration.
+    tools:
+    - name: microcks_bruno
+      description: Execute the microcks bruno integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-bruno-rest
+    port: 8080
+    description: REST adapter for the microcks-bruno integration.
+    resources:
+    - path: /microcks-bruno
+      name: microcks-bruno
+      description: REST surface for the microcks-bruno integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-bruno integration.
+        call: microcks_bruno
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

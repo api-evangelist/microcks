@@ -1,0 +1,149 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Deploy Microcks mocks behind a Cloudflare Workers edge route
+  description: Expose a Microcks mock through a Cloudflare Worker so partner integrations hit a low-latency edge URL while traffic still resolves to the central Microcks instance.
+  tags:
+  - Microcks
+  - Integration
+  - Edge runtime
+  - cloudflare-workers
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    CLOUDFLARE_WORKERS_API_KEY: CLOUDFLARE_WORKERS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: services-id
+      path: /services/{id}
+      operations:
+      - name: getservice
+        method: GET
+        description: Look up the Microcks service to wire behind the edge route.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+    - name: metrics-invocations-servicename-serviceversion
+      path: /metrics/invocations/{serviceName}/{serviceVersion}
+      operations:
+      - name: getinvocationstatsbyservice
+        method: GET
+        description: Report mock invocation stats so edge logs and Microcks counters reconcile.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceName
+          in: path
+          type: string
+          description: Path parameter serviceName.
+          required: true
+        - name: serviceVersion
+          in: path
+          type: string
+          description: Path parameter serviceVersion.
+          required: true
+  - type: http
+    namespace: cloudflare-workers
+    baseUri: https://api.cloudflare.com
+    description: Cloudflare API operations consumed by this integration.
+    resources:
+    - name: client-v4-accounts-account-id-workers-scripts-script-name
+      path: /client/v4/accounts/{account_id}/workers/scripts/{script_name}
+      operations:
+      - name: uploadworkerscript
+        method: PUT
+        description: 'Cloudflare API: uploadWorkerScript'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: account_id
+          in: path
+          type: string
+          description: Path parameter account_id.
+          required: true
+        - name: script_name
+          in: path
+          type: string
+          description: Path parameter script_name.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: client-v4-zones-zone-id-workers-routes
+      path: /client/v4/zones/{zone_id}/workers/routes
+      operations:
+      - name: createworkerroute
+        method: POST
+        description: 'Cloudflare API: createWorkerRoute'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: zone_id
+          in: path
+          type: string
+          description: Path parameter zone_id.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-cloudflare-workers-mcp
+    description: MCP adapter for the microcks-cloudflare-workers integration.
+    tools:
+    - name: microcks_cloudflare_workers
+      description: Execute the microcks cloudflare workers integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-cloudflare-workers-rest
+    port: 8080
+    description: REST adapter for the microcks-cloudflare-workers integration.
+    resources:
+    - path: /microcks-cloudflare-workers
+      name: microcks-cloudflare-workers
+      description: REST surface for the microcks-cloudflare-workers integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-cloudflare-workers integration.
+        call: microcks_cloudflare_workers
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

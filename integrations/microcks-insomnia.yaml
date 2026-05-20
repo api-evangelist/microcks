@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Push Insomnia design documents into Microcks
+  description: Export an Insomnia OpenAPI design document and register it as a Microcks Service so the design-time contract powers a runtime mock automatically.
+  tags:
+  - Microcks
+  - Integration
+  - API design
+  - insomnia
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    INSOMNIA_API_KEY: INSOMNIA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: artifact-upload
+      path: /artifact/upload
+      operations:
+      - name: uploadartifact
+        method: POST
+        description: Upload the Insomnia OpenAPI document into Microcks.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services-search
+      path: /services/search
+      operations:
+      - name: searchservices
+        method: GET
+        description: Find the Microcks service by name + version.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  - type: http
+    namespace: insomnia
+    baseUri: https://api.insomnia.rest
+    description: Insomnia / Kong Inso operations consumed by this integration.
+    resources:
+    - name: v1-specs-spec-id
+      path: /v1/specs/{spec_id}
+      operations:
+      - name: getspec
+        method: GET
+        description: 'Insomnia / Kong Inso: getSpec'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: spec_id
+          in: path
+          type: string
+          description: Path parameter spec_id.
+          required: true
+    - name: v1-workspaces-workspace-id-specs
+      path: /v1/workspaces/{workspace_id}/specs
+      operations:
+      - name: listspecs
+        method: GET
+        description: 'Insomnia / Kong Inso: listSpecs'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          description: Path parameter workspace_id.
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-insomnia-mcp
+    description: MCP adapter for the microcks-insomnia integration.
+    tools:
+    - name: microcks_insomnia
+      description: Execute the microcks insomnia integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-insomnia-rest
+    port: 8080
+    description: REST adapter for the microcks-insomnia integration.
+    resources:
+    - path: /microcks-insomnia
+      name: microcks-insomnia
+      description: REST surface for the microcks-insomnia integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-insomnia integration.
+        call: microcks_insomnia
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.

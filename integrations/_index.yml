@@ -1,0 +1,60 @@
+- slug: microcks-github-actions
+  label: Import OpenAPI specs into Microcks from GitHub Actions
+  partner: github-actions
+  category: CI/CD
+  use_case: On push to a spec repo, a GitHub Actions workflow uploads the changed OpenAPI / AsyncAPI artifact into Microcks via /artifact/upload so the mock service is always current with main.
+- slug: microcks-gitlab-ci
+  label: Promote OpenAPI specs from GitLab CI into Microcks
+  partner: gitlab-ci
+  category: CI/CD
+  use_case: A GitLab CI pipeline downloads the merged OpenAPI artifact and pushes it into Microcks via /artifact/upload so review-app environments mock the latest contract.
+- slug: microcks-postman
+  label: Mirror Postman Collections as Microcks mocks
+  partner: postman
+  category: API design
+  use_case: When a Postman Collection is published, import it into Microcks so the same collection drives a live mock and a contract-test baseline.
+- slug: microcks-bruno
+  label: Sync Bruno collections into Microcks
+  partner: bruno
+  category: API design
+  use_case: Translate a Bruno API collection into a Microcks Service so teams using Bruno locally get the same mock + contract test suite their CI runs against.
+- slug: microcks-insomnia
+  label: Push Insomnia design documents into Microcks
+  partner: insomnia
+  category: API design
+  use_case: Export an Insomnia OpenAPI design document and register it as a Microcks Service so the design-time contract powers a runtime mock automatically.
+- slug: microcks-spectral
+  label: Lint OpenAPI specs with Spectral before importing to Microcks
+  partner: spectral
+  category: Governance
+  use_case: Run Spectral against the OpenAPI document and block the Microcks import if any error-level rule fires, so only governed specs become mocks.
+- slug: microcks-pact
+  label: Run Microcks contract tests against a Pact-broker-published spec
+  partner: pact
+  category: Contract testing
+  use_case: When a consumer publishes a new Pact, fetch the provider spec from the Pact Broker, register it in Microcks, then trigger a Microcks contract test run against the deployed provider.
+- slug: microcks-kafka
+  label: Bind Microcks AsyncAPI mocks to a Kafka cluster
+  partner: kafka
+  category: Event streaming
+  use_case: Register an AsyncAPI document with Microcks and have its mock producer emit example messages onto a real Kafka topic for downstream consumer testing.
+- slug: microcks-cloudflare-workers
+  label: Deploy Microcks mocks behind a Cloudflare Workers edge route
+  partner: cloudflare-workers
+  category: Edge runtime
+  use_case: Expose a Microcks mock through a Cloudflare Worker so partner integrations hit a low-latency edge URL while traffic still resolves to the central Microcks instance.
+- slug: microcks-backstage
+  label: Surface Microcks mocks in the Backstage software catalog
+  partner: backstage
+  category: Developer portal
+  use_case: For every Microcks Service, materialize a matching Backstage Component entity with the mock URL, OpenAPI spec link, and latest test conformance metric so developers find mocks alongside the real API.
+- slug: microcks-keycloak
+  label: Use Keycloak realms to gate access to Microcks mocks
+  partner: keycloak
+  category: Identity / SSO
+  use_case: Read the Microcks Keycloak configuration and mint per-developer access tokens in Keycloak so only authenticated users can hit privileged mock endpoints.
+- slug: microcks-kubernetes-operator
+  label: Reconcile Microcks Services from the Kubernetes operator
+  partner: kubernetes-operator
+  category: Runtime / Kubernetes
+  use_case: Watch MicrocksInstall + APIServiceImporter CRs in Kubernetes and drive Microcks imports + service lifecycle via its REST API so cluster manifests are the source of truth.

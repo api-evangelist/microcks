@@ -1,0 +1,304 @@
+# Curated Microcks integrations. Each entry becomes one Naftiko capability
+# YAML under integrations/. Domain: API mocking, contract testing, AsyncAPI
+# mocks, governance, identity, runtime.
+
+# CI / CD (2)
+- partner: github-actions
+  name: Import OpenAPI specs into Microcks from GitHub Actions
+  category: CI/CD
+  use_case: On push to a spec repo, a GitHub Actions workflow uploads the changed OpenAPI / AsyncAPI artifact into Microcks via /artifact/upload so the mock service is always current with main.
+  partner_baseUri: https://api.github.com
+  partner_api: GitHub REST API
+  provider_ops:
+    - method: POST
+      path: /artifact/upload
+      name: uploadArtifact
+      description: Upload an OpenAPI / AsyncAPI / Postman artifact into Microcks as a Service.
+    - method: GET
+      path: /services
+      name: getServices
+      description: List Microcks Services to confirm the import landed.
+  partner_ops:
+    - method: GET
+      path: /repos/{owner}/{repo}/contents/{path}
+      name: getRepoContent
+    - method: POST
+      path: /repos/{owner}/{repo}/check-runs
+      name: createCheckRun
+
+- partner: gitlab-ci
+  name: Promote OpenAPI specs from GitLab CI into Microcks
+  category: CI/CD
+  use_case: A GitLab CI pipeline downloads the merged OpenAPI artifact and pushes it into Microcks via /artifact/upload so review-app environments mock the latest contract.
+  partner_baseUri: https://gitlab.com/api
+  partner_api: GitLab REST API
+  provider_ops:
+    - method: POST
+      path: /artifact/upload
+      name: uploadArtifact
+      description: Upload a spec artifact into Microcks.
+    - method: GET
+      path: /services
+      name: getServices
+      description: List Microcks Services.
+  partner_ops:
+    - method: GET
+      path: /v4/projects/{id}/repository/files/{file_path}/raw
+      name: getRawFile
+    - method: POST
+      path: /v4/projects/{id}/statuses/{sha}
+      name: postCommitStatus
+
+# API design / clients (3)
+- partner: postman
+  name: Mirror Postman Collections as Microcks mocks
+  category: API design
+  use_case: When a Postman Collection is published, import it into Microcks so the same collection drives a live mock and a contract-test baseline.
+  partner_baseUri: https://api.getpostman.com
+  partner_api: Postman API
+  provider_ops:
+    - method: POST
+      path: /artifact/upload
+      name: uploadArtifact
+      description: Upload a Postman Collection into Microcks as a Service.
+    - method: GET
+      path: /services/search
+      name: searchServices
+      description: Locate the imported service for cross-linking.
+  partner_ops:
+    - method: GET
+      path: /collections/{collection_uid}
+      name: getCollection
+    - method: GET
+      path: /workspaces/{workspace_id}
+      name: getWorkspace
+
+- partner: bruno
+  name: Sync Bruno collections into Microcks
+  category: API design
+  use_case: Translate a Bruno API collection into a Microcks Service so teams using Bruno locally get the same mock + contract test suite their CI runs against.
+  partner_baseUri: https://docs.usebruno.com
+  partner_api: Bruno File Collections
+  provider_ops:
+    - method: POST
+      path: /artifact/upload
+      name: uploadArtifact
+      description: Upload the converted Bruno collection into Microcks.
+    - method: GET
+      path: /services
+      name: getServices
+      description: Confirm the Bruno-sourced service is registered.
+  partner_ops:
+    - method: GET
+      path: /collections/{name}
+      name: getCollection
+    - method: GET
+      path: /collections/{name}/requests
+      name: listRequests
+
+- partner: insomnia
+  name: Push Insomnia design documents into Microcks
+  category: API design
+  use_case: Export an Insomnia OpenAPI design document and register it as a Microcks Service so the design-time contract powers a runtime mock automatically.
+  partner_baseUri: https://api.insomnia.rest
+  partner_api: Insomnia / Kong Inso
+  provider_ops:
+    - method: POST
+      path: /artifact/upload
+      name: uploadArtifact
+      description: Upload the Insomnia OpenAPI document into Microcks.
+    - method: GET
+      path: /services/search
+      name: searchServices
+      description: Find the Microcks service by name + version.
+  partner_ops:
+    - method: GET
+      path: /v1/specs/{spec_id}
+      name: getSpec
+    - method: GET
+      path: /v1/workspaces/{workspace_id}/specs
+      name: listSpecs
+
+# Governance / linting (1)
+- partner: spectral
+  name: Lint OpenAPI specs with Spectral before importing to Microcks
+  category: Governance
+  use_case: Run Spectral against the OpenAPI document and block the Microcks import if any error-level rule fires, so only governed specs become mocks.
+  partner_baseUri: https://api.stoplight.io
+  partner_api: Spectral / Stoplight API
+  provider_ops:
+    - method: POST
+      path: /artifact/upload
+      name: uploadArtifact
+      description: Upload the lint-passing spec into Microcks.
+    - method: GET
+      path: /services
+      name: getServices
+      description: List Services to confirm only governed APIs are mocked.
+  partner_ops:
+    - method: POST
+      path: /v1/projects/{projectId}/lint
+      name: lintDocument
+    - method: GET
+      path: /v1/rulesets/{rulesetId}
+      name: getRuleset
+
+# Contract testing (1)
+- partner: pact
+  name: Run Microcks contract tests against a Pact-broker-published spec
+  category: Contract testing
+  use_case: When a consumer publishes a new Pact, fetch the provider spec from the Pact Broker, register it in Microcks, then trigger a Microcks contract test run against the deployed provider.
+  partner_baseUri: https://pact-broker.example.com
+  partner_api: Pact Broker API
+  provider_ops:
+    - method: POST
+      path: /artifact/upload
+      name: uploadArtifact
+      description: Upload the consumer-published contract into Microcks.
+    - method: POST
+      path: /tests
+      name: createTest
+      description: Launch a Microcks contract test run against the live provider.
+    - method: GET
+      path: /tests/{id}
+      name: getTestResult
+      description: Poll the contract test result.
+  partner_ops:
+    - method: GET
+      path: /pacts/provider/{provider}/consumer/{consumer}/latest
+      name: getLatestPact
+    - method: POST
+      path: /pacts/provider/{provider}/consumer/{consumer}/verification-results
+      name: postVerificationResult
+
+# AsyncAPI / event streaming (1)
+- partner: kafka
+  name: Bind Microcks AsyncAPI mocks to a Kafka cluster
+  category: Event streaming
+  use_case: Register an AsyncAPI document with Microcks and have its mock producer emit example messages onto a real Kafka topic for downstream consumer testing.
+  partner_baseUri: https://kafka-rest.example.com
+  partner_api: Kafka REST Proxy
+  provider_ops:
+    - method: POST
+      path: /artifact/upload
+      name: uploadArtifact
+      description: Upload an AsyncAPI document into Microcks.
+    - method: GET
+      path: /services/{id}
+      name: getService
+      description: Read back the registered AsyncAPI service.
+    - method: PUT
+      path: /jobs/{id}/activate
+      name: activateImportJob
+      description: Activate the import job so AsyncAPI mock messages start flowing.
+  partner_ops:
+    - method: POST
+      path: /topics/{topic}
+      name: produceToTopic
+    - method: GET
+      path: /topics
+      name: listTopics
+
+# Edge / runtime (1)
+- partner: cloudflare-workers
+  name: Deploy Microcks mocks behind a Cloudflare Workers edge route
+  category: Edge runtime
+  use_case: Expose a Microcks mock through a Cloudflare Worker so partner integrations hit a low-latency edge URL while traffic still resolves to the central Microcks instance.
+  partner_baseUri: https://api.cloudflare.com
+  partner_api: Cloudflare API
+  provider_ops:
+    - method: GET
+      path: /services/{id}
+      name: getService
+      description: Look up the Microcks service to wire behind the edge route.
+    - method: GET
+      path: /metrics/invocations/{serviceName}/{serviceVersion}
+      name: getInvocationStatsByService
+      description: Report mock invocation stats so edge logs and Microcks counters reconcile.
+  partner_ops:
+    - method: PUT
+      path: /client/v4/accounts/{account_id}/workers/scripts/{script_name}
+      name: uploadWorkerScript
+    - method: POST
+      path: /client/v4/zones/{zone_id}/workers/routes
+      name: createWorkerRoute
+
+# Developer portal / catalog (1)
+- partner: backstage
+  name: Surface Microcks mocks in the Backstage software catalog
+  category: Developer portal
+  use_case: For every Microcks Service, materialize a matching Backstage Component entity with the mock URL, OpenAPI spec link, and latest test conformance metric so developers find mocks alongside the real API.
+  partner_baseUri: https://backstage.example.com/api
+  partner_api: Backstage Catalog API
+  provider_ops:
+    - method: GET
+      path: /services
+      name: getServices
+      description: List Microcks Services to enumerate Backstage entities for.
+    - method: GET
+      path: /metrics/conformance/service/{serviceId}
+      name: getServiceTestConformanceMetric
+      description: Pull conformance score for the Backstage badge.
+  partner_ops:
+    - method: POST
+      path: /catalog/locations
+      name: registerLocation
+    - method: GET
+      path: /catalog/entities
+      name: listEntities
+
+# Identity / SSO (1)
+- partner: keycloak
+  name: Use Keycloak realms to gate access to Microcks mocks
+  category: Identity / SSO
+  use_case: Read the Microcks Keycloak configuration and mint per-developer access tokens in Keycloak so only authenticated users can hit privileged mock endpoints.
+  partner_baseUri: https://keycloak.example.com
+  partner_api: Keycloak Admin REST API
+  provider_ops:
+    - method: GET
+      path: /keycloak/config
+      name: getKeycloakConfig
+      description: Discover the Keycloak realm and client Microcks expects.
+    - method: GET
+      path: /features/config
+      name: getFeaturesConfig
+      description: Confirm which Microcks features require authentication.
+  partner_ops:
+    - method: POST
+      path: /admin/realms/{realm}/users
+      name: createUser
+    - method: PUT
+      path: /admin/realms/{realm}/users/{id}/role-mappings/realm
+      name: assignRealmRoles
+
+# Kubernetes operator (1)
+- partner: kubernetes-operator
+  name: Reconcile Microcks Services from the Kubernetes operator
+  category: Runtime / Kubernetes
+  use_case: Watch MicrocksInstall + APIServiceImporter CRs in Kubernetes and drive Microcks imports + service lifecycle via its REST API so cluster manifests are the source of truth.
+  partner_baseUri: https://kubernetes.default.svc
+  partner_api: Kubernetes API
+  provider_ops:
+    - method: GET
+      path: /jobs
+      name: getImportJobs
+      description: List Microcks import jobs the operator should reconcile.
+    - method: POST
+      path: /jobs
+      name: createImportJob
+      description: Create a Microcks import job from an APIServiceImporter CR.
+    - method: PUT
+      path: /jobs/{id}/start
+      name: startImportJob
+      description: Start the import job when the CR moves to Active.
+    - method: DELETE
+      path: /jobs/{id}
+      name: deleteImportJob
+      description: Tear down the import job when the CR is deleted.
+  partner_ops:
+    - method: GET
+      path: /apis/microcks.io/v1alpha1/namespaces/{namespace}/apiserviceimporters
+      name: listApiServiceImporters
+    - method: PATCH
+      path: /apis/microcks.io/v1alpha1/namespaces/{namespace}/apiserviceimporters/{name}/status
+      name: patchImporterStatus

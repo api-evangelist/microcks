@@ -1,0 +1,139 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Promote OpenAPI specs from GitLab CI into Microcks
+  description: A GitLab CI pipeline downloads the merged OpenAPI artifact and pushes it into Microcks via /artifact/upload so review-app environments mock the latest contract.
+  tags:
+  - Microcks
+  - Integration
+  - CI/CD
+  - gitlab-ci
+  created: '2026-05-20'
+  modified: '2026-05-20'
+binds:
+- namespace: env
+  keys:
+    MICROCKS_API_KEY: MICROCKS_API_KEY
+    GITLAB_CI_API_KEY: GITLAB_CI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: microcks
+    baseUri: https://microcks.example.com/api
+    description: Microcks API operations consumed by this integration.
+    resources:
+    - name: artifact-upload
+      path: /artifact/upload
+      operations:
+      - name: uploadartifact
+        method: POST
+        description: Upload a spec artifact into Microcks.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: services
+      path: /services
+      operations:
+      - name: getservices
+        method: GET
+        description: List Microcks Services.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+  - type: http
+    namespace: gitlab-ci
+    baseUri: https://gitlab.com/api
+    description: GitLab REST API operations consumed by this integration.
+    resources:
+    - name: v4-projects-id-repository-files-file-path-raw
+      path: /v4/projects/{id}/repository/files/{file_path}/raw
+      operations:
+      - name: getrawfile
+        method: GET
+        description: 'GitLab REST API: getRawFile'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+        - name: file_path
+          in: path
+          type: string
+          description: Path parameter file_path.
+          required: true
+    - name: v4-projects-id-statuses-sha
+      path: /v4/projects/{id}/statuses/{sha}
+      operations:
+      - name: postcommitstatus
+        method: POST
+        description: 'GitLab REST API: postCommitStatus'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Path parameter id.
+          required: true
+        - name: sha
+          in: path
+          type: string
+          description: Path parameter sha.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: mcp
+    namespace: microcks-gitlab-ci-mcp
+    description: MCP adapter for the microcks-gitlab-ci integration.
+    tools:
+    - name: microcks_gitlab_ci
+      description: Execute the microcks gitlab ci integration end-to-end.
+      inputSchema:
+        type: object
+        properties:
+          trigger_event:
+            type: object
+            description: Triggering event payload.
+        required:
+        - trigger_event
+  - type: rest
+    namespace: microcks-gitlab-ci-rest
+    port: 8080
+    description: REST adapter for the microcks-gitlab-ci integration.
+    resources:
+    - path: /microcks-gitlab-ci
+      name: microcks-gitlab-ci
+      description: REST surface for the microcks-gitlab-ci integration.
+      operations:
+      - method: POST
+        name: trigger
+        description: Trigger the microcks-gitlab-ci integration.
+        call: microcks_gitlab_ci
+        with:
+          trigger_event: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
