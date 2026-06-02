@@ -2,12 +2,20 @@
   "repo": "microcks",
   "feeds": [
     {
-      "source": "https://microcks.io/blog/",
+      "source": "https://microcks.io/blog/index.xml",
       "feed_url": "https://microcks.io/blog/index.xml",
-      "title": "Latest News on API Mocking and Testing | Microcks.io",
-      "saved": 46
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://microcks.io/community/",
+      "feed_url": "https://microcks.io/community/index.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
   "post_count": 56,
-  "fetched": "2026-05-17T20:20:35Z"
+  "fetched": "2026-06-01T23:35:02Z"
 }
