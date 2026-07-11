@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/microcks-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: jwt-bearer
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+    scopes: 3
+  description: JWT Bearer acquired using OAuth 2 Authentication flow or Direct Access Grant
+  sources:
+  - openapi/microcks-openapi.yml
