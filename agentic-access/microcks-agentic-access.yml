@@ -1,0 +1,653 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/microcks-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 46
+  by_action_class:
+    connected: 29
+    acting: 17
+  by_consequence:
+    read: 29
+    write: 15
+    safety-critical: 2
+  human_in_the_loop_required: 2
+operations:
+- path: /services
+  method: get
+  operationId: GetServices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tests
+  method: post
+  operationId: CreateTest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - user
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /services/count
+  method: get
+  operationId: GetServicesCounter
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs
+  method: get
+  operationId: GetImportJobs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs
+  method: post
+  operationId: CreateImportJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - user
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs/{id}
+  method: get
+  operationId: GetImportJob
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs/{id}
+  method: post
+  operationId: UpdateImportJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs/{id}
+  method: delete
+  operationId: DeleteImportJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /services/{id}
+  method: get
+  operationId: GetService
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /services/{id}
+  method: delete
+  operationId: DeleteService
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    - manager
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs/count
+  method: get
+  operationId: GetImportJobCounter
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /secrets
+  method: get
+  operationId: GetSecrets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /secrets
+  method: post
+  operationId: CreateSecret
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /secrets/{id}
+  method: get
+  operationId: GetSecret
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /secrets/{id}
+  method: put
+  operationId: UpdateSecret
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /secrets/{id}
+  method: delete
+  operationId: DeleteSecret
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /secrets/count
+  method: get
+  operationId: GetSecretsCounter
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tests/service/{serviceId}
+  method: get
+  operationId: GetTestResultsByService
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tests/service/{serviceId}/count
+  method: get
+  operationId: GetTestResultsByServiceCounter
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tests/{id}
+  method: get
+  operationId: GetTestResult
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tests/{id}/messages/{testCaseId}
+  method: get
+  operationId: GetMessagesByTestCase
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tests/{id}/testCaseResult
+  method: post
+  operationId: ReportTestCaseResult
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /keycloak/config
+  method: get
+  operationId: GetKeycloakConfig
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /services/{id}/operation
+  method: put
+  operationId: OverrideServiceOperation
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - admin
+    - manager
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /services/{id}/metadata
+  method: put
+  operationId: UpdateServiceMetadata
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    - manager
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /services/search
+  method: get
+  operationId: SearchServices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tests/{id}/events/{testCaseId}
+  method: get
+  operationId: GetEventsByTestCase
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /resources/{name}
+  method: get
+  operationId: GetResource
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /resources/service/{serviceId}
+  method: get
+  operationId: GetResourcesByService
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /features/config
+  method: get
+  operationId: GetFeaturesConfig
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /import
+  method: post
+  operationId: importSnapshot
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /export
+  method: get
+  operationId: exportSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metrics/invocations/global
+  method: get
+  operationId: GetAggregatedInvocationsStats
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metrics/conformance/aggregate
+  method: get
+  operationId: GetConformanceMetricsAggregation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metrics/conformance/service/{serviceId}
+  method: get
+  operationId: GetServiceTestConformanceMetric
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metrics/invocations/top
+  method: get
+  operationId: GetTopIvnocationsStatsByDay
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metrics/invocations/{serviceName}/{serviceVersion}
+  method: get
+  operationId: GetInvocationStatsByService
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metrics/invocations/global/latest
+  method: get
+  operationId: GetLatestAggregatedInvocationsStats
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metrics/tests/latest
+  method: get
+  operationId: GetLatestTestResults
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs/{id}/start
+  method: put
+  operationId: StartImportJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    - manager
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs/{id}/stop
+  method: put
+  operationId: StopImportJob
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - admin
+    - manager
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /jobs/{id}/activate
+  method: put
+  operationId: ActivateImportJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - admin
+    - manager
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /services/labels
+  method: get
+  operationId: GetServicesLabels
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - user
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /artifact/download
+  method: post
+  operationId: downloadArtifact
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - manager
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /secrets/search
+  method: get
+  operationId: SearchSecrets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /artifact/upload
+  method: post
+  operationId: uploadArtifact
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - manager
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
