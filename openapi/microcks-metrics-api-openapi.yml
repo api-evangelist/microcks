@@ -1,0 +1,319 @@
+openapi: 3.0.2
+info:
+  title: Microcks API v1.14 config metrics API
+  version: 1.14.0
+  description: API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)
+  contact:
+    name: Laurent Broudoux
+    url: https://github.com/microcks
+    email: laurent@microcks.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    backgroundColor: '#ffffff'
+    url: https://microcks.io/images/microcks-logo-blue.png
+servers:
+- url: http://microcks.example.com/api
+  description: ''
+security:
+- jwt-bearer: []
+tags:
+- name: metrics
+  description: Operations related to metrics
+paths:
+  /metrics/invocations/global:
+    summary: Invocation Statistics across Services and APIs
+    get:
+      tags:
+      - metrics
+      parameters:
+      - name: day
+        description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
+        schema:
+          type: string
+        in: query
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyInvocationStatistic'
+          description: Aggregated invocation statistics for specified day
+      operationId: GetAggregatedInvocationsStats
+      summary: Get aggregated invocation statistics for a day
+  /metrics/conformance/aggregate:
+    summary: Aggregation of Test conformance metrics
+    get:
+      tags:
+      - metrics
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeightedMetricValue'
+          description: Get aggregated coverage metric value
+      operationId: GetConformanceMetricsAggregation
+      summary: Get aggregation of conformance metrics
+  /metrics/conformance/service/{serviceId}:
+    summary: Test Conformance metrics on API and Services
+    parameters:
+    - name: serviceId
+      description: Unique Services identifier this metrics are related to
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      tags:
+      - metrics
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestConformanceMetric'
+          description: Test coverage metric for Service
+      operationId: GetServiceTestConformanceMetric
+      summary: Get conformance metrics for a Service
+  /metrics/invocations/top:
+    summary: Top Invocation Statistics across Services and APIs
+    get:
+      tags:
+      - metrics
+      parameters:
+      - name: day
+        description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
+        schema:
+          type: string
+        in: query
+      - name: limit
+        description: The number of top invoked mocks to return
+        schema:
+          type: integer
+        in: query
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyInvocationStatistic'
+          description: Top invocations for a defined day
+      operationId: GetTopIvnocationsStatsByDay
+      summary: Get top invocation statistics for a day
+  /metrics/invocations/{serviceName}/{serviceVersion}:
+    summary: Invocation Statistics for API and Services
+    parameters:
+    - name: serviceName
+      description: Name of service to get statistics for
+      schema:
+        type: string
+      in: path
+      required: true
+    - name: serviceVersion
+      description: Version of service to get statistics for
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      tags:
+      - metrics
+      parameters:
+      - name: day
+        description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
+        schema:
+          type: string
+        in: query
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyInvocationStatistic'
+          description: Invocation statistics for service for specified day
+      operationId: GetInvocationStatsByService
+      summary: Get invocation statistics for Service
+  /metrics/invocations/global/latest:
+    summary: Latest Invocation Statistics across Services and APIs
+    get:
+      tags:
+      - metrics
+      parameters:
+      - name: limit
+        description: Number of days to get back in time. Default is 20.
+        schema:
+          type: integer
+        in: query
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CounterMap'
+          description: A map where keys are day (formatted using yyyyMMdd pattern) and values are counter of invocations on this day
+      operationId: GetLatestAggregatedInvocationsStats
+      summary: Get aggregated invocations statistics for latest days
+  /metrics/tests/latest:
+    summary: Lastest Test results across Services and APIs
+    get:
+      tags:
+      - metrics
+      parameters:
+      - name: limit
+        description: Number of days to consider for test results to return. Default is 7 (one week)
+        schema:
+          type: integer
+        in: query
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestResultSummary'
+          description: Test results summary for specified <limit> last days.
+      operationId: GetLatestTestResults
+      summary: Get latest tests results
+components:
+  schemas:
+    TestConformanceMetric:
+      description: Represents the test conformance metrics (current score, history and evolution trend) of a Service
+      required:
+      - id
+      - serviceId
+      - currentScore
+      - maxPossibleScore
+      type: object
+      properties:
+        id:
+          description: Unique identifier of coverage metric
+          type: string
+        serviceId:
+          description: Unique identifier of the Service this metric is related to
+          type: string
+        aggregationLabelValue:
+          description: Value of the label used for metrics aggregation (if any)
+          type: string
+        maxPossibleScore:
+          format: double
+          description: Maximum conformance score that can be reached (depends on samples expresiveness)
+          type: number
+        currentScore:
+          format: double
+          description: Current test conformance score for the related Service
+          type: number
+        lastUpdateDay:
+          description: The day of latest score update (in yyyyMMdd format)
+          type: string
+        latestTrend:
+          $ref: '#/components/schemas/Trend'
+          description: Evolution trend of currentScore
+        latestScores:
+          description: History of latest scores (key is date with format yyyyMMdd, value is score as double)
+          type: object
+          additionalProperties:
+            type: number
+    CounterMap:
+      description: A generic map of counter
+      type: object
+      additionalProperties:
+        type: number
+    TestResultSummary:
+      description: 'Represents the summary result of a Service or API test run by Microcks. '
+      required:
+      - id
+      - testDate
+      - serviceId
+      - success
+      properties:
+        id:
+          description: Unique identifier of TestResult
+          type: string
+        testDate:
+          format: int64
+          description: Timestamp of creation date of this service
+          type: integer
+        serviceId:
+          description: Unique identifier of service tested
+          type: string
+        success:
+          description: Flag telling if test is a success
+          type: boolean
+    Trend:
+      description: Evolution trend qualifier
+      enum:
+      - DOWN
+      - LOW_DOWN
+      - STABLE
+      - LOW_UP
+      - UP
+      type: string
+    DailyInvocationStatistic:
+      description: The daily statistic of a service mock invocations
+      required:
+      - id
+      - day
+      - serviceName
+      - serviceVersion
+      - dailyCount
+      type: object
+      properties:
+        id:
+          description: Unique identifier of this statistic object
+          type: string
+        day:
+          description: The day (formatted as yyyyMMdd string) represented by this statistic
+          type: string
+        serviceName:
+          description: The name of the service this statistic is related to
+          type: string
+        serviceVersion:
+          description: The version of the service this statistic is related to
+          type: string
+        dailyCount:
+          description: The number of service mock invocations on this day
+          type: number
+        hourlyCount:
+          description: The number of service mock invocations per hour of the day (keys range from 0 to 23)
+          type: object
+          additionalProperties: true
+        minuteCount:
+          description: The number of service mock invocations per minute of the day (keys range from 0 to 1439)
+          type: object
+          additionalProperties: true
+    WeightedMetricValue:
+      description: Value of a metric with an associated weight
+      required:
+      - name
+      - weight
+      - value
+      type: object
+      properties:
+        name:
+          description: Metric name or serie name
+          type: string
+        weight:
+          description: Weight of this metric value (typically a percentage)
+          type: integer
+        value:
+          description: The value of this metric
+          type: integer
+  securitySchemes:
+    jwt-bearer:
+      flows:
+        clientCredentials:
+          tokenUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+          refreshUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+          scopes:
+            user: Simple authenticated user
+            manager: Services & APIs content manager
+            admin: Administrator of the Microcks instance
+      type: oauth2
+      description: JWT Bearer acquired using OAuth 2 Authentication flow or Direct Access Grant

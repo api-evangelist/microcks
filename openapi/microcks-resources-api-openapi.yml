@@ -1,0 +1,132 @@
+openapi: 3.0.2
+info:
+  title: Microcks API v1.14 config Resources API
+  version: 1.14.0
+  description: API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)
+  contact:
+    name: Laurent Broudoux
+    url: https://github.com/microcks
+    email: laurent@microcks.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    backgroundColor: '#ffffff'
+    url: https://microcks.io/images/microcks-logo-blue.png
+servers:
+- url: http://microcks.example.com/api
+  description: ''
+security:
+- jwt-bearer: []
+tags:
+- name: Resources
+paths:
+  /resources/{name}:
+    parameters:
+    - name: name
+      description: Unique name/business identifier of the Service or API resource
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+          description: Retrieve the resource having this name
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetResource
+      summary: Get Resource
+      tags:
+      - Resources
+  /resources/service/{serviceId}:
+    parameters:
+    - name: serviceId
+      description: Unique identifier of the Service or API the resources are attached to
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resource'
+          description: List the resources attached to a Service or API
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetResourcesByService
+      summary: Get Resources by Service
+      tags:
+      - Resources
+components:
+  schemas:
+    Resource:
+      description: Resource represents a Service or API artifacts such as specification, contract
+      required:
+      - id
+      - name
+      - content
+      - type
+      - serviceId
+      type: object
+      properties:
+        id:
+          description: Uniquer identifier of this Service or API Resource
+          type: string
+        name:
+          description: Unique name/business identifier for this Service or API resource
+          type: string
+        content:
+          description: String content of this resource
+          type: string
+        type:
+          $ref: '#/components/schemas/ResourceType'
+          description: Type of this Service or API resource
+        serviceId:
+          description: Unique identifier of the Servoce or API this resource is attached to
+          type: string
+        path:
+          description: Relative path of this resource regarding main resource
+          type: string
+        sourceArtifact:
+          description: Short name of the artifact this resource was extracted from
+          type: string
+    ResourceType:
+      description: Types of managed resources for Services or APIs
+      enum:
+      - WSDL
+      - XSD
+      - JSON_SCHEMA
+      - OPEN_API_SPEC
+      - OPEN_API_SCHEMA
+      - ASYNC_API_SPEC
+      - ASYNC_API_SCHEMA
+      - AVRO_SCHEMA
+      - PROTOBUF_SCHEMA
+      - PROTOBUF_DESCRIPTION
+      - GRAPHQL_SCHEMA
+      - POSTMAN_COLLECTION
+      type: string
+  securitySchemes:
+    jwt-bearer:
+      flows:
+        clientCredentials:
+          tokenUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+          refreshUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+          scopes:
+            user: Simple authenticated user
+            manager: Services & APIs content manager
+            admin: Administrator of the Microcks instance
+      type: oauth2
+      description: JWT Bearer acquired using OAuth 2 Authentication flow or Direct Access Grant

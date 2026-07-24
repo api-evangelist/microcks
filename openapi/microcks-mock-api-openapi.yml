@@ -1,0 +1,731 @@
+openapi: 3.0.2
+info:
+  title: Microcks API v1.14 config mock API
+  version: 1.14.0
+  description: API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)
+  contact:
+    name: Laurent Broudoux
+    url: https://github.com/microcks
+    email: laurent@microcks.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    backgroundColor: '#ffffff'
+    url: https://microcks.io/images/microcks-logo-blue.png
+servers:
+- url: http://microcks.example.com/api
+  description: ''
+security:
+- jwt-bearer: []
+tags:
+- name: mock
+  description: Operations related to API and Services mocks
+paths:
+  /services:
+    summary: This path operations deal with Services
+    get:
+      tags:
+      - mock
+      parameters:
+      - name: page
+        description: Page of Services to retrieve (starts at and defaults to 0)
+        schema:
+          type: integer
+        in: query
+      - name: size
+        description: Size of a page. Maximum number of Services to include in a response (defaults to 20)
+        schema:
+          type: integer
+        in: query
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+          description: List of found Services
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetServices
+      summary: Get Services and APIs
+  /services/count:
+    get:
+      tags:
+      - mock
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Counter'
+          description: Number of Services in datastore
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetServicesCounter
+      summary: Get the Services counter
+  /services/{id}:
+    parameters:
+    - name: id
+      description: Unique identifier of Service to managed
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      tags:
+      - mock
+      parameters:
+      - name: messages
+        description: Whether to include details on services messages into result. Default is false
+        schema:
+          type: boolean
+        in: query
+      responses:
+        '200':
+          $ref: '#/components/responses/ServiceResponse'
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetService
+      summary: Get Service
+    delete:
+      tags:
+      - mock
+      responses:
+        '200':
+          description: Service has been deleted
+      security:
+      - jwt-bearer:
+        - admin
+        - manager
+      operationId: DeleteService
+      summary: Delete Service
+      description: Delete a Service
+  /services/{id}/operation:
+    parameters:
+    - name: id
+      description: Unique identifier of Service to managed
+      schema:
+        type: string
+      in: path
+      required: true
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperationOverrideDTO'
+        required: true
+      tags:
+      - mock
+      parameters:
+      - name: operationName
+        description: Name of operation to update
+        schema:
+          type: string
+        in: query
+        required: true
+      responses:
+        '200':
+          description: Operation has been updated
+        '500':
+          description: Operation cannot be updated
+      security:
+      - jwt-bearer:
+        - admin
+        - manager
+      operationId: OverrideServiceOperation
+      summary: Override Service Operation
+  /services/{id}/metadata:
+    parameters:
+    - name: id
+      description: Unique identifier of Service to managed
+      schema:
+        type: string
+      in: path
+      required: true
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Metadata'
+        required: true
+      tags:
+      - mock
+      responses:
+        '200':
+          description: Service metadata has been updated
+        '500':
+          description: Update of metadata failed
+      security:
+      - jwt-bearer:
+        - admin
+        - manager
+      operationId: UpdateServiceMetadata
+      summary: Update Service Metadata
+  /services/search:
+    get:
+      tags:
+      - mock
+      parameters:
+      - name: queryMap
+        description: Map of criterion. Key can be simply 'name' with value as the searched string. You can also search by label using keys like 'labels.x' where 'x' is the label and value the label value
+        schema:
+          type: object
+          additionalProperties:
+            type: string
+        in: query
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+          description: List of found Services (filtered according search criteria)
+      security:
+      - jwt-bearer:
+        - user
+      operationId: SearchServices
+      summary: Search for Services and APIs
+  /import:
+    summary: Deals with repository snapshot to import in Microcks
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SnapshotUpload'
+        required: true
+      tags:
+      - mock
+      responses:
+        '201':
+          description: Snasphot has been correctly imported
+      security:
+      - jwt-bearer:
+        - admin
+      operationId: importSnapshot
+      summary: Import a snapshot
+      description: Import a repository snapshot previsouly exported into Microcks
+  /export:
+    summary: Deals with repository snapshot to import from Microcks
+    get:
+      tags:
+      - mock
+      parameters:
+      - name: serviceIds
+        description: List of service identifiers to export
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: true
+      responses:
+        '200':
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+              examples:
+                filename:
+                  value: attachment; filename=microcks-repository.json
+          content:
+            application/json:
+              schema:
+                format: binary
+                type: string
+          description: Snapshot file representing the export of requested services
+      security:
+      - jwt-bearer:
+        - admin
+      operationId: exportSnapshot
+      summary: Export a snapshot
+      description: Export a repostiory snapshot with requested services
+  /services/labels:
+    get:
+      tags:
+      - mock
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelsMap'
+          description: 'Already used labels: keys are label Keys, values are array of label Values'
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetServicesLabels
+      summary: Get the already used labels for Services
+components:
+  schemas:
+    SnapshotUpload:
+      description: Upload of a repository snapshot file
+      required:
+      - file
+      type: object
+      properties:
+        file:
+          format: binary
+          description: The repository snapshot file
+          type: string
+    Binding:
+      description: Protocol binding details for asynchronous operations
+      required:
+      - type
+      - destinationName
+      type: object
+      properties:
+        type:
+          description: Protocol binding identifier
+          enum:
+          - KAFKA
+          - MQTT
+          - WS
+          - AMQP
+          - NATS
+          - GOOGLEPUBSUB
+          type: string
+        keyType:
+          description: Type of key for Kafka messages
+          type: string
+        destinationType:
+          description: Type of destination for asynchronous messages of this operation
+          type: string
+        destinationName:
+          description: Name of destination for asynchronous messages of this operation
+          type: string
+        qoS:
+          description: Quality of Service attribute for MQTT binding
+          type: string
+        persistent:
+          description: Persistent attribute for MQTT binding
+          type: boolean
+        method:
+          description: HTTP method for WebSocket binding
+          type: string
+    Service:
+      description: Represents a Service or API definition as registred into Microcks repository
+      required:
+      - name
+      - version
+      - type
+      - sourceArtifact
+      properties:
+        id:
+          description: Unique identifier for this Service or API
+          type: string
+        name:
+          description: Distinct name for this Service or API (maybe shared among many versions)
+          type: string
+        version:
+          description: Distinct version for a named Service or API
+          type: string
+        type:
+          description: Service or API Type
+          enum:
+          - REST
+          - SOAP_HTTP
+          - GENERIC_REST
+          - GENERIC_EVENT
+          - EVENT
+          - GRPC
+          - GRAPHQL
+          type: string
+        operations:
+          description: Set of Operations for Service or API
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        xmlNS:
+          description: Associated Xml Namespace in case of Xml based Service
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: Metadata of Service
+        sourceArtifact:
+          description: Short name of the main/primary artifact this service was created from
+          type: string
+    Counter:
+      description: A simple Counter type.
+      type: object
+      properties:
+        counter:
+          format: int32
+          description: Number of items in a resource collection
+          type: integer
+      example: "{\n    \"counter\": 12\n}"
+    EventMessage:
+      description: A simple event message published or received in an asynchronous exchange
+      type: object
+      allOf:
+      - required:
+        - id
+        - mediaType
+        type: object
+        properties:
+          mediaType:
+            description: Content type of message
+            type: string
+          dispatchCriteria:
+            description: Dispatch criteria of this message (in case of a mock)
+            type: string
+      - $ref: '#/components/schemas/Message'
+    LabelsMap:
+      description: A map which keys are already used labels keys and values are already used values for this key
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/StringArray'
+        type: object
+    Message:
+      description: Common structure for Request, Response and EventMessage
+      required:
+      - name
+      - operationId
+      type: object
+      properties:
+        id:
+          description: Unique identifier of this message
+          type: string
+        name:
+          description: Unique distinct name of this message
+          type: string
+        content:
+          description: Body content for this message
+          type: string
+        operationId:
+          description: Identifier of Operation this message is associated to
+          type: string
+        testCaseId:
+          description: Unique identifier of TestCase this message is attached (in case of a test)
+          type: string
+        headers:
+          description: Headers for this message
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+    RequestResponsePair:
+      description: Request associated with corresponding Response
+      type: object
+      allOf:
+      - required:
+        - request
+        - response
+        type: object
+        properties:
+          request:
+            $ref: '#/components/schemas/Request'
+            description: The request part of the pair
+          response:
+            $ref: '#/components/schemas/Response'
+            description: The Response part of the pair
+      - $ref: '#/components/schemas/AbstractExchange'
+    Request:
+      description: A mock invocation or test request
+      allOf:
+      - type: object
+        properties:
+          responseId:
+            description: Unique identifier of Response this Request is attached
+            type: string
+          queryParameters:
+            description: Query parameters for this Request if any
+            type: array
+            items:
+              $ref: '#/components/schemas/Parameter'
+      - $ref: '#/components/schemas/Message'
+    Parameter:
+      description: Companion objects for Request representing query parameter
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          description: The name of the parameter
+          type: string
+        value:
+          description: The value of this parameter
+          type: string
+    OperationOverrideDTO:
+      description: Data Transfer object for grouping the mutable properties of an Operation
+      type: object
+      properties:
+        dispatcher:
+          description: Type of dispatcher to apply for this operation
+          type: string
+        dispatcherRules:
+          description: Rules of dispatcher for this operation
+          type: string
+        defaultDelay:
+          description: Default delay in milliseconds to apply to mock responses on this operation
+          type: integer
+        parameterConstraints:
+          description: Constraints that may apply to incoming parameters on this operation
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterConstraint'
+    AbstractExchange:
+      description: Abstract bean representing a Service or API Exchange.
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          description: Discriminant type for identifying kind of exchange
+          enum:
+          - reqRespPair
+          - unidirEvent
+          type: string
+    Header:
+      description: Transport headers for both Requests and Responses
+      required:
+      - name
+      - values
+      type: object
+      properties:
+        name:
+          description: Unique distinct name of this Header
+          type: string
+        values:
+          description: Values for this Header
+          type: array
+          items:
+            type: string
+    Operation:
+      description: An Operation of a Service or API
+      required:
+      - name
+      - method
+      type: object
+      properties:
+        name:
+          description: Unique name of this Operation within Service scope
+          type: string
+        method:
+          description: Represents transport method
+          type: string
+        inputName:
+          description: Name of input parameters in case of Xml based Service
+          type: string
+        outputName:
+          description: Name of output parameters in case of Xml based Service
+          type: string
+        dispatcher:
+          description: Dispatcher strategy used for mocks
+          type: string
+        dispatcherRules:
+          description: DispatcherRules used for mocks
+          type: string
+        defaultDelay:
+          description: Default response time delay for mocks
+          type: number
+        resourcePaths:
+          description: Paths the mocks endpoints are mapped on
+          type: array
+          items:
+            type: string
+        bindings:
+          description: Map of protocol binding details for this operation
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Binding'
+        defaultDelayStrategy:
+          description: The delay strategy to apply to default delay. Can be 'fixed', 'random' or 'random-(\d)' to specify a range around the default delay value.
+          type: string
+        parameterConstraints:
+          description: Constraints that may apply to mock invocation on this operation
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterConstraint'
+        triggerInfos:
+          description: A list of trigger informations
+          type: array
+          items:
+            $ref: '#/components/schemas/TriggerInfo'
+        callbackInfos:
+          description: Map of CallbackInfo where key is the name of the callback
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CallbackInfo'
+    ParameterConstraint:
+      description: Companion object for Operation that may be used to express constraints on request parameters
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          description: Parameter name
+          type: string
+        required:
+          description: Whether it's a required constraint
+          type: boolean
+        recopy:
+          description: Whether it's a recopy constraint
+          type: boolean
+        mustMatchRegexp:
+          description: Whether it's a regular expression matching constraint
+          type: string
+        in:
+          description: Parameter location
+          enum:
+          - path
+          - query
+          - header
+          - cookie
+          - formData
+          type: string
+    Response:
+      description: A mock invocation or test response
+      allOf:
+      - type: object
+        properties:
+          status:
+            description: Status of this Response
+            type: string
+          mediaType:
+            description: Content type of this Response
+            type: string
+          dispatchCriteria:
+            description: Dispatch criteria of this Response (in case of a mock)
+            type: string
+          isFault:
+            description: Whether this Response represents a Fault
+            type: boolean
+      - $ref: '#/components/schemas/Message'
+    CallbackInfo:
+      description: Information on a REST api/service callback
+      required:
+      - method
+      - callbackUrlExpression
+      type: object
+      properties:
+        method:
+          description: The HTTP method for this callback
+          type: string
+        callbackUrlExpression:
+          description: The expressiong to retrieve the callback url from incoming request
+          type: string
+        order:
+          description: The order of this callback within the chain
+          type: integer
+    ServiceView:
+      description: Aggregate bean for grouping a Service an its messages pairs
+      required:
+      - service
+      - messagesMap
+      type: object
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+          description: Wrapped service description
+        messagesMap:
+          description: Map of messages for this Service. Keys are operation name, values are array of messages for this operation
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MessageArray'
+    Metadata:
+      description: Commodity object for holding metadata on any entity. This object is inspired by Kubernetes metadata.
+      required:
+      - createdOn
+      - lastUpdate
+      type: object
+      properties:
+        createdOn:
+          description: Creation date of attached object
+          type: number
+          readOnly: true
+        lastUpdate:
+          description: Last update of attached object
+          type: number
+          readOnly: true
+        annotations:
+          description: Annotations of attached object
+          type: object
+          additionalProperties:
+            type: string
+        labels:
+          description: Labels put on attached object
+          type: object
+          additionalProperties:
+            type: string
+    MessageArray:
+      description: Array of Exchanges for Service operations
+      type: array
+      items:
+        $ref: '#/components/schemas/Exchange'
+    TriggerInfo:
+      description: Information on a sync-to-async trigger.
+      required:
+      - serviceName
+      - serviceVersion
+      - operationName
+      type: object
+      properties:
+        serviceName:
+          description: The name of the service that is triggered
+          type: string
+        serviceVersion:
+          description: The version of the service that is triggered
+          type: string
+        operationName:
+          description: The name of the operation within the service that is triggered
+          type: string
+    StringArray:
+      description: A simple array of String
+      type: array
+      items:
+        type: string
+    Exchange:
+      oneOf:
+      - $ref: '#/components/schemas/RequestResponsePair'
+      - $ref: '#/components/schemas/UnidirectionalEvent'
+      discriminator:
+        propertyName: type
+        mapping:
+          reqRespPair: '#/components/schemas/RequestResponsePair'
+          unidirEvent: '#/components/schemas/UnidirectionalEvent'
+      description: Abstract representation of a Service or API exchange type (request/response, event based, ...)
+    UnidirectionalEvent:
+      description: Representation of an unidirectional exchange as an event message
+      type: object
+      allOf:
+      - required:
+        - eventMessage
+        type: object
+        properties:
+          eventMessage:
+            $ref: '#/components/schemas/EventMessage'
+            description: Asynchronous message for this unidirectional event
+      - $ref: '#/components/schemas/AbstractExchange'
+  responses:
+    ServiceResponse:
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Service'
+            - $ref: '#/components/schemas/ServiceView'
+      description: ''
+  securitySchemes:
+    jwt-bearer:
+      flows:
+        clientCredentials:
+          tokenUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+          refreshUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+          scopes:
+            user: Simple authenticated user
+            manager: Services & APIs content manager
+            admin: Administrator of the Microcks instance
+      type: oauth2
+      description: JWT Bearer acquired using OAuth 2 Authentication flow or Direct Access Grant

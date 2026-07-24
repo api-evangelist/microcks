@@ -1,0 +1,491 @@
+openapi: 3.0.2
+info:
+  title: Microcks API v1.14 config job API
+  version: 1.14.0
+  description: API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)
+  contact:
+    name: Laurent Broudoux
+    url: https://github.com/microcks
+    email: laurent@microcks.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  x-logo:
+    backgroundColor: '#ffffff'
+    url: https://microcks.io/images/microcks-logo-blue.png
+servers:
+- url: http://microcks.example.com/api
+  description: ''
+security:
+- jwt-bearer: []
+tags:
+- name: job
+  description: Operations related to Jobs for discovering mocks and tests
+paths:
+  /jobs:
+    summary: This path operations deal with ImportJobs
+    get:
+      tags:
+      - job
+      parameters:
+      - name: page
+        description: Page of ImportJobs to retrieve (starts at and defaults to 0)
+        schema:
+          type: integer
+        in: query
+      - name: size
+        description: Size of a page. Maximum number of ImportJobs to include in a response (defaults to 20)
+        schema:
+          type: integer
+        in: query
+      - name: name
+        description: Name like criterion for query
+        schema:
+          type: string
+        in: query
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ImportJob'
+          description: List of found ImportJobs
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetImportJobs
+      summary: Get ImportJobs
+      description: Retrieve a list of ImportJobs
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportJob'
+        required: true
+      tags:
+      - job
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportJob'
+          description: Created ImportJob
+      security:
+      - jwt-bearer:
+        - user
+      operationId: CreateImportJob
+      summary: Create ImportJob
+      description: Create a new ImportJob
+  /jobs/{id}:
+    summary: This path or subpaths operations deal with specific ImportJob having given id
+    parameters:
+    - name: id
+      description: Unique identifier of ImportJob to manage
+      schema:
+        type: string
+      in: path
+      required: true
+    get:
+      tags:
+      - job
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportJob'
+          description: Found ImportJob
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetImportJob
+      summary: Get ImportJob
+      description: Retrieve an ImportJob using its identifier
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportJob'
+        required: true
+      tags:
+      - job
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportJob'
+          description: Updated ImportJob
+      operationId: UpdateImportJob
+      summary: Update ImportJob
+      description: Update an ImportJob
+    delete:
+      tags:
+      - job
+      responses:
+        '200':
+          content:
+            application/json: {}
+          description: ImportJob deleted
+      security:
+      - jwt-bearer:
+        - admin
+      operationId: DeleteImportJob
+      summary: Delete ImportJob
+      description: Delete an ImportJob
+  /jobs/count:
+    summary: Count ImportJobs
+    get:
+      tags:
+      - job
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Counter'
+          description: Number of ImportJobs in datastore
+      security:
+      - jwt-bearer:
+        - user
+      operationId: GetImportJobCounter
+      summary: Get the ImportJobs counter
+  /jobs/{id}/start:
+    parameters:
+    - name: id
+      description: Unique identifier of ImportJob to manage
+      schema:
+        type: string
+      in: path
+      required: true
+    put:
+      tags:
+      - job
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportJob'
+          description: Started ImportJob
+      security:
+      - jwt-bearer:
+        - manager
+        - admin
+      operationId: StartImportJob
+      summary: Start an ImportJob
+      description: Starting an ImportJob forces it to immediatly import mock definitions
+  /jobs/{id}/stop:
+    parameters:
+    - name: id
+      description: Unique identifier of ImportJob to manage
+      schema:
+        type: string
+      in: path
+      required: true
+    put:
+      tags:
+      - job
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportJob'
+          description: Stopped ImportJob
+      security:
+      - jwt-bearer:
+        - manager
+        - admin
+      operationId: StopImportJob
+      summary: Stop an ImportJob
+      description: Stopping an ImportJob desactivate it, so that it won't execute at next schedule
+  /jobs/{id}/activate:
+    parameters:
+    - name: id
+      description: Unique identifier of ImportJob to manage
+      schema:
+        type: string
+      in: path
+      required: true
+    put:
+      tags:
+      - job
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportJob'
+          description: ImportJob is activated
+      security:
+      - jwt-bearer:
+        - manager
+        - admin
+      operationId: ActivateImportJob
+      summary: Activate an ImportJob
+      description: Make an ImportJob active, so that it is executed
+  /artifact/download:
+    summary: Deals with artifacts to be downloaded and imported by Microcks.
+    post:
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArtifactDownload'
+        required: true
+      tags:
+      - job
+      responses:
+        '201':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Artifact was imported and Service found
+        '204':
+          description: No url attribute found in download data
+        '400':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Artifact content is invalid and not understood
+      security:
+      - jwt-bearer:
+        - manager
+      operationId: downloadArtifact
+      summary: Download an artifact
+      description: Ask Microcks to download an artifact and import it
+  /artifact/upload:
+    summary: Deals with artifacts to be imported by Microcks.
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArtifactUpload'
+            examples:
+              Artifact upload:
+                value: 'POST /api/artifact/upload HTTP/1.1
+
+                  Host: microcks
+
+                  User-Agent: curl/7.54.0
+
+                  Accept: */*
+
+                  Authorization: Bearer <REDACTED>
+
+                  Content-Length: 2743
+
+                  Expect: 100-continue
+
+                  Content-Type: multipart/form-data; boundary=------------------------8af8cbb56dd4bde0
+
+
+                  --------------------------8af8cbb56dd4bde0
+
+                  Content-Disposition: form-data; name="file"; filename="github.json"
+
+                  Content-Type: application/octet-stream
+
+
+                  THE ARTIFACT HERE
+
+
+                  --------------------------8af8cbb56dd4bde0--
+
+                  '
+        required: true
+      tags:
+      - job
+      parameters:
+      - name: mainArtifact
+        description: Flag telling if this should be considered as primary or secondary artifact. Default to 'true'
+        schema:
+          type: boolean
+        in: query
+        required: true
+      responses:
+        '201':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Artifact was imported and Service found
+        '204':
+          description: No file attribute found in uploaded data
+        '400':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Artifact content is invalid and not understood
+      security:
+      - jwt-bearer:
+        - manager
+      operationId: uploadArtifact
+      summary: Upload an artifact
+      description: Uploads an artifact to be imported by Microcks.
+components:
+  schemas:
+    ImportJob:
+      description: An ImportJob allow defining a repository artifact to poll for discovering Services and APIs mocks and tests
+      required:
+      - name
+      - repositoryUrl
+      properties:
+        id:
+          description: Unique identifier of ImportJob
+          type: string
+        name:
+          description: Unique distinct name of this ImportJob
+          type: string
+        repositoryUrl:
+          description: URL of mocks and tests repository artifact
+          type: string
+        repositoryDisableSSLValidation:
+          description: Whether to disable SSL certificate verification when checking repository
+          type: boolean
+        frequency:
+          description: Reserved for future usage
+          type: string
+        createdDate:
+          format: int64
+          description: Creation timestamp for this ImportJob
+          type: integer
+        lastImportDate:
+          format: int64
+          description: Timestamp of the last import
+          type: integer
+        lastImportError:
+          description: Error message of last import (if any)
+          type: string
+        active:
+          description: Whether this ImportJob is active (ie. scheduled for execution)
+          type: boolean
+        etag:
+          description: Etag of repository URL during previous import. Is used for not re-importing if no recent changes
+          type: string
+        serviceRefs:
+          description: References of Services discovered when checking repository
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceRef'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: Metadata of ImportJob
+        secretRef:
+          $ref: '#/components/schemas/SecretRef'
+          description: Reference of a Secret to used when checking repository
+        mainArtifact:
+          description: Flag telling if considered as primary or secondary artifact. Default to `true`
+          type: boolean
+    Metadata:
+      description: Commodity object for holding metadata on any entity. This object is inspired by Kubernetes metadata.
+      required:
+      - createdOn
+      - lastUpdate
+      type: object
+      properties:
+        createdOn:
+          description: Creation date of attached object
+          type: number
+          readOnly: true
+        lastUpdate:
+          description: Last update of attached object
+          type: number
+          readOnly: true
+        annotations:
+          description: Annotations of attached object
+          type: object
+          additionalProperties:
+            type: string
+        labels:
+          description: Labels put on attached object
+          type: object
+          additionalProperties:
+            type: string
+    ArtifactUpload:
+      description: 'Artifact to be imported by Microcks.
+
+        This structure represents a mime-multipart file upload (as specified here: https://swagger.io/docs/specification/describing-request-body/file-upload/)'
+      required:
+      - file
+      type: object
+      properties:
+        file:
+          format: binary
+          description: The artifact to upload
+          type: string
+    ServiceRef:
+      description: Lightweight reference of an existing Service
+      required:
+      - serviceId
+      - name
+      - version
+      properties:
+        serviceId:
+          description: Unique reference of a Service
+          type: string
+        name:
+          description: The Service name
+          type: string
+        version:
+          description: The Service version
+          type: string
+    Counter:
+      description: A simple Counter type.
+      type: object
+      properties:
+        counter:
+          format: int32
+          description: Number of items in a resource collection
+          type: integer
+      example: "{\n    \"counter\": 12\n}"
+    ArtifactDownload:
+      description: Artifact Download specification to be imported by Microcks.
+      required:
+      - url
+      type: object
+      properties:
+        url:
+          description: The URL of remote artifact to download and import
+          type: string
+        mainArtifact:
+          description: Whether this remote artifact should be imported as main/primary or secondary artifact. Default is true.
+          type: boolean
+        secretName:
+          description: The name of a secret that can be used to authenticated when downloading remote artifact.
+          type: string
+    SecretRef:
+      description: Lightweight reference for an existing Secret
+      required:
+      - secretId
+      - name
+      properties:
+        secretId:
+          description: Unique identifier or referenced Secret
+          type: string
+        name:
+          description: Distinct name of the referenced Secret
+          type: string
+      example: "{\n    \"secretId\": \"5be58fb51ed744d1b87481bd\",\n    \"name\": \"Gogs internal\"\n}"
+  securitySchemes:
+    jwt-bearer:
+      flows:
+        clientCredentials:
+          tokenUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+          refreshUrl: https://keycloak.example.com/realms/microcks/protocol/openid-connect/token
+          scopes:
+            user: Simple authenticated user
+            manager: Services & APIs content manager
+            admin: Administrator of the Microcks instance
+      type: oauth2
+      description: JWT Bearer acquired using OAuth 2 Authentication flow or Direct Access Grant
