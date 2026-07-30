@@ -5,7 +5,20 @@ description: >-
   contracts (OpenAPI, AsyncAPI, Postman Collections), generating mock responses, and running test suites. It shortens
   the feedback loop for API development teams.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/microcks.png
 url: https://raw.githubusercontent.com/api-evangelist/microcks/refs/heads/main/apis.yml
 tags:
   - API Testing
@@ -17,22 +30,84 @@ created: '2025-01-08'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: microcks:microcks-api
-    name: Microcks API
-    description: >-
-      The Microcks platform API provides endpoints for managing services, test suites, and mock configurations
-      programmatically. It supports integration into CI/CD pipelines for automated API testing and mocking.
-    humanURL: https://microcks.io/
-    tags:
-      - API Testing
-      - Mocking
-    properties:
-      - type: Documentation
-        url: https://microcks.io/documentation/
-      - type: GettingStarted
-        url: https://microcks.io/documentation/getting-started/
-      - type: OpenAPI
-        url: openapi/microcks-openapi.yml
+- aid: microcks:microcks-config-api
+  name: Microcks config API
+  description: Operations related to configuration
+  humanURL: https://microcks.io/
+  tags:
+  - config
+  properties:
+  - type: OpenAPI
+    url: openapi/microcks-config-api-openapi.yml
+  - type: Documentation
+    url: https://microcks.io/documentation/
+  - type: GettingStarted
+    url: https://microcks.io/documentation/getting-started/
+- aid: microcks:microcks-job-api
+  name: Microcks job API
+  description: Operations related to Jobs for discovering mocks and tests
+  humanURL: https://microcks.io/
+  tags:
+  - job
+  properties:
+  - type: OpenAPI
+    url: openapi/microcks-job-api-openapi.yml
+  - type: Documentation
+    url: https://microcks.io/documentation/
+  - type: GettingStarted
+    url: https://microcks.io/documentation/getting-started/
+- aid: microcks:microcks-metrics-api
+  name: Microcks metrics API
+  description: Operations related to metrics
+  humanURL: https://microcks.io/
+  tags:
+  - metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/microcks-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://microcks.io/documentation/
+  - type: GettingStarted
+    url: https://microcks.io/documentation/getting-started/
+- aid: microcks:microcks-mock-api
+  name: Microcks mock API
+  description: Operations related to API and Services mocks
+  humanURL: https://microcks.io/
+  tags:
+  - mock
+  properties:
+  - type: OpenAPI
+    url: openapi/microcks-mock-api-openapi.yml
+  - type: Documentation
+    url: https://microcks.io/documentation/
+  - type: GettingStarted
+    url: https://microcks.io/documentation/getting-started/
+- aid: microcks:microcks-resources-api
+  name: Microcks Resources API
+  description: The Resources API from Microcks — 2 operation(s) for resources.
+  humanURL: https://microcks.io/
+  tags:
+  - Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/microcks-resources-api-openapi.yml
+  - type: Documentation
+    url: https://microcks.io/documentation/
+  - type: GettingStarted
+    url: https://microcks.io/documentation/getting-started/
+- aid: microcks:microcks-test-api
+  name: Microcks test API
+  description: Operations related to API and Services tests
+  humanURL: https://microcks.io/
+  tags:
+  - test
+  properties:
+  - type: OpenAPI
+    url: openapi/microcks-test-api-openapi.yml
+  - type: Documentation
+    url: https://microcks.io/documentation/
+  - type: GettingStarted
+    url: https://microcks.io/documentation/getting-started/
 common:
   - type: AgenticAccess
     url: agentic-access/microcks-agentic-access.yml
