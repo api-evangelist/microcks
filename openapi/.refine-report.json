@@ -1,0 +1,24 @@
+{
+  "provider": "microcks",
+  "sources": [
+    "microcks-config-api-openapi.yml",
+    "microcks-job-api-openapi.yml",
+    "microcks-metrics-api-openapi.yml",
+    "microcks-mock-api-openapi.yml",
+    "microcks-resources-api-openapi.yml",
+    "microcks-test-api-openapi.yml"
+  ],
+  "outputs": [
+    "microcks-config-api-openapi.yml",
+    "microcks-job-api-openapi.yml",
+    "microcks-metrics-api-openapi.yml",
+    "microcks-mock-api-openapi.yml",
+    "microcks-resources-api-openapi.yml",
+    "microcks-test-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
