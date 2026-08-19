@@ -28,7 +28,7 @@ tags:
   - Open Source
 created: '2025-01-08'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: microcks:microcks-config-api
   name: Microcks config API
