@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microcks API v1.14 config metrics API",
+    "version": "1.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get aggregated invocation statistics for a day",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/metrics/invocations/global",
+            "params": [
+              {
+                "name": "day",
+                "value": "",
+                "type": "query",
+                "description": "The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided."
+              }
+            ]
+          },
+          "docs": "Get aggregated invocation statistics for a day"
+        },
+        {
+          "info": {
+            "name": "Get aggregation of conformance metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/metrics/conformance/aggregate"
+          },
+          "docs": "Get aggregation of conformance metrics"
+        },
+        {
+          "info": {
+            "name": "Get conformance metrics for a Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/metrics/conformance/service/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Services identifier this metrics are related to"
+              }
+            ]
+          },
+          "docs": "Get conformance metrics for a Service"
+        },
+        {
+          "info": {
+            "name": "Get top invocation statistics for a day",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/metrics/invocations/top",
+            "params": [
+              {
+                "name": "day",
+                "value": "",
+                "type": "query",
+                "description": "The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of top invoked mocks to return"
+              }
+            ]
+          },
+          "docs": "Get top invocation statistics for a day"
+        },
+        {
+          "info": {
+            "name": "Get invocation statistics for Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/metrics/invocations/:serviceName/:serviceVersion",
+            "params": [
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path",
+                "description": "Name of service to get statistics for"
+              },
+              {
+                "name": "serviceVersion",
+                "value": "",
+                "type": "path",
+                "description": "Version of service to get statistics for"
+              },
+              {
+                "name": "day",
+                "value": "",
+                "type": "query",
+                "description": "The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided."
+              }
+            ]
+          },
+          "docs": "Get invocation statistics for Service"
+        },
+        {
+          "info": {
+            "name": "Get aggregated invocations statistics for latest days",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/metrics/invocations/global/latest",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to get back in time. Default is 20."
+              }
+            ]
+          },
+          "docs": "Get aggregated invocations statistics for latest days"
+        },
+        {
+          "info": {
+            "name": "Get latest tests results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/metrics/tests/latest",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to consider for test results to return. Default is 7 (one week)"
+              }
+            ]
+          },
+          "docs": "Get latest tests results"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

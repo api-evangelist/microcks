@@ -1,0 +1,878 @@
+{
+  "item": [
+    {
+      "id": "bfdbac8b-8746-4dfd-bc94-2717f1fa6097",
+      "name": "test",
+      "description": {
+        "content": "Operations related to API and Services tests",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9be1943-bf06-4453-8e82-9af102cb985f",
+          "name": "Create a new Test",
+          "request": {
+            "name": "Create a new Test",
+            "description": {},
+            "url": {
+              "path": [
+                "tests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serviceId\": \"<string>\",\n  \"testEndpoint\": \"<string>\",\n  \"runnerType\": \"<string>\",\n  \"timeout\": \"<long>\",\n  \"filteredOperations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"secretName\": \"<string>\",\n  \"oAuth2Context\": {\n    \"clientId\": \"<string>\",\n    \"clientSecret\": \"<password>\",\n    \"tokenUri\": \"<string>\",\n    \"grantType\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"refreshToken\": \"<string>\",\n    \"scopes\": \"<string>\"\n  },\n  \"operationsHeaders\": {\n    \"key_0\": [\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      }\n    ],\n    \"key_1\": [\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9715c0ce-45f8-4324-93c5-a942a0c162ad",
+              "name": "Created TestResult (empty shell cause tests are executed asynchronously)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"serviceId\": \"<string>\",\n  \"testEndpoint\": \"<string>\",\n  \"runnerType\": \"<string>\",\n  \"timeout\": \"<long>\",\n  \"filteredOperations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"secretName\": \"<string>\",\n  \"oAuth2Context\": {\n    \"clientId\": \"<string>\",\n    \"clientSecret\": \"<password>\",\n    \"tokenUri\": \"<string>\",\n    \"grantType\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"refreshToken\": \"<string>\",\n    \"scopes\": \"<string>\"\n  },\n  \"operationsHeaders\": {\n    \"key_0\": [\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"version\": 2082.993395871572,\n  \"testNumber\": 8155.287279665997,\n  \"testDate\": 9445,\n  \"testedEndpoint\": \"string\",\n  \"serviceId\": \"string\",\n  \"success\": false,\n  \"inProgress\": false,\n  \"runnerType\": \"<string>\",\n  \"elapsedTime\": 1213.7346222547685,\n  \"testCaseResults\": [\n    {\n      \"success\": false,\n      \"elapsedTime\": 3446.697475488294,\n      \"operationName\": \"string\",\n      \"testStepResults\": [\n        {\n          \"success\": true,\n          \"elapsedTime\": 675.4979854528409,\n          \"requestName\": \"string\",\n          \"message\": \"string\",\n          \"eventMessageName\": \"string\"\n        },\n        {\n          \"success\": true,\n          \"elapsedTime\": 4096.191295171856,\n          \"requestName\": \"string\",\n          \"message\": \"string\",\n          \"eventMessageName\": \"string\"\n        }\n      ]\n    },\n    {\n      \"success\": false,\n      \"elapsedTime\": 891.5776052395097,\n      \"operationName\": \"string\",\n      \"testStepResults\": [\n        {\n          \"success\": true,\n          \"elapsedTime\": 5773.570821502626,\n          \"requestName\": \"string\",\n          \"message\": \"string\",\n          \"eventMessageName\": \"string\"\n        },\n        {\n          \"success\": false,\n          \"elapsedTime\": 2950.259083120367,\n          \"requestName\": \"string\",\n          \"message\": \"string\",\n          \"eventMessageName\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"secretRef\": {\n    \"secretId\": \"string\",\n    \"name\": \"string\"\n  },\n  \"operationHeaders\": {\n    \"key_0\": [\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      }\n    ],\n    \"key_1\": [\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      }\n    ]\n  },\n  \"timeout\": 9347,\n  \"authorizedClient\": {\n    \"grantType\": \"REFRESH_TOKEN\",\n    \"principalName\": \"string\",\n    \"tokenUri\": \"string\",\n    \"scopes\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68962478-b2a5-401c-b844-a6a02e311a3f",
+          "name": "Get TestResults by Service",
+          "request": {
+            "name": "Get TestResults by Service",
+            "description": {},
+            "url": {
+              "path": [
+                "tests",
+                "service",
+                ":serviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) Unique identifier of Service to manage TestResults for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9f6ec8ad-e57f-48cb-9b09-ed0fd3ae93de",
+              "name": "List of TestResults for the Service having the requested id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    "service",
+                    ":serviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) Unique identifier of Service to manage TestResults for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"version\": 5800.157608244534,\n    \"testNumber\": 3887.752590936562,\n    \"testDate\": 2327,\n    \"testedEndpoint\": \"string\",\n    \"serviceId\": \"string\",\n    \"success\": false,\n    \"inProgress\": false,\n    \"runnerType\": \"<string>\",\n    \"elapsedTime\": 6422.341743324909,\n    \"testCaseResults\": [\n      {\n        \"success\": true,\n        \"elapsedTime\": 4609.301966939958,\n        \"operationName\": \"string\",\n        \"testStepResults\": [\n          {\n            \"success\": false,\n            \"elapsedTime\": 978.2865297927412,\n            \"requestName\": \"string\",\n            \"message\": \"string\",\n            \"eventMessageName\": \"string\"\n          },\n          {\n            \"success\": true,\n            \"elapsedTime\": 6273.963678736198,\n            \"requestName\": \"string\",\n            \"message\": \"string\",\n            \"eventMessageName\": \"string\"\n          }\n        ]\n      },\n      {\n        \"success\": false,\n        \"elapsedTime\": 93.69969861805605,\n        \"operationName\": \"string\",\n        \"testStepResults\": [\n          {\n            \"success\": true,\n            \"elapsedTime\": 5648.813463675048,\n            \"requestName\": \"string\",\n            \"message\": \"string\",\n            \"eventMessageName\": \"string\"\n          },\n          {\n            \"success\": false,\n            \"elapsedTime\": 9981.157741798364,\n            \"requestName\": \"string\",\n            \"message\": \"string\",\n            \"eventMessageName\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"secretRef\": {\n      \"secretId\": \"string\",\n      \"name\": \"string\"\n    },\n    \"operationHeaders\": {\n      \"key_0\": [\n        {\n          \"name\": \"<string>\",\n          \"values\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"values\": \"<string>\"\n        }\n      ]\n    },\n    \"timeout\": 2801,\n    \"authorizedClient\": {\n      \"grantType\": \"PASSWORD\",\n      \"principalName\": \"string\",\n      \"tokenUri\": \"string\",\n      \"scopes\": \"string\"\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"version\": 4949.092176840727,\n    \"testNumber\": 1739.7955378735574,\n    \"testDate\": 874,\n    \"testedEndpoint\": \"string\",\n    \"serviceId\": \"string\",\n    \"success\": true,\n    \"inProgress\": true,\n    \"runnerType\": \"<string>\",\n    \"elapsedTime\": 5703.553033819835,\n    \"testCaseResults\": [\n      {\n        \"success\": true,\n        \"elapsedTime\": 8327.379815107091,\n        \"operationName\": \"string\",\n        \"testStepResults\": [\n          {\n            \"success\": false,\n            \"elapsedTime\": 2239.299176521636,\n            \"requestName\": \"string\",\n            \"message\": \"string\",\n            \"eventMessageName\": \"string\"\n          },\n          {\n            \"success\": false,\n            \"elapsedTime\": 9091.010259222578,\n            \"requestName\": \"string\",\n            \"message\": \"string\",\n            \"eventMessageName\": \"string\"\n          }\n        ]\n      },\n      {\n        \"success\": false,\n        \"elapsedTime\": 6365.279704240735,\n        \"operationName\": \"string\",\n        \"testStepResults\": [\n          {\n            \"success\": true,\n            \"elapsedTime\": 5077.6094235995715,\n            \"requestName\": \"string\",\n            \"message\": \"string\",\n            \"eventMessageName\": \"string\"\n          },\n          {\n            \"success\": true,\n            \"elapsedTime\": 9644.25523918696,\n            \"requestName\": \"string\",\n            \"message\": \"string\",\n            \"eventMessageName\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"secretRef\": {\n      \"secretId\": \"string\",\n      \"name\": \"string\"\n    },\n    \"operationHeaders\": {\n      \"key_0\": [\n        {\n          \"name\": \"<string>\",\n          \"values\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"values\": \"<string>\"\n        }\n      ]\n    },\n    \"timeout\": 2122,\n    \"authorizedClient\": {\n      \"grantType\": \"REFRESH_TOKEN\",\n      \"principalName\": \"string\",\n      \"tokenUri\": \"string\",\n      \"scopes\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "824dfdd2-09a8-4d70-bd97-9aa53100e8be",
+          "name": "Get the TestResults for Service counter",
+          "request": {
+            "name": "Get the TestResults for Service counter",
+            "description": {},
+            "url": {
+              "path": [
+                "tests",
+                "service",
+                ":serviceId",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) Unique identifier of Service to manage TestResults for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4b322767-9feb-4fac-a4e3-7ccfa2266bcf",
+              "name": "Number of TestResults for this Service in datastore",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    "service",
+                    ":serviceId",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) Unique identifier of Service to manage TestResults for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"counter\": 7054\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "737f9623-7d0e-4546-bc71-556f59a3a620",
+          "name": "Get TestResult",
+          "request": {
+            "name": "Get TestResult",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tests",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of TestResult to manage"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1d3bbd05-94ab-45ef-b2ee-6cd442366b66",
+              "name": "Requested TestResult",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of TestResult to manage"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"version\": 2769.4232713780075,\n  \"testNumber\": 1515.850629304274,\n  \"testDate\": 4422,\n  \"testedEndpoint\": \"string\",\n  \"serviceId\": \"string\",\n  \"success\": true,\n  \"inProgress\": false,\n  \"runnerType\": \"<string>\",\n  \"elapsedTime\": 9253.71552628491,\n  \"testCaseResults\": [\n    {\n      \"success\": true,\n      \"elapsedTime\": 5443.927894155797,\n      \"operationName\": \"string\",\n      \"testStepResults\": [\n        {\n          \"success\": false,\n          \"elapsedTime\": 5502.851807400783,\n          \"requestName\": \"string\",\n          \"message\": \"string\",\n          \"eventMessageName\": \"string\"\n        },\n        {\n          \"success\": true,\n          \"elapsedTime\": 1846.703630505827,\n          \"requestName\": \"string\",\n          \"message\": \"string\",\n          \"eventMessageName\": \"string\"\n        }\n      ]\n    },\n    {\n      \"success\": true,\n      \"elapsedTime\": 2980.850373763807,\n      \"operationName\": \"string\",\n      \"testStepResults\": [\n        {\n          \"success\": true,\n          \"elapsedTime\": 645.0854120108052,\n          \"requestName\": \"string\",\n          \"message\": \"string\",\n          \"eventMessageName\": \"string\"\n        },\n        {\n          \"success\": true,\n          \"elapsedTime\": 648.131028485317,\n          \"requestName\": \"string\",\n          \"message\": \"string\",\n          \"eventMessageName\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"secretRef\": {\n    \"secretId\": \"string\",\n    \"name\": \"string\"\n  },\n  \"operationHeaders\": {\n    \"key_0\": [\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      }\n    ],\n    \"key_1\": [\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      }\n    ],\n    \"key_2\": [\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"values\": \"<string>\"\n      }\n    ]\n  },\n  \"timeout\": 8164,\n  \"authorizedClient\": {\n    \"grantType\": \"CLIENT_CREDENTIALS\",\n    \"principalName\": \"string\",\n    \"tokenUri\": \"string\",\n    \"scopes\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f314faf-570e-4912-87b3-4d7e86b37ad8",
+          "name": "Get messages for TestCase",
+          "request": {
+            "name": "Get messages for TestCase",
+            "description": {},
+            "url": {
+              "path": [
+                "tests",
+                ":id",
+                "messages",
+                ":testCaseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of TestResult to manage"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "testCaseId",
+                  "description": "(Required) Unique identifier of TetsCaseResult to manage"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cf839c69-cfbb-443d-9b76-9c67ddd2a354",
+              "name": "List of request and response messages for this TestCase",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":id",
+                    "messages",
+                    ":testCaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of TestResult to manage"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testCaseId",
+                      "description": "(Required) Unique identifier of TetsCaseResult to manage"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"request\": {\n      \"name\": \"string\",\n      \"operationId\": \"string\",\n      \"responseId\": \"string\",\n      \"queryParameters\": [\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"content\": \"string\",\n      \"testCaseId\": \"string\",\n      \"headers\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"response\": {\n      \"name\": \"string\",\n      \"operationId\": \"string\",\n      \"status\": \"string\",\n      \"mediaType\": \"string\",\n      \"dispatchCriteria\": \"string\",\n      \"isFault\": true,\n      \"id\": \"string\",\n      \"content\": \"string\",\n      \"testCaseId\": \"string\",\n      \"headers\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"type\": \"reqRespPair\"\n  },\n  {\n    \"request\": {\n      \"name\": \"string\",\n      \"operationId\": \"string\",\n      \"responseId\": \"string\",\n      \"queryParameters\": [\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"content\": \"string\",\n      \"testCaseId\": \"string\",\n      \"headers\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"response\": {\n      \"name\": \"string\",\n      \"operationId\": \"string\",\n      \"status\": \"string\",\n      \"mediaType\": \"string\",\n      \"dispatchCriteria\": \"string\",\n      \"isFault\": false,\n      \"id\": \"string\",\n      \"content\": \"string\",\n      \"testCaseId\": \"string\",\n      \"headers\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"type\": \"reqRespPair\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38fcab63-bc55-4f5b-862f-f5c547a8f0cd",
+          "name": "Report and create a new TestCaseResult",
+          "request": {
+            "name": "Report and create a new TestCaseResult",
+            "description": {
+              "content": "Report a TestCaseResult (typically used by a Test runner)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tests",
+                ":id",
+                "testCaseResult"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of TestResult to manage"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operationName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e72c38c6-1635-4d76-a723-616fdb9bd387",
+              "name": "TestCaseResult is reported",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":id",
+                    "testCaseResult"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of TestResult to manage"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"elapsedTime\": 5947.960410206902,\n  \"operationName\": \"string\",\n  \"testStepResults\": [\n    {\n      \"success\": true,\n      \"elapsedTime\": 1208.9831533757622,\n      \"requestName\": \"string\",\n      \"message\": \"string\",\n      \"eventMessageName\": \"string\"\n    },\n    {\n      \"success\": true,\n      \"elapsedTime\": 1288.5879278658297,\n      \"requestName\": \"string\",\n      \"message\": \"string\",\n      \"eventMessageName\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27d48bd1-e61d-46f9-bd2b-e49effb60686",
+          "name": "Get events for TestCase",
+          "request": {
+            "name": "Get events for TestCase",
+            "description": {},
+            "url": {
+              "path": [
+                "tests",
+                ":id",
+                "events",
+                ":testCaseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of TestResult to manage"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "testCaseId",
+                  "description": "(Required) Unique identifier of TetsCaseResult to manage"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a156741-e329-4a66-9236-456039f4fef5",
+              "name": "List of event messages for this TestCase",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tests",
+                    ":id",
+                    "events",
+                    ":testCaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of TestResult to manage"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testCaseId",
+                      "description": "(Required) Unique identifier of TetsCaseResult to manage"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"eventMessage\": {\n      \"id\": \"string\",\n      \"mediaType\": \"string\",\n      \"name\": \"string\",\n      \"operationId\": \"string\",\n      \"dispatchCriteria\": \"string\",\n      \"content\": \"string\",\n      \"testCaseId\": \"string\",\n      \"headers\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"type\": \"unidirEvent\"\n  },\n  {\n    \"eventMessage\": {\n      \"id\": \"string\",\n      \"mediaType\": \"string\",\n      \"name\": \"string\",\n      \"operationId\": \"string\",\n      \"dispatchCriteria\": \"string\",\n      \"content\": \"string\",\n      \"testCaseId\": \"string\",\n      \"headers\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"type\": \"reqRespPair\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://microcks.example.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "user manager admin"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2f0035b9-a75b-4f4e-a684-8882e6b3b8d8",
+    "name": "Microcks API v1.14 config test API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)\n\nContact Support:\n Name: Laurent Broudoux\n Email: laurent@microcks.io",
+      "type": "text/plain"
+    }
+  }
+}

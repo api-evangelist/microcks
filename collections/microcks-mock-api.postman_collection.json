@@ -1,0 +1,1343 @@
+{
+  "item": [
+    {
+      "id": "4acf705f-5812-4855-9dd0-0baf96839139",
+      "name": "mock",
+      "description": {
+        "content": "Operations related to API and Services mocks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "79e98237-2cda-4b9c-af36-e6f532a1b36b",
+          "name": "Get Services and APIs",
+          "request": {
+            "name": "Get Services and APIs",
+            "description": {},
+            "url": {
+              "path": [
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page of Services to retrieve (starts at and defaults to 0)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Size of a page. Maximum number of Services to include in a response (defaults to 20)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6f7b29a1-fb6f-4fe6-83aa-c6dd777dcd53",
+              "name": "List of found Services",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"version\": \"string\",\n    \"type\": \"GENERIC_EVENT\",\n    \"sourceArtifact\": \"string\",\n    \"id\": \"string\",\n    \"operations\": [\n      {\n        \"name\": \"string\",\n        \"method\": \"string\",\n        \"inputName\": \"string\",\n        \"outputName\": \"string\",\n        \"dispatcher\": \"string\",\n        \"dispatcherRules\": \"string\",\n        \"defaultDelay\": 7976.912474137881,\n        \"resourcePaths\": [\n          \"string\",\n          \"string\"\n        ],\n        \"bindings\": {\n          \"key_0\": {\n            \"type\": \"NATS\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          },\n          \"key_1\": {\n            \"type\": \"WS\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          }\n        },\n        \"defaultDelayStrategy\": \"string\",\n        \"parameterConstraints\": [\n          {\n            \"name\": \"string\",\n            \"required\": true,\n            \"recopy\": true,\n            \"mustMatchRegexp\": \"string\",\n            \"in\": \"header\"\n          },\n          {\n            \"name\": \"string\",\n            \"required\": true,\n            \"recopy\": false,\n            \"mustMatchRegexp\": \"string\",\n            \"in\": \"query\"\n          }\n        ],\n        \"triggerInfos\": [\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          },\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          }\n        ],\n        \"callbackInfos\": {\n          \"key_0\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 4493\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"method\": \"string\",\n        \"inputName\": \"string\",\n        \"outputName\": \"string\",\n        \"dispatcher\": \"string\",\n        \"dispatcherRules\": \"string\",\n        \"defaultDelay\": 9549.668379546167,\n        \"resourcePaths\": [\n          \"string\",\n          \"string\"\n        ],\n        \"bindings\": {\n          \"key_0\": {\n            \"type\": \"AMQP\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": true,\n            \"method\": \"string\"\n          },\n          \"key_1\": {\n            \"type\": \"NATS\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          }\n        },\n        \"defaultDelayStrategy\": \"string\",\n        \"parameterConstraints\": [\n          {\n            \"name\": \"string\",\n            \"required\": true,\n            \"recopy\": true,\n            \"mustMatchRegexp\": \"string\",\n            \"in\": \"header\"\n          },\n          {\n            \"name\": \"string\",\n            \"required\": true,\n            \"recopy\": true,\n            \"mustMatchRegexp\": \"string\",\n            \"in\": \"path\"\n          }\n        ],\n        \"triggerInfos\": [\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          },\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          }\n        ],\n        \"callbackInfos\": {\n          \"key_0\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 949\n          },\n          \"key_1\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 114\n          },\n          \"key_2\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 6575\n          }\n        }\n      }\n    ],\n    \"xmlNS\": \"string\",\n    \"metadata\": {\n      \"createdOn\": 1176.038539438955,\n      \"lastUpdate\": 3523.1168208691297,\n      \"annotations\": {\n        \"key_0\": \"string\"\n      },\n      \"labels\": {\n        \"key_0\": \"string\"\n      }\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"version\": \"string\",\n    \"type\": \"EVENT\",\n    \"sourceArtifact\": \"string\",\n    \"id\": \"string\",\n    \"operations\": [\n      {\n        \"name\": \"string\",\n        \"method\": \"string\",\n        \"inputName\": \"string\",\n        \"outputName\": \"string\",\n        \"dispatcher\": \"string\",\n        \"dispatcherRules\": \"string\",\n        \"defaultDelay\": 6765.811796535421,\n        \"resourcePaths\": [\n          \"string\",\n          \"string\"\n        ],\n        \"bindings\": {\n          \"key_0\": {\n            \"type\": \"GOOGLEPUBSUB\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": true,\n            \"method\": \"string\"\n          },\n          \"key_1\": {\n            \"type\": \"NATS\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": true,\n            \"method\": \"string\"\n          }\n        },\n        \"defaultDelayStrategy\": \"string\",\n        \"parameterConstraints\": [\n          {\n            \"name\": \"string\",\n            \"required\": false,\n            \"recopy\": true,\n            \"mustMatchRegexp\": \"string\",\n            \"in\": \"query\"\n          },\n          {\n            \"name\": \"string\",\n            \"required\": false,\n            \"recopy\": false,\n            \"mustMatchRegexp\": \"string\",\n            \"in\": \"formData\"\n          }\n        ],\n        \"triggerInfos\": [\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          },\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          }\n        ],\n        \"callbackInfos\": {\n          \"key_0\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 604\n          },\n          \"key_1\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 885\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"method\": \"string\",\n        \"inputName\": \"string\",\n        \"outputName\": \"string\",\n        \"dispatcher\": \"string\",\n        \"dispatcherRules\": \"string\",\n        \"defaultDelay\": 516.4067540778238,\n        \"resourcePaths\": [\n          \"string\",\n          \"string\"\n        ],\n        \"bindings\": {\n          \"key_0\": {\n            \"type\": \"KAFKA\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          },\n          \"key_1\": {\n            \"type\": \"KAFKA\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          }\n        },\n        \"defaultDelayStrategy\": \"string\",\n        \"parameterConstraints\": [\n          {\n            \"name\": \"string\",\n            \"required\": true,\n            \"recopy\": true,\n            \"mustMatchRegexp\": \"string\",\n            \"in\": \"cookie\"\n          },\n          {\n            \"name\": \"string\",\n            \"required\": false,\n            \"recopy\": false,\n            \"mustMatchRegexp\": \"string\",\n            \"in\": \"cookie\"\n          }\n        ],\n        \"triggerInfos\": [\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          },\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          }\n        ],\n        \"callbackInfos\": {\n          \"key_0\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 7834\n          }\n        }\n      }\n    ],\n    \"xmlNS\": \"string\",\n    \"metadata\": {\n      \"createdOn\": 3113.0688287797725,\n      \"lastUpdate\": 4838.303563249135,\n      \"annotations\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"labels\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1398cc58-6c0e-4ce3-8296-42703fb758fb",
+          "name": "Get the Services counter",
+          "request": {
+            "name": "Get the Services counter",
+            "description": {},
+            "url": {
+              "path": [
+                "services",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b422eaf4-b605-4fd9-9a1d-cb17b6f8723f",
+              "name": "Number of Services in datastore",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"counter\": 8184\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5583d096-659b-4704-a0e5-4b2c6c54d9d8",
+          "name": "Get Service",
+          "request": {
+            "name": "Get Service",
+            "description": {},
+            "url": {
+              "path": [
+                "services",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "messages",
+                  "value": "<boolean>",
+                  "description": "Whether to include details on services messages into result. Default is false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of Service to managed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a0efd519-a7bc-4c4c-b71a-ef842c0cf205",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "messages",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Service to managed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"version\": \"string\",\n  \"type\": \"GRAPHQL\",\n  \"sourceArtifact\": \"string\",\n  \"id\": \"string\",\n  \"operations\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"inputName\": \"string\",\n      \"outputName\": \"string\",\n      \"dispatcher\": \"string\",\n      \"dispatcherRules\": \"string\",\n      \"defaultDelay\": 7625.590392728731,\n      \"resourcePaths\": [\n        \"string\",\n        \"string\"\n      ],\n      \"bindings\": {\n        \"key_0\": {\n          \"type\": \"MQTT\",\n          \"destinationName\": \"string\",\n          \"keyType\": \"string\",\n          \"destinationType\": \"string\",\n          \"qoS\": \"string\",\n          \"persistent\": true,\n          \"method\": \"string\"\n        }\n      },\n      \"defaultDelayStrategy\": \"string\",\n      \"parameterConstraints\": [\n        {\n          \"name\": \"string\",\n          \"required\": false,\n          \"recopy\": false,\n          \"mustMatchRegexp\": \"string\",\n          \"in\": \"header\"\n        },\n        {\n          \"name\": \"string\",\n          \"required\": false,\n          \"recopy\": false,\n          \"mustMatchRegexp\": \"string\",\n          \"in\": \"header\"\n        }\n      ],\n      \"triggerInfos\": [\n        {\n          \"serviceName\": \"string\",\n          \"serviceVersion\": \"string\",\n          \"operationName\": \"string\"\n        },\n        {\n          \"serviceName\": \"string\",\n          \"serviceVersion\": \"string\",\n          \"operationName\": \"string\"\n        }\n      ],\n      \"callbackInfos\": {\n        \"key_0\": {\n          \"method\": \"string\",\n          \"callbackUrlExpression\": \"string\",\n          \"order\": 4346\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"inputName\": \"string\",\n      \"outputName\": \"string\",\n      \"dispatcher\": \"string\",\n      \"dispatcherRules\": \"string\",\n      \"defaultDelay\": 4654.524321988702,\n      \"resourcePaths\": [\n        \"string\",\n        \"string\"\n      ],\n      \"bindings\": {\n        \"key_0\": {\n          \"type\": \"GOOGLEPUBSUB\",\n          \"destinationName\": \"string\",\n          \"keyType\": \"string\",\n          \"destinationType\": \"string\",\n          \"qoS\": \"string\",\n          \"persistent\": true,\n          \"method\": \"string\"\n        },\n        \"key_1\": {\n          \"type\": \"WS\",\n          \"destinationName\": \"string\",\n          \"keyType\": \"string\",\n          \"destinationType\": \"string\",\n          \"qoS\": \"string\",\n          \"persistent\": false,\n          \"method\": \"string\"\n        },\n        \"key_2\": {\n          \"type\": \"GOOGLEPUBSUB\",\n          \"destinationName\": \"string\",\n          \"keyType\": \"string\",\n          \"destinationType\": \"string\",\n          \"qoS\": \"string\",\n          \"persistent\": true,\n          \"method\": \"string\"\n        }\n      },\n      \"defaultDelayStrategy\": \"string\",\n      \"parameterConstraints\": [\n        {\n          \"name\": \"string\",\n          \"required\": false,\n          \"recopy\": true,\n          \"mustMatchRegexp\": \"string\",\n          \"in\": \"path\"\n        },\n        {\n          \"name\": \"string\",\n          \"required\": false,\n          \"recopy\": false,\n          \"mustMatchRegexp\": \"string\",\n          \"in\": \"cookie\"\n        }\n      ],\n      \"triggerInfos\": [\n        {\n          \"serviceName\": \"string\",\n          \"serviceVersion\": \"string\",\n          \"operationName\": \"string\"\n        },\n        {\n          \"serviceName\": \"string\",\n          \"serviceVersion\": \"string\",\n          \"operationName\": \"string\"\n        }\n      ],\n      \"callbackInfos\": {\n        \"key_0\": {\n          \"method\": \"string\",\n          \"callbackUrlExpression\": \"string\",\n          \"order\": 7935\n        }\n      }\n    }\n  ],\n  \"xmlNS\": \"string\",\n  \"metadata\": {\n    \"createdOn\": 5936.583961992522,\n    \"lastUpdate\": 8893.946159955076,\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"labels\": {\n      \"key_0\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62cd6b5c-af54-4a2b-81f9-9d782b2438bf",
+          "name": "Delete Service",
+          "request": {
+            "name": "Delete Service",
+            "description": {
+              "content": "Delete a Service",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of Service to managed"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "09a1daae-5aa1-46e6-8083-e5e1e4913f56",
+              "name": "Service has been deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Service to managed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0900c7b5-f102-4ab4-b653-55d43a1e7d95",
+          "name": "Override Service Operation",
+          "request": {
+            "name": "Override Service Operation",
+            "description": {},
+            "url": {
+              "path": [
+                "services",
+                ":id",
+                "operation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "operationName",
+                  "value": "<string>",
+                  "description": "(Required) Name of operation to update"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of Service to managed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dispatcher\": \"<string>\",\n  \"dispatcherRules\": \"<string>\",\n  \"defaultDelay\": \"<integer>\",\n  \"parameterConstraints\": [\n    {\n      \"name\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"recopy\": \"<boolean>\",\n      \"mustMatchRegexp\": \"<string>\",\n      \"in\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"recopy\": \"<boolean>\",\n      \"mustMatchRegexp\": \"<string>\",\n      \"in\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e217db01-c06d-44c4-9ae5-2bdd0502c2c6",
+              "name": "Operation has been updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    ":id",
+                    "operation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Service to managed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dispatcher\": \"<string>\",\n  \"dispatcherRules\": \"<string>\",\n  \"defaultDelay\": \"<integer>\",\n  \"parameterConstraints\": [\n    {\n      \"name\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"recopy\": \"<boolean>\",\n      \"mustMatchRegexp\": \"<string>\",\n      \"in\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"recopy\": \"<boolean>\",\n      \"mustMatchRegexp\": \"<string>\",\n      \"in\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67cd93b2-f09c-497c-ac73-9baafd572456",
+              "name": "Operation cannot be updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    ":id",
+                    "operation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Service to managed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dispatcher\": \"<string>\",\n  \"dispatcherRules\": \"<string>\",\n  \"defaultDelay\": \"<integer>\",\n  \"parameterConstraints\": [\n    {\n      \"name\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"recopy\": \"<boolean>\",\n      \"mustMatchRegexp\": \"<string>\",\n      \"in\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"required\": \"<boolean>\",\n      \"recopy\": \"<boolean>\",\n      \"mustMatchRegexp\": \"<string>\",\n      \"in\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8f6aec9-0eb8-426e-b5e1-4133eaced949",
+          "name": "Update Service Metadata",
+          "request": {
+            "name": "Update Service Metadata",
+            "description": {},
+            "url": {
+              "path": [
+                "services",
+                ":id",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of Service to managed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"annotations\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"labels\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "180c2e36-a912-4a59-9dfe-de8a54857e3d",
+              "name": "Service metadata has been updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    ":id",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Service to managed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotations\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"labels\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "69031ba5-a499-4e6b-bed2-856d3b10452e",
+              "name": "Update of metadata failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    ":id",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Service to managed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"annotations\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"labels\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "077d67eb-c03f-475d-a0e5-d8c741b8a8ba",
+          "name": "Search for Services and APIs",
+          "request": {
+            "name": "Search for Services and APIs",
+            "description": {},
+            "url": {
+              "path": [
+                "services",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "<string>",
+                  "description": "(Required) Map of criterion. Key can be simply 'name' with value as the searched string. You can also search by label using keys like 'labels.x' where 'x' is the label and value the label value"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_1",
+                  "value": "<string>",
+                  "description": "(Required) Map of criterion. Key can be simply 'name' with value as the searched string. You can also search by label using keys like 'labels.x' where 'x' is the label and value the label value"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "11b44316-5742-4bc3-9f50-b314ad3492a3",
+              "name": "List of found Services (filtered according search criteria)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key_0",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"version\": \"string\",\n    \"type\": \"EVENT\",\n    \"sourceArtifact\": \"string\",\n    \"id\": \"string\",\n    \"operations\": [\n      {\n        \"name\": \"string\",\n        \"method\": \"string\",\n        \"inputName\": \"string\",\n        \"outputName\": \"string\",\n        \"dispatcher\": \"string\",\n        \"dispatcherRules\": \"string\",\n        \"defaultDelay\": 2073.0388636812636,\n        \"resourcePaths\": [\n          \"string\",\n          \"string\"\n        ],\n        \"bindings\": {\n          \"key_0\": {\n            \"type\": \"AMQP\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          },\n          \"key_1\": {\n            \"type\": \"GOOGLEPUBSUB\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": true,\n            \"method\": \"string\"\n          }\n        },\n        \"defaultDelayStrategy\": \"string\",\n        \"parameterConstraints\": [\n          {\n            \"name\": \"<string>\",\n            \"required\": \"<boolean>\",\n            \"recopy\": \"<boolean>\",\n            \"mustMatchRegexp\": \"<string>\",\n            \"in\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"required\": \"<boolean>\",\n            \"recopy\": \"<boolean>\",\n            \"mustMatchRegexp\": \"<string>\",\n            \"in\": \"<string>\"\n          }\n        ],\n        \"triggerInfos\": [\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          },\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          }\n        ],\n        \"callbackInfos\": {\n          \"key_0\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 6015\n          },\n          \"key_1\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 4711\n          },\n          \"key_2\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 3092\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"method\": \"string\",\n        \"inputName\": \"string\",\n        \"outputName\": \"string\",\n        \"dispatcher\": \"string\",\n        \"dispatcherRules\": \"string\",\n        \"defaultDelay\": 8631.400191848172,\n        \"resourcePaths\": [\n          \"string\",\n          \"string\"\n        ],\n        \"bindings\": {\n          \"key_0\": {\n            \"type\": \"GOOGLEPUBSUB\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": true,\n            \"method\": \"string\"\n          },\n          \"key_1\": {\n            \"type\": \"NATS\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          },\n          \"key_2\": {\n            \"type\": \"MQTT\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          }\n        },\n        \"defaultDelayStrategy\": \"string\",\n        \"parameterConstraints\": [\n          {\n            \"name\": \"<string>\",\n            \"required\": \"<boolean>\",\n            \"recopy\": \"<boolean>\",\n            \"mustMatchRegexp\": \"<string>\",\n            \"in\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"required\": \"<boolean>\",\n            \"recopy\": \"<boolean>\",\n            \"mustMatchRegexp\": \"<string>\",\n            \"in\": \"<string>\"\n          }\n        ],\n        \"triggerInfos\": [\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          },\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          }\n        ],\n        \"callbackInfos\": {\n          \"key_0\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 1559\n          },\n          \"key_1\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 6619\n          }\n        }\n      }\n    ],\n    \"xmlNS\": \"string\",\n    \"metadata\": {\n      \"createdOn\": 9402.896869638771,\n      \"lastUpdate\": 1711.8840391996036,\n      \"annotations\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\"\n      },\n      \"labels\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    }\n  },\n  {\n    \"name\": \"string\",\n    \"version\": \"string\",\n    \"type\": \"GRPC\",\n    \"sourceArtifact\": \"string\",\n    \"id\": \"string\",\n    \"operations\": [\n      {\n        \"name\": \"string\",\n        \"method\": \"string\",\n        \"inputName\": \"string\",\n        \"outputName\": \"string\",\n        \"dispatcher\": \"string\",\n        \"dispatcherRules\": \"string\",\n        \"defaultDelay\": 4789.943894965179,\n        \"resourcePaths\": [\n          \"string\",\n          \"string\"\n        ],\n        \"bindings\": {\n          \"key_0\": {\n            \"type\": \"KAFKA\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          },\n          \"key_1\": {\n            \"type\": \"NATS\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": false,\n            \"method\": \"string\"\n          }\n        },\n        \"defaultDelayStrategy\": \"string\",\n        \"parameterConstraints\": [\n          {\n            \"name\": \"<string>\",\n            \"required\": \"<boolean>\",\n            \"recopy\": \"<boolean>\",\n            \"mustMatchRegexp\": \"<string>\",\n            \"in\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"required\": \"<boolean>\",\n            \"recopy\": \"<boolean>\",\n            \"mustMatchRegexp\": \"<string>\",\n            \"in\": \"<string>\"\n          }\n        ],\n        \"triggerInfos\": [\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          },\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          }\n        ],\n        \"callbackInfos\": {\n          \"key_0\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 3642\n          },\n          \"key_1\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 835\n          },\n          \"key_2\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 3267\n          },\n          \"key_3\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 5235\n          },\n          \"key_4\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 88\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"method\": \"string\",\n        \"inputName\": \"string\",\n        \"outputName\": \"string\",\n        \"dispatcher\": \"string\",\n        \"dispatcherRules\": \"string\",\n        \"defaultDelay\": 2845.348956447926,\n        \"resourcePaths\": [\n          \"string\",\n          \"string\"\n        ],\n        \"bindings\": {\n          \"key_0\": {\n            \"type\": \"MQTT\",\n            \"destinationName\": \"string\",\n            \"keyType\": \"string\",\n            \"destinationType\": \"string\",\n            \"qoS\": \"string\",\n            \"persistent\": true,\n            \"method\": \"string\"\n          }\n        },\n        \"defaultDelayStrategy\": \"string\",\n        \"parameterConstraints\": [\n          {\n            \"name\": \"<string>\",\n            \"required\": \"<boolean>\",\n            \"recopy\": \"<boolean>\",\n            \"mustMatchRegexp\": \"<string>\",\n            \"in\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"required\": \"<boolean>\",\n            \"recopy\": \"<boolean>\",\n            \"mustMatchRegexp\": \"<string>\",\n            \"in\": \"<string>\"\n          }\n        ],\n        \"triggerInfos\": [\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          },\n          {\n            \"serviceName\": \"string\",\n            \"serviceVersion\": \"string\",\n            \"operationName\": \"string\"\n          }\n        ],\n        \"callbackInfos\": {\n          \"key_0\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 1985\n          },\n          \"key_1\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 7913\n          },\n          \"key_2\": {\n            \"method\": \"string\",\n            \"callbackUrlExpression\": \"string\",\n            \"order\": 2414\n          }\n        }\n      }\n    ],\n    \"xmlNS\": \"string\",\n    \"metadata\": {\n      \"createdOn\": 8240.628465087864,\n      \"lastUpdate\": 8646.41789683615,\n      \"annotations\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\",\n        \"key_3\": \"<string>\"\n      },\n      \"labels\": {\n        \"key_0\": \"<string>\"\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b23767a5-35d8-4a0e-bf6c-bc2a3f2f8c2e",
+          "name": "Import a snapshot",
+          "request": {
+            "name": "Import a snapshot",
+            "description": {
+              "content": "Import a repository snapshot previsouly exported into Microcks",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "import"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The repository snapshot file"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fc9ff4d9-ea5a-4fd3-b4c7-1e3aa4daa5a8",
+              "name": "Snasphot has been correctly imported",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The repository snapshot file",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd5eeb1f-ef37-4b16-b6a4-86ef17787511",
+          "name": "Export a snapshot",
+          "request": {
+            "name": "Export a snapshot",
+            "description": {
+              "content": "Export a repostiory snapshot with requested services",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "serviceIds",
+                  "value": "<string>",
+                  "description": "(Required) List of service identifiers to export"
+                },
+                {
+                  "disabled": false,
+                  "key": "serviceIds",
+                  "value": "<string>",
+                  "description": "(Required) List of service identifiers to export"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b18a7380-e401-4f7d-b358-992153759a81",
+              "name": "Snapshot file representing the export of requested services",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "serviceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "serviceIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=microcks-repository.json",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f08fdb7-9771-44eb-a199-e05747f69734",
+          "name": "Get the already used labels for Services",
+          "request": {
+            "name": "Get the already used labels for Services",
+            "description": {},
+            "url": {
+              "path": [
+                "services",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "65b9ae18-e335-402f-8031-5348f026f3a0",
+              "name": "Already used labels: keys are label Keys, values are array of label Values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://microcks.example.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "user manager admin"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a14fe8a2-8780-4d72-b973-79ed51836f8f",
+    "name": "Microcks API v1.14 config mock API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)\n\nContact Support:\n Name: Laurent Broudoux\n Email: laurent@microcks.io",
+      "type": "text/plain"
+    }
+  }
+}

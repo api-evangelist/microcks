@@ -1,0 +1,332 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microcks API v1.14 config job API",
+    "version": "1.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "job",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ImportJobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/jobs",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of ImportJobs to retrieve (starts at and defaults to 0)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Size of a page. Maximum number of ImportJobs to include in a response (defaults to 20)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name like criterion for query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a list of ImportJobs"
+        },
+        {
+          "info": {
+            "name": "Create ImportJob",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://microcks.example.com/api/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new ImportJob"
+        },
+        {
+          "info": {
+            "name": "Get ImportJob",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/jobs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of ImportJob to manage"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve an ImportJob using its identifier"
+        },
+        {
+          "info": {
+            "name": "Update ImportJob",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://microcks.example.com/api/jobs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of ImportJob to manage"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an ImportJob"
+        },
+        {
+          "info": {
+            "name": "Delete ImportJob",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://microcks.example.com/api/jobs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of ImportJob to manage"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete an ImportJob"
+        },
+        {
+          "info": {
+            "name": "Get the ImportJobs counter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/jobs/count",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the ImportJobs counter"
+        },
+        {
+          "info": {
+            "name": "Start an ImportJob",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://microcks.example.com/api/jobs/:id/start",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of ImportJob to manage"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Starting an ImportJob forces it to immediatly import mock definitions"
+        },
+        {
+          "info": {
+            "name": "Stop an ImportJob",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://microcks.example.com/api/jobs/:id/stop",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of ImportJob to manage"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Stopping an ImportJob desactivate it, so that it won't execute at next schedule"
+        },
+        {
+          "info": {
+            "name": "Activate an ImportJob",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://microcks.example.com/api/jobs/:id/activate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of ImportJob to manage"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Make an ImportJob active, so that it is executed"
+        },
+        {
+          "info": {
+            "name": "Download an artifact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://microcks.example.com/api/artifact/download",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Ask Microcks to download an artifact and import it"
+        },
+        {
+          "info": {
+            "name": "Upload an artifact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://microcks.example.com/api/artifact/upload",
+            "params": [
+              {
+                "name": "mainArtifact",
+                "value": "",
+                "type": "query",
+                "description": "Flag telling if this should be considered as primary or secondary artifact. Default to 'true'"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Uploads an artifact to be imported by Microcks."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

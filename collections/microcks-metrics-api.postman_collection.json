@@ -1,0 +1,728 @@
+{
+  "item": [
+    {
+      "id": "6b39a5a7-4cb5-427f-9bbd-62ad6da391db",
+      "name": "metrics",
+      "description": {
+        "content": "Operations related to metrics",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8dcd9508-07af-407c-955b-95131e0eaa3b",
+          "name": "Get aggregated invocation statistics for a day",
+          "request": {
+            "name": "Get aggregated invocation statistics for a day",
+            "description": {},
+            "url": {
+              "path": [
+                "metrics",
+                "invocations",
+                "global"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "day",
+                  "value": "<string>",
+                  "description": "The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ea4f9f7-0da8-4ddc-aef6-7ec69c553f6f",
+              "name": "Aggregated invocation statistics for specified day",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "invocations",
+                    "global"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "day",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"day\": \"string\",\n  \"serviceName\": \"string\",\n  \"serviceVersion\": \"string\",\n  \"dailyCount\": 3767.9478462026527,\n  \"hourlyCount\": {\n    \"key_0\": 7788,\n    \"key_1\": true,\n    \"key_2\": 775\n  },\n  \"minuteCount\": {\n    \"key_0\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7967eeb3-06a1-4655-be87-aaf6e80bace3",
+          "name": "Get aggregation of conformance metrics",
+          "request": {
+            "name": "Get aggregation of conformance metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "metrics",
+                "conformance",
+                "aggregate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8ffc2b4-529c-4b22-abe4-6cd72d0c179e",
+              "name": "Get aggregated coverage metric value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "conformance",
+                    "aggregate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"weight\": 1206,\n    \"value\": 4091\n  },\n  {\n    \"name\": \"string\",\n    \"weight\": 835,\n    \"value\": 4753\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea38d22a-2295-41ce-818d-9e6c05651e62",
+          "name": "Get conformance metrics for a Service",
+          "request": {
+            "name": "Get conformance metrics for a Service",
+            "description": {},
+            "url": {
+              "path": [
+                "metrics",
+                "conformance",
+                "service",
+                ":serviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) Unique Services identifier this metrics are related to"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea958ac0-cc04-4866-a8f5-dd0600d96ba1",
+              "name": "Test coverage metric for Service",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "conformance",
+                    "service",
+                    ":serviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) Unique Services identifier this metrics are related to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"serviceId\": \"string\",\n  \"currentScore\": 6132.981603308,\n  \"maxPossibleScore\": 2269.6943309593307,\n  \"aggregationLabelValue\": \"string\",\n  \"lastUpdateDay\": \"string\",\n  \"latestTrend\": \"DOWN\",\n  \"latestScores\": {\n    \"key_0\": 8451.048591257319\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5e5c2ba-c5a9-4ce0-b3bf-6f09b5ae6c7d",
+          "name": "Get top invocation statistics for a day",
+          "request": {
+            "name": "Get top invocation statistics for a day",
+            "description": {},
+            "url": {
+              "path": [
+                "metrics",
+                "invocations",
+                "top"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "day",
+                  "value": "<string>",
+                  "description": "The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of top invoked mocks to return"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccd5677d-dabb-41a0-ad47-adf12d6dbf2a",
+              "name": "Top invocations for a defined day",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "invocations",
+                    "top"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "day",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"day\": \"string\",\n    \"serviceName\": \"string\",\n    \"serviceVersion\": \"string\",\n    \"dailyCount\": 8819.502994858389,\n    \"hourlyCount\": {\n      \"key_0\": 2997,\n      \"key_1\": true,\n      \"key_2\": \"string\"\n    },\n    \"minuteCount\": {\n      \"key_0\": 4824.108253565829\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"day\": \"string\",\n    \"serviceName\": \"string\",\n    \"serviceVersion\": \"string\",\n    \"dailyCount\": 9897.117658623627,\n    \"hourlyCount\": {\n      \"key_0\": 3501.118229488183,\n      \"key_1\": 384.8866979460785\n    },\n    \"minuteCount\": {\n      \"key_0\": 3060.962923404551\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b4db373-a5f4-4b9a-bdcd-a22024af81b9",
+          "name": "Get invocation statistics for Service",
+          "request": {
+            "name": "Get invocation statistics for Service",
+            "description": {},
+            "url": {
+              "path": [
+                "metrics",
+                "invocations",
+                ":serviceName",
+                ":serviceVersion"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "day",
+                  "value": "<string>",
+                  "description": "The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceName",
+                  "description": "(Required) Name of service to get statistics for"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceVersion",
+                  "description": "(Required) Version of service to get statistics for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae5d11f0-f95b-4620-9477-c020d0dc5adc",
+              "name": "Invocation statistics for service for specified day",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "invocations",
+                    ":serviceName",
+                    ":serviceVersion"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "day",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceName",
+                      "description": "(Required) Name of service to get statistics for"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceVersion",
+                      "description": "(Required) Version of service to get statistics for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"day\": \"string\",\n  \"serviceName\": \"string\",\n  \"serviceVersion\": \"string\",\n  \"dailyCount\": 3767.9478462026527,\n  \"hourlyCount\": {\n    \"key_0\": 7788,\n    \"key_1\": true,\n    \"key_2\": 775\n  },\n  \"minuteCount\": {\n    \"key_0\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf2a4349-abf2-435d-b756-9b5a6565b356",
+          "name": "Get aggregated invocations statistics for latest days",
+          "request": {
+            "name": "Get aggregated invocations statistics for latest days",
+            "description": {},
+            "url": {
+              "path": [
+                "metrics",
+                "invocations",
+                "global",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of days to get back in time. Default is 20."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10dcd0ea-959b-4102-ad88-7336b24cbd9c",
+              "name": "A map where keys are day (formatted using yyyyMMdd pattern) and values are counter of invocations on this day",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "invocations",
+                    "global",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 8460.468763338478\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04428f09-abe7-43f8-bbb4-85aa1a1d043f",
+          "name": "Get latest tests results",
+          "request": {
+            "name": "Get latest tests results",
+            "description": {},
+            "url": {
+              "path": [
+                "metrics",
+                "tests",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of days to consider for test results to return. Default is 7 (one week)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02e2a6ce-ca82-47d5-9186-8dce2fdf94f0",
+              "name": "Test results summary for specified <limit> last days.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "tests",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"testDate\": 5559,\n    \"serviceId\": \"string\",\n    \"success\": false\n  },\n  {\n    \"id\": \"string\",\n    \"testDate\": 1443,\n    \"serviceId\": \"string\",\n    \"success\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://microcks.example.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "user manager admin"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fd6960fb-c766-4ed6-892c-bd02c78d8ea5",
+    "name": "Microcks API v1.14 config metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)\n\nContact Support:\n Name: Laurent Broudoux\n Email: laurent@microcks.io",
+      "type": "text/plain"
+    }
+  }
+}

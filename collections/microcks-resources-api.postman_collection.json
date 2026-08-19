@@ -1,0 +1,281 @@
+{
+  "item": [
+    {
+      "id": "1acf4912-1bba-4956-a4c5-b1cb18d86cf8",
+      "name": "Resources",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ca5b634b-7b94-4cf0-9a5a-4f438641348e",
+          "name": "Get Resource",
+          "request": {
+            "name": "Get Resource",
+            "description": {},
+            "url": {
+              "path": [
+                "resources",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Unique name/business identifier of the Service or API resource"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "791cc676-96d4-41c5-97b5-1d0487859ea4",
+              "name": "Retrieve the resource having this name",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resources",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Unique name/business identifier of the Service or API resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"content\": \"string\",\n  \"type\": \"GRAPHQL_SCHEMA\",\n  \"serviceId\": \"string\",\n  \"path\": \"string\",\n  \"sourceArtifact\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea19377c-5a7a-4830-8fcc-bb3647cddad4",
+          "name": "Get Resources by Service",
+          "request": {
+            "name": "Get Resources by Service",
+            "description": {},
+            "url": {
+              "path": [
+                "resources",
+                "service",
+                ":serviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceId",
+                  "description": "(Required) Unique identifier of the Service or API the resources are attached to"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ed02f071-943b-4d8d-ae00-1eeef4715ffb",
+              "name": "List the resources attached to a Service or API",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resources",
+                    "service",
+                    ":serviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceId",
+                      "description": "(Required) Unique identifier of the Service or API the resources are attached to"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"content\": \"string\",\n    \"type\": \"ASYNC_API_SCHEMA\",\n    \"serviceId\": \"string\",\n    \"path\": \"string\",\n    \"sourceArtifact\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"content\": \"string\",\n    \"type\": \"OPEN_API_SPEC\",\n    \"serviceId\": \"string\",\n    \"path\": \"string\",\n    \"sourceArtifact\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://microcks.example.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "user manager admin"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "66ee503f-8f44-4b34-8308-e7e016ed18cb",
+    "name": "Microcks API v1.14 config Resources API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)\n\nContact Support:\n Name: Laurent Broudoux\n Email: laurent@microcks.io",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1005 @@
+{
+  "item": [
+    {
+      "id": "f7af969d-8fe6-44b8-a7ab-b954c39f9ac1",
+      "name": "config",
+      "description": {
+        "content": "Operations related to configuration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b39ae8be-6785-425c-9782-e1a21ac07086",
+          "name": "Get Secrets",
+          "request": {
+            "name": "Get Secrets",
+            "description": {},
+            "url": {
+              "path": [
+                "secrets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page of Secrets to retrieve (starts at and defaults to 0)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Size of a page. Maximum number of Secrets to include in a response (defaults to 20)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f04ac8d7-8329-4f06-b7fc-67308a0c24c2",
+              "name": "List of found Secrets",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "secrets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"id\": \"string\",\n    \"username\": \"string\",\n    \"password\": \"string\",\n    \"token\": \"string\",\n    \"tokenHeader\": \"string\",\n    \"caCertPem\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"id\": \"string\",\n    \"username\": \"string\",\n    \"password\": \"string\",\n    \"token\": \"string\",\n    \"tokenHeader\": \"string\",\n    \"caCertPem\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68fb4604-d2e1-4464-bff2-648eb8fdcedc",
+          "name": "Create a new Secret",
+          "request": {
+            "name": "Create a new Secret",
+            "description": {},
+            "url": {
+              "path": [
+                "secrets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"token\": \"<string>\",\n  \"tokenHeader\": \"<string>\",\n  \"caCertPem\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e192c0f7-4ba5-408d-bf9c-d90f83dcdb7e",
+              "name": "Created Secret",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "secrets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"token\": \"<string>\",\n  \"tokenHeader\": \"<string>\",\n  \"caCertPem\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"token\": \"<string>\",\n  \"tokenHeader\": \"<string>\",\n  \"caCertPem\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e35fd11f-fa35-41bd-9fcf-85dd74b36175",
+          "name": "Get Secret",
+          "request": {
+            "name": "Get Secret",
+            "description": {
+              "content": "Retrieve a Secret",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "secrets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of Secret to manage"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d2099ec8-d999-4fb5-84c4-e7cb9da86a16",
+              "name": "Found Secret",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "secrets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Secret to manage"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"token\": \"<string>\",\n  \"tokenHeader\": \"<string>\",\n  \"caCertPem\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4c80d6f-2c52-4c91-8d66-33deede1c987",
+          "name": "Update Secret",
+          "request": {
+            "name": "Update Secret",
+            "description": {
+              "content": "Update a Secret",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "secrets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of Secret to manage"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"token\": \"<string>\",\n  \"tokenHeader\": \"<string>\",\n  \"caCertPem\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f17835ec-6b15-4d02-8fa5-7f48753e24fe",
+              "name": "Updated Secret",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "secrets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Secret to manage"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"token\": \"<string>\",\n  \"tokenHeader\": \"<string>\",\n  \"caCertPem\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"token\": \"<string>\",\n  \"tokenHeader\": \"<string>\",\n  \"caCertPem\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cec9280a-2d8e-4d3e-99c0-4b3f90fbb8aa",
+          "name": "Delete Secret",
+          "request": {
+            "name": "Delete Secret",
+            "description": {
+              "content": "Delete a Secret",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "secrets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of Secret to manage"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "86176f05-ed72-4839-bf65-429fcc88d759",
+              "name": "Secret has been deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "secrets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of Secret to manage"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "881f34c5-6fb1-4d3f-8f81-ffe0e5cfd654",
+          "name": "Get the Secrets counter",
+          "request": {
+            "name": "Get the Secrets counter",
+            "description": {},
+            "url": {
+              "path": [
+                "secrets",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "189d752e-4a78-4a3e-8bb1-feea07a46d04",
+              "name": "Number of Secrets in datastore",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "secrets",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"counter\": 1025\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba9e66dc-7962-444d-baf1-b757234c2e9b",
+          "name": "Get authentification configuration",
+          "request": {
+            "name": "Get authentification configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "keycloak",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1043b156-7ad5-4dae-9777-65f3fcdc4039",
+              "name": "Get current configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "keycloak",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"realm\": \"string\",\n  \"auth-server-url\": \"string\",\n  \"public-client\": true,\n  \"ssl-required\": \"string\",\n  \"resource\": \"string\",\n  \"enabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "630df7d8-08bb-4b0e-b450-52d9a0542794",
+          "name": "Get features configuration",
+          "request": {
+            "name": "Get features configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "features",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e33014b-9f5b-4d63-9544-f5395ade6731",
+              "name": "Get features configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "features",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d43bc86-6100-4530-9789-d07ccaa53aa5",
+          "name": "Search for Secrets",
+          "request": {
+            "name": "Search for Secrets",
+            "description": {},
+            "url": {
+              "path": [
+                "secrets",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Search using this name-like criterion"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "user manager admin"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2d514262-4309-4bc7-87f8-784b21706ac9",
+              "name": "List of found Secrets (filtered according search criteria)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "secrets",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"id\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"token\": \"<string>\",\n    \"tokenHeader\": \"<string>\",\n    \"caCertPem\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"id\": \"<string>\",\n    \"username\": \"<string>\",\n    \"password\": \"<string>\",\n    \"token\": \"<string>\",\n    \"tokenHeader\": \"<string>\",\n    \"caCertPem\": \"<string>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://microcks.example.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "user manager admin"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aef1c6cb-7cf3-4b7b-8de5-5d6920f5ce77",
+    "name": "Microcks API v1.14 config API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)\n\nContact Support:\n Name: Laurent Broudoux\n Email: laurent@microcks.io",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microcks API v1.14 config test API",
+    "version": "1.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "test",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new Test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://microcks.example.com/api/tests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new Test"
+        },
+        {
+          "info": {
+            "name": "Get TestResults by Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/tests/service/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of Service to manage TestResults for"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get TestResults by Service"
+        },
+        {
+          "info": {
+            "name": "Get the TestResults for Service counter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/tests/service/:serviceId/count",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of Service to manage TestResults for"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the TestResults for Service counter"
+        },
+        {
+          "info": {
+            "name": "Get TestResult",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/tests/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of TestResult to manage"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get TestResult"
+        },
+        {
+          "info": {
+            "name": "Get messages for TestCase",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/tests/:id/messages/:testCaseId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of TestResult to manage"
+              },
+              {
+                "name": "testCaseId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of TetsCaseResult to manage"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get messages for TestCase"
+        },
+        {
+          "info": {
+            "name": "Report and create a new TestCaseResult",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://microcks.example.com/api/tests/:id/testCaseResult",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of TestResult to manage"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Report a TestCaseResult (typically used by a Test runner)"
+        },
+        {
+          "info": {
+            "name": "Get events for TestCase",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/tests/:id/events/:testCaseId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of TestResult to manage"
+              },
+              {
+                "name": "testCaseId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of TetsCaseResult to manage"
+              }
+            ]
+          },
+          "docs": "Get events for TestCase"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,315 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microcks API v1.14 config mock API",
+    "version": "1.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "mock",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Services and APIs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/services",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of Services to retrieve (starts at and defaults to 0)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Size of a page. Maximum number of Services to include in a response (defaults to 20)"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Services and APIs"
+        },
+        {
+          "info": {
+            "name": "Get the Services counter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/services/count",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the Services counter"
+        },
+        {
+          "info": {
+            "name": "Get Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/services/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of Service to managed"
+              },
+              {
+                "name": "messages",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include details on services messages into result. Default is false"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Service"
+        },
+        {
+          "info": {
+            "name": "Delete Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://microcks.example.com/api/services/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of Service to managed"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Service"
+        },
+        {
+          "info": {
+            "name": "Override Service Operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://microcks.example.com/api/services/:id/operation",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of Service to managed"
+              },
+              {
+                "name": "operationName",
+                "value": "",
+                "type": "query",
+                "description": "Name of operation to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Override Service Operation"
+        },
+        {
+          "info": {
+            "name": "Update Service Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://microcks.example.com/api/services/:id/metadata",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of Service to managed"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update Service Metadata"
+        },
+        {
+          "info": {
+            "name": "Search for Services and APIs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/services/search",
+            "params": [
+              {
+                "name": "queryMap",
+                "value": "",
+                "type": "query",
+                "description": "Map of criterion. Key can be simply 'name' with value as the searched string. You can also search by label using keys like 'labels.x' where 'x' is the label and value the label value"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Search for Services and APIs"
+        },
+        {
+          "info": {
+            "name": "Import a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://microcks.example.com/api/import",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Import a repository snapshot previsouly exported into Microcks"
+        },
+        {
+          "info": {
+            "name": "Export a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/export",
+            "params": [
+              {
+                "name": "serviceIds",
+                "value": "",
+                "type": "query",
+                "description": "List of service identifiers to export"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Export a repostiory snapshot with requested services"
+        },
+        {
+          "info": {
+            "name": "Get the already used labels for Services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/services/labels",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the already used labels for Services"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Microcks API v1.14 config Resources API",
+    "version": "1.14.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/resources/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Unique name/business identifier of the Service or API resource"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Resource"
+        },
+        {
+          "info": {
+            "name": "Get Resources by Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://microcks.example.com/api/resources/service/:serviceId",
+            "params": [
+              {
+                "name": "serviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Service or API the resources are attached to"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://keycloak.example.com/realms/microcks/protocol/openid-connect/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Resources by Service"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
