@@ -22,6 +22,12 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/microcks.p
 url: https://raw.githubusercontent.com/api-evangelist/microcks/refs/heads/main/apis.yml
 tags:
   - API Testing
+  - Cloud-Native
+  - DevOps
+  - Mocking
+  - Open-Source
+tags_raw:
+  - API Testing
   - Cloud Native
   - DevOps
   - Mocking
@@ -35,6 +41,8 @@ apis:
   description: Operations related to configuration
   humanURL: https://microcks.io/
   tags:
+  - Config
+  tags_raw:
   - config
   properties:
   - type: OpenAPI
@@ -48,6 +56,8 @@ apis:
   description: Operations related to Jobs for discovering mocks and tests
   humanURL: https://microcks.io/
   tags:
+  - Job
+  tags_raw:
   - job
   properties:
   - type: OpenAPI
@@ -61,6 +71,8 @@ apis:
   description: Operations related to metrics
   humanURL: https://microcks.io/
   tags:
+  - Metrics
+  tags_raw:
   - metrics
   properties:
   - type: OpenAPI
@@ -74,6 +86,8 @@ apis:
   description: Operations related to API and Services mocks
   humanURL: https://microcks.io/
   tags:
+  - Mock
+  tags_raw:
   - mock
   properties:
   - type: OpenAPI
@@ -99,7 +113,8 @@ apis:
   name: Microcks test API
   description: Operations related to API and Services tests
   humanURL: https://microcks.io/
-  tags:
+  tags: []
+  tags_raw:
   - test
   properties:
   - type: OpenAPI
