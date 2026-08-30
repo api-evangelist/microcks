@@ -97,7 +97,7 @@ apis:
   description: Operations related to API and Services mocks
   humanURL: https://microcks.io/
   tags:
-  - Mock
+  - mock
   tags_raw:
   - mock
   properties:
