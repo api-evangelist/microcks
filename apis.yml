@@ -135,6 +135,8 @@ apis:
   - type: GettingStarted
     url: https://microcks.io/documentation/getting-started/
 common:
+  - type: Website
+    url: https://www.microcks.io/
   - type: AgenticAccess
     url: agentic-access/microcks-agentic-access.yml
   - type: DomainSecurity
