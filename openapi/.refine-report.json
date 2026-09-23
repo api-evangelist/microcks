@@ -1,24 +1,33 @@
 {
   "provider": "microcks",
   "sources": [
-    "microcks-config-api-openapi.yml",
-    "microcks-job-api-openapi.yml",
-    "microcks-metrics-api-openapi.yml",
-    "microcks-mock-api-openapi.yml",
-    "microcks-resources-api-openapi.yml",
-    "microcks-test-api-openapi.yml"
+    "_original/microcks-openapi.yml"
   ],
   "outputs": [
+    "microcks-resources-api-openapi.yml",
     "microcks-config-api-openapi.yml",
     "microcks-job-api-openapi.yml",
     "microcks-metrics-api-openapi.yml",
     "microcks-mock-api-openapi.yml",
-    "microcks-resources-api-openapi.yml",
     "microcks-test-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "microcks-openapi.yml: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
+    "microcks-openapi.yml: tagged paths GET /resources/{name} -> Resources",
+    "microcks-openapi.yml: tagged paths GET /resources/service/{serviceId} -> Resources",
+    "microcks-openapi.yml: declared missing tag: Resources",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "microcks-config-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "microcks-job-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "microcks-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "microcks-mock-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "microcks-resources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "microcks-test-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

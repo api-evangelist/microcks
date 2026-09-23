@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Microcks API v1.14 config Resources API
+  title: Microcks API v1.14 Resources API
   version: 1.14.0
   description: API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)
   contact:

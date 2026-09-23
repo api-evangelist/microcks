@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Microcks API v1.14 config metrics API
+  title: Microcks API v1.14 Metrics API
   version: 1.14.0
   description: API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)
   contact:
@@ -19,14 +19,14 @@ servers:
 security:
 - jwt-bearer: []
 tags:
-- name: metrics
+- name: Metrics
   description: Operations related to metrics
 paths:
   /metrics/invocations/global:
     summary: Invocation Statistics across Services and APIs
     get:
       tags:
-      - metrics
+      - Metrics
       parameters:
       - name: day
         description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
@@ -46,7 +46,7 @@ paths:
     summary: Aggregation of Test conformance metrics
     get:
       tags:
-      - metrics
+      - Metrics
       responses:
         '200':
           content:
@@ -69,7 +69,7 @@ paths:
       required: true
     get:
       tags:
-      - metrics
+      - Metrics
       responses:
         '200':
           content:
@@ -83,7 +83,7 @@ paths:
     summary: Top Invocation Statistics across Services and APIs
     get:
       tags:
-      - metrics
+      - Metrics
       parameters:
       - name: day
         description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
@@ -123,7 +123,7 @@ paths:
       required: true
     get:
       tags:
-      - metrics
+      - Metrics
       parameters:
       - name: day
         description: The day to get statistics for (formatted with yyyyMMdd pattern). Default to today if not provided.
@@ -143,7 +143,7 @@ paths:
     summary: Latest Invocation Statistics across Services and APIs
     get:
       tags:
-      - metrics
+      - Metrics
       parameters:
       - name: limit
         description: Number of days to get back in time. Default is 20.
@@ -163,7 +163,7 @@ paths:
     summary: Lastest Test results across Services and APIs
     get:
       tags:
-      - metrics
+      - Metrics
       parameters:
       - name: limit
         description: Number of days to consider for test results to return. Default is 7 (one week)
@@ -183,6 +183,65 @@ paths:
       summary: Get latest tests results
 components:
   schemas:
+    TestResultSummary:
+      description: 'Represents the summary result of a Service or API test run by Microcks. '
+      required:
+      - id
+      - testDate
+      - serviceId
+      - success
+      properties:
+        id:
+          description: Unique identifier of TestResult
+          type: string
+        testDate:
+          format: int64
+          description: Timestamp of creation date of this service
+          type: integer
+        serviceId:
+          description: Unique identifier of service tested
+          type: string
+        success:
+          description: Flag telling if test is a success
+          type: boolean
+    CounterMap:
+      description: A generic map of counter
+      type: object
+      additionalProperties:
+        type: number
+    DailyInvocationStatistic:
+      description: The daily statistic of a service mock invocations
+      required:
+      - id
+      - day
+      - serviceName
+      - serviceVersion
+      - dailyCount
+      type: object
+      properties:
+        id:
+          description: Unique identifier of this statistic object
+          type: string
+        day:
+          description: The day (formatted as yyyyMMdd string) represented by this statistic
+          type: string
+        serviceName:
+          description: The name of the service this statistic is related to
+          type: string
+        serviceVersion:
+          description: The version of the service this statistic is related to
+          type: string
+        dailyCount:
+          description: The number of service mock invocations on this day
+          type: number
+        hourlyCount:
+          description: The number of service mock invocations per hour of the day (keys range from 0 to 23)
+          type: object
+          additionalProperties: true
+        minuteCount:
+          description: The number of service mock invocations per minute of the day (keys range from 0 to 1439)
+          type: object
+          additionalProperties: true
     TestConformanceMetric:
       description: Represents the test conformance metrics (current score, history and evolution trend) of a Service
       required:
@@ -220,74 +279,6 @@ components:
           type: object
           additionalProperties:
             type: number
-    CounterMap:
-      description: A generic map of counter
-      type: object
-      additionalProperties:
-        type: number
-    TestResultSummary:
-      description: 'Represents the summary result of a Service or API test run by Microcks. '
-      required:
-      - id
-      - testDate
-      - serviceId
-      - success
-      properties:
-        id:
-          description: Unique identifier of TestResult
-          type: string
-        testDate:
-          format: int64
-          description: Timestamp of creation date of this service
-          type: integer
-        serviceId:
-          description: Unique identifier of service tested
-          type: string
-        success:
-          description: Flag telling if test is a success
-          type: boolean
-    Trend:
-      description: Evolution trend qualifier
-      enum:
-      - DOWN
-      - LOW_DOWN
-      - STABLE
-      - LOW_UP
-      - UP
-      type: string
-    DailyInvocationStatistic:
-      description: The daily statistic of a service mock invocations
-      required:
-      - id
-      - day
-      - serviceName
-      - serviceVersion
-      - dailyCount
-      type: object
-      properties:
-        id:
-          description: Unique identifier of this statistic object
-          type: string
-        day:
-          description: The day (formatted as yyyyMMdd string) represented by this statistic
-          type: string
-        serviceName:
-          description: The name of the service this statistic is related to
-          type: string
-        serviceVersion:
-          description: The version of the service this statistic is related to
-          type: string
-        dailyCount:
-          description: The number of service mock invocations on this day
-          type: number
-        hourlyCount:
-          description: The number of service mock invocations per hour of the day (keys range from 0 to 23)
-          type: object
-          additionalProperties: true
-        minuteCount:
-          description: The number of service mock invocations per minute of the day (keys range from 0 to 1439)
-          type: object
-          additionalProperties: true
     WeightedMetricValue:
       description: Value of a metric with an associated weight
       required:
@@ -305,6 +296,15 @@ components:
         value:
           description: The value of this metric
           type: integer
+    Trend:
+      description: Evolution trend qualifier
+      enum:
+      - DOWN
+      - LOW_DOWN
+      - STABLE
+      - LOW_UP
+      - UP
+      type: string
   securitySchemes:
     jwt-bearer:
       flows:

@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Microcks API v1.14 config test API
+  title: Microcks API v1.14 Test API
   version: 1.14.0
   description: API offered by Microcks, the Kubernetes native tool for API and microservices mocking and testing (microcks.io)
   contact:
@@ -19,7 +19,7 @@ servers:
 security:
 - jwt-bearer: []
 tags:
-- name: test
+- name: Test
   description: Operations related to API and Services tests
 paths:
   /tests:
@@ -31,7 +31,7 @@ paths:
               $ref: '#/components/schemas/TestRequest'
         required: true
       tags:
-      - test
+      - Test
       responses:
         '201':
           content:
@@ -54,7 +54,7 @@ paths:
       required: true
     get:
       tags:
-      - test
+      - Test
       responses:
         '200':
           content:
@@ -79,7 +79,7 @@ paths:
       required: true
     get:
       tags:
-      - test
+      - Test
       responses:
         '200':
           content:
@@ -102,7 +102,7 @@ paths:
       required: true
     get:
       tags:
-      - test
+      - Test
       responses:
         '200':
           content:
@@ -132,7 +132,7 @@ paths:
       required: true
     get:
       tags:
-      - test
+      - Test
       responses:
         '200':
           content:
@@ -164,7 +164,7 @@ paths:
               $ref: '#/components/schemas/TestCaseReturnDTO'
         required: true
       tags:
-      - test
+      - Test
       responses:
         '200':
           content:
@@ -191,7 +191,7 @@ paths:
       required: true
     get:
       tags:
-      - test
+      - Test
       responses:
         '200':
           content:
@@ -205,41 +205,26 @@ paths:
       summary: Get events for TestCase
 components:
   schemas:
-    TestRequest:
-      description: Test request is a minimalist wrapper for requesting the launch of a new test
+    OperationHeaders:
+      description: Specification of additional headers for a Service/API operations. Keys are operation name or "globals" (if header applies to all), values are Header objects DTO.
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/HeaderDTO'
+    HeaderDTO:
+      description: Data Transfert Object for headers of both Requests and Responses
       required:
-      - serviceId
-      - testEndpoint
-      - runnerType
-      - timeout
+      - name
+      - values
+      type: object
       properties:
-        serviceId:
-          description: Unique identifier of service to test
+        name:
+          description: Unique distinct name of this Header
           type: string
-        testEndpoint:
-          description: Endpoint to test for this service
+        values:
+          description: Values for this header (comma separated strings)
           type: string
-        runnerType:
-          $ref: '#/components/schemas/TestRunnerType'
-          description: Runner used for this test
-        timeout:
-          format: int64
-          description: The maximum time (in milliseconds) to wait for this test ends
-          type: integer
-        filteredOperations:
-          description: A restriction on service operations to test
-          type: array
-          items:
-            type: string
-        secretName:
-          description: The name of Secret to use for connecting the test endpoint
-          type: string
-        oAuth2Context:
-          $ref: '#/components/schemas/OAuth2ClientContext'
-          description: An OAuth2 context to use for retrieving an access token prior invoking the tested endpoint
-        operationsHeaders:
-          $ref: '#/components/schemas/OperationHeaders'
-          description: This test operations headers override
     OAuth2ClientContext:
       description: Represents a volatile OAuth2 client context usually associated with a Test request
       required:
@@ -278,140 +263,6 @@ components:
           - CLIENT_CREDENTIALS
           - REFRESH_TOKEN
           type: string
-    Counter:
-      description: A simple Counter type.
-      type: object
-      properties:
-        counter:
-          format: int32
-          description: Number of items in a resource collection
-          type: integer
-      example: "{\n    \"counter\": 12\n}"
-    EventMessage:
-      description: A simple event message published or received in an asynchronous exchange
-      type: object
-      allOf:
-      - required:
-        - id
-        - mediaType
-        type: object
-        properties:
-          mediaType:
-            description: Content type of message
-            type: string
-          dispatchCriteria:
-            description: Dispatch criteria of this message (in case of a mock)
-            type: string
-      - $ref: '#/components/schemas/Message'
-    Message:
-      description: Common structure for Request, Response and EventMessage
-      required:
-      - name
-      - operationId
-      type: object
-      properties:
-        id:
-          description: Unique identifier of this message
-          type: string
-        name:
-          description: Unique distinct name of this message
-          type: string
-        content:
-          description: Body content for this message
-          type: string
-        operationId:
-          description: Identifier of Operation this message is associated to
-          type: string
-        testCaseId:
-          description: Unique identifier of TestCase this message is attached (in case of a test)
-          type: string
-        headers:
-          description: Headers for this message
-          type: array
-          items:
-            $ref: '#/components/schemas/Header'
-    RequestResponsePair:
-      description: Request associated with corresponding Response
-      type: object
-      allOf:
-      - required:
-        - request
-        - response
-        type: object
-        properties:
-          request:
-            $ref: '#/components/schemas/Request'
-            description: The request part of the pair
-          response:
-            $ref: '#/components/schemas/Response'
-            description: The Response part of the pair
-      - $ref: '#/components/schemas/AbstractExchange'
-    Request:
-      description: A mock invocation or test request
-      allOf:
-      - type: object
-        properties:
-          responseId:
-            description: Unique identifier of Response this Request is attached
-            type: string
-          queryParameters:
-            description: Query parameters for this Request if any
-            type: array
-            items:
-              $ref: '#/components/schemas/Parameter'
-      - $ref: '#/components/schemas/Message'
-    OperationHeaders:
-      description: Specification of additional headers for a Service/API operations. Keys are operation name or "globals" (if header applies to all), values are Header objects DTO.
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          $ref: '#/components/schemas/HeaderDTO'
-    OAuth2AuthorizedClient:
-      description: OAuth2 authorized client that performed a test
-      required:
-      - grantType
-      - principalName
-      - tokenUri
-      type: object
-      properties:
-        grantType:
-          $ref: '#/components/schemas/OAuth2GrantType'
-          description: OAuth2 authorization flow/grant type applied
-        principalName:
-          description: Name of authorized principal (clientId or username in the case of Password grant type)
-          type: string
-        tokenUri:
-          description: Identity Provider URI used for token retrieval
-          type: string
-        scopes:
-          description: Included scopes (separated using space)
-          type: string
-    Parameter:
-      description: Companion objects for Request representing query parameter
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
-          description: The name of the parameter
-          type: string
-        value:
-          description: The value of this parameter
-          type: string
-    AbstractExchange:
-      description: Abstract bean representing a Service or API Exchange.
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          description: Discriminant type for identifying kind of exchange
-          enum:
-          - reqRespPair
-          - unidirEvent
-          type: string
     Header:
       description: Transport headers for both Requests and Responses
       required:
@@ -427,45 +278,32 @@ components:
           type: array
           items:
             type: string
-    Response:
-      description: A mock invocation or test response
-      allOf:
-      - type: object
-        properties:
-          status:
-            description: Status of this Response
-            type: string
-          mediaType:
-            description: Content type of this Response
-            type: string
-          dispatchCriteria:
-            description: Dispatch criteria of this Response (in case of a mock)
-            type: string
-          isFault:
-            description: Whether this Response represents a Fault
-            type: boolean
-      - $ref: '#/components/schemas/Message'
-    TestCaseResult:
-      description: Companion objects for TestResult. Each TestCaseResult correspond to a particuliar service operation / action reference by the operationName field. TestCaseResults owns a collection of TestStepResults (one for every request associated to service operation / action).
+    SecretRef:
+      description: Lightweight reference for an existing Secret
       required:
-      - success
-      - elapsedTime
-      - operationName
+      - secretId
+      - name
       properties:
-        success:
-          description: Flag telling if test case is a success
-          type: boolean
-        elapsedTime:
-          description: Elapsed time in milliseconds since the test case beginning
-          type: number
-        operationName:
-          description: Name of operation this test case is bound to
+        secretId:
+          description: Unique identifier or referenced Secret
           type: string
-        testStepResults:
-          description: Test steps associated to this test case
-          type: array
-          items:
-            $ref: '#/components/schemas/TestStepResult'
+        name:
+          description: Distinct name of the referenced Secret
+          type: string
+      example: "{\n    \"secretId\": \"5be58fb51ed744d1b87481bd\",\n    \"name\": \"Gogs internal\"\n}"
+    Parameter:
+      description: Companion objects for Request representing query parameter
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          description: The name of the parameter
+          type: string
+        value:
+          description: The value of this parameter
+          type: string
     TestStepResult:
       description: TestStepResult is an entity embedded within TestCaseResult. They are created for each request associated with an operation / action of a microservice.
       required:
@@ -486,13 +324,6 @@ components:
           type: string
         eventMessageName:
           description: Name of event this test step is bound to
-          type: string
-    TestCaseReturnDTO:
-      required:
-      - operationName
-      properties:
-        operationName:
-          description: Name of related operation for this TestCase
           type: string
     TestResult:
       description: Represents the result of a Service or API test run by Microcks. Tests are related to a service and made of multiple test cases corresponding to each operations / actions composing service. Tests are run against a specific endpoint named testedEndpoint. It holds global markers telling if test still ran, is a success, how many times is has taken and so on ...
@@ -555,6 +386,84 @@ components:
         authorizedClient:
           $ref: '#/components/schemas/OAuth2AuthorizedClient'
           description: The OAuth2 authorized client that performed the test
+    Response:
+      description: A mock invocation or test response
+      allOf:
+      - type: object
+        properties:
+          status:
+            description: Status of this Response
+            type: string
+          mediaType:
+            description: Content type of this Response
+            type: string
+          dispatchCriteria:
+            description: Dispatch criteria of this Response (in case of a mock)
+            type: string
+          isFault:
+            description: Whether this Response represents a Fault
+            type: boolean
+      - $ref: '#/components/schemas/Message'
+    TestCaseResult:
+      description: Companion objects for TestResult. Each TestCaseResult correspond to a particuliar service operation / action reference by the operationName field. TestCaseResults owns a collection of TestStepResults (one for every request associated to service operation / action).
+      required:
+      - success
+      - elapsedTime
+      - operationName
+      properties:
+        success:
+          description: Flag telling if test case is a success
+          type: boolean
+        elapsedTime:
+          description: Elapsed time in milliseconds since the test case beginning
+          type: number
+        operationName:
+          description: Name of operation this test case is bound to
+          type: string
+        testStepResults:
+          description: Test steps associated to this test case
+          type: array
+          items:
+            $ref: '#/components/schemas/TestStepResult'
+    RequestResponsePair:
+      description: Request associated with corresponding Response
+      type: object
+      allOf:
+      - required:
+        - request
+        - response
+        type: object
+        properties:
+          request:
+            $ref: '#/components/schemas/Request'
+            description: The request part of the pair
+          response:
+            $ref: '#/components/schemas/Response'
+            description: The Response part of the pair
+      - $ref: '#/components/schemas/AbstractExchange'
+    Counter:
+      description: A simple Counter type.
+      type: object
+      properties:
+        counter:
+          format: int32
+          description: Number of items in a resource collection
+          type: integer
+      example: "{\n    \"counter\": 12\n}"
+    Request:
+      description: A mock invocation or test request
+      allOf:
+      - type: object
+        properties:
+          responseId:
+            description: Unique identifier of Response this Request is attached
+            type: string
+          queryParameters:
+            description: Query parameters for this Request if any
+            type: array
+            items:
+              $ref: '#/components/schemas/Parameter'
+      - $ref: '#/components/schemas/Message'
     TestRunnerType:
       description: Type of test strategy (different strategies are implemented by different runners)
       enum:
@@ -567,39 +476,72 @@ components:
       - GRPC_PROTOBUF
       - GRAPHQL_SCHEMA
       type: string
-    SecretRef:
-      description: Lightweight reference for an existing Secret
+    AbstractExchange:
+      description: Abstract bean representing a Service or API Exchange.
       required:
-      - secretId
-      - name
-      properties:
-        secretId:
-          description: Unique identifier or referenced Secret
-          type: string
-        name:
-          description: Distinct name of the referenced Secret
-          type: string
-      example: "{\n    \"secretId\": \"5be58fb51ed744d1b87481bd\",\n    \"name\": \"Gogs internal\"\n}"
-    HeaderDTO:
-      description: Data Transfert Object for headers of both Requests and Responses
-      required:
-      - name
-      - values
+      - type
       type: object
       properties:
+        type:
+          description: Discriminant type for identifying kind of exchange
+          enum:
+          - reqRespPair
+          - unidirEvent
+          type: string
+    TestCaseReturnDTO:
+      required:
+      - operationName
+      properties:
+        operationName:
+          description: Name of related operation for this TestCase
+          type: string
+    Message:
+      description: Common structure for Request, Response and EventMessage
+      required:
+      - name
+      - operationId
+      type: object
+      properties:
+        id:
+          description: Unique identifier of this message
+          type: string
         name:
-          description: Unique distinct name of this Header
+          description: Unique distinct name of this message
           type: string
-        values:
-          description: Values for this header (comma separated strings)
+        content:
+          description: Body content for this message
           type: string
-    OAuth2GrantType:
-      description: Enumeration for the different supported grants/flows of OAuth2
-      enum:
-      - PASSWORD
-      - CLIENT_CREDENTIALS
-      - REFRESH_TOKEN
-      type: string
+        operationId:
+          description: Identifier of Operation this message is associated to
+          type: string
+        testCaseId:
+          description: Unique identifier of TestCase this message is attached (in case of a test)
+          type: string
+        headers:
+          description: Headers for this message
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+    OAuth2AuthorizedClient:
+      description: OAuth2 authorized client that performed a test
+      required:
+      - grantType
+      - principalName
+      - tokenUri
+      type: object
+      properties:
+        grantType:
+          $ref: '#/components/schemas/OAuth2GrantType'
+          description: OAuth2 authorization flow/grant type applied
+        principalName:
+          description: Name of authorized principal (clientId or username in the case of Password grant type)
+          type: string
+        tokenUri:
+          description: Identity Provider URI used for token retrieval
+          type: string
+        scopes:
+          description: Included scopes (separated using space)
+          type: string
     UnidirectionalEvent:
       description: Representation of an unidirectional exchange as an event message
       type: object
@@ -612,6 +554,64 @@ components:
             $ref: '#/components/schemas/EventMessage'
             description: Asynchronous message for this unidirectional event
       - $ref: '#/components/schemas/AbstractExchange'
+    TestRequest:
+      description: Test request is a minimalist wrapper for requesting the launch of a new test
+      required:
+      - serviceId
+      - testEndpoint
+      - runnerType
+      - timeout
+      properties:
+        serviceId:
+          description: Unique identifier of service to test
+          type: string
+        testEndpoint:
+          description: Endpoint to test for this service
+          type: string
+        runnerType:
+          $ref: '#/components/schemas/TestRunnerType'
+          description: Runner used for this test
+        timeout:
+          format: int64
+          description: The maximum time (in milliseconds) to wait for this test ends
+          type: integer
+        filteredOperations:
+          description: A restriction on service operations to test
+          type: array
+          items:
+            type: string
+        secretName:
+          description: The name of Secret to use for connecting the test endpoint
+          type: string
+        oAuth2Context:
+          $ref: '#/components/schemas/OAuth2ClientContext'
+          description: An OAuth2 context to use for retrieving an access token prior invoking the tested endpoint
+        operationsHeaders:
+          $ref: '#/components/schemas/OperationHeaders'
+          description: This test operations headers override
+    EventMessage:
+      description: A simple event message published or received in an asynchronous exchange
+      type: object
+      allOf:
+      - required:
+        - id
+        - mediaType
+        type: object
+        properties:
+          mediaType:
+            description: Content type of message
+            type: string
+          dispatchCriteria:
+            description: Dispatch criteria of this message (in case of a mock)
+            type: string
+      - $ref: '#/components/schemas/Message'
+    OAuth2GrantType:
+      description: Enumeration for the different supported grants/flows of OAuth2
+      enum:
+      - PASSWORD
+      - CLIENT_CREDENTIALS
+      - REFRESH_TOKEN
+      type: string
   securitySchemes:
     jwt-bearer:
       flows:
