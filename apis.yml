@@ -36,19 +36,20 @@ tags:
   - Cloud-Native
   - DevOps
   - Mocking
-  - Open-Source
+  - Open Source
 tags_raw:
   - API Testing
   - Cloud Native
   - DevOps
   - Mocking
   - Open Source
+  - Open-Source
 created: '2025-01-08'
 modified: '2026-05-19'
 specificationVersion: '0.23'
 apis:
 - aid: microcks:microcks-config-api
-  name: Microcks config API
+  name: Microcks Config API
   description: Operations related to configuration
   humanURL: https://microcks.io/
   tags:
@@ -63,7 +64,7 @@ apis:
   - type: GettingStarted
     url: https://microcks.io/documentation/getting-started/
 - aid: microcks:microcks-job-api
-  name: Microcks job API
+  name: Microcks Job API
   description: Operations related to Jobs for discovering mocks and tests
   humanURL: https://microcks.io/
   tags:
@@ -78,7 +79,7 @@ apis:
   - type: GettingStarted
     url: https://microcks.io/documentation/getting-started/
 - aid: microcks:microcks-metrics-api
-  name: Microcks metrics API
+  name: Microcks Metrics API
   description: Operations related to metrics
   humanURL: https://microcks.io/
   tags:
@@ -93,7 +94,7 @@ apis:
   - type: GettingStarted
     url: https://microcks.io/documentation/getting-started/
 - aid: microcks:microcks-mock-api
-  name: Microcks mock API
+  name: Microcks Mock API
   description: Operations related to API and Services mocks
   humanURL: https://microcks.io/
   tags:
@@ -121,7 +122,7 @@ apis:
   - type: GettingStarted
     url: https://microcks.io/documentation/getting-started/
 - aid: microcks:microcks-test-api
-  name: Microcks test API
+  name: Microcks Test API
   description: Operations related to API and Services tests
   humanURL: https://microcks.io/
   tags: []

@@ -269,302 +269,12 @@ paths:
       summary: Get the already used labels for Services
 components:
   schemas:
-    OperationOverrideDTO:
-      description: Data Transfer object for grouping the mutable properties of an Operation
-      type: object
-      properties:
-        dispatcher:
-          description: Type of dispatcher to apply for this operation
-          type: string
-        dispatcherRules:
-          description: Rules of dispatcher for this operation
-          type: string
-        defaultDelay:
-          description: Default delay in milliseconds to apply to mock responses on this operation
-          type: integer
-        parameterConstraints:
-          description: Constraints that may apply to incoming parameters on this operation
-          type: array
-          items:
-            $ref: '#/components/schemas/ParameterConstraint'
-    StringArray:
-      description: A simple array of String
-      type: array
-      items:
-        type: string
     LabelsMap:
       description: A map which keys are already used labels keys and values are already used values for this key
       type: object
       additionalProperties:
         $ref: '#/components/schemas/StringArray'
         type: object
-    Binding:
-      description: Protocol binding details for asynchronous operations
-      required:
-      - type
-      - destinationName
-      type: object
-      properties:
-        type:
-          description: Protocol binding identifier
-          enum:
-          - KAFKA
-          - MQTT
-          - WS
-          - AMQP
-          - NATS
-          - GOOGLEPUBSUB
-          type: string
-        keyType:
-          description: Type of key for Kafka messages
-          type: string
-        destinationType:
-          description: Type of destination for asynchronous messages of this operation
-          type: string
-        destinationName:
-          description: Name of destination for asynchronous messages of this operation
-          type: string
-        qoS:
-          description: Quality of Service attribute for MQTT binding
-          type: string
-        persistent:
-          description: Persistent attribute for MQTT binding
-          type: boolean
-        method:
-          description: HTTP method for WebSocket binding
-          type: string
-    CallbackInfo:
-      description: Information on a REST api/service callback
-      required:
-      - method
-      - callbackUrlExpression
-      type: object
-      properties:
-        method:
-          description: The HTTP method for this callback
-          type: string
-        callbackUrlExpression:
-          description: The expressiong to retrieve the callback url from incoming request
-          type: string
-        order:
-          description: The order of this callback within the chain
-          type: integer
-    Exchange:
-      oneOf:
-      - $ref: '#/components/schemas/RequestResponsePair'
-      - $ref: '#/components/schemas/UnidirectionalEvent'
-      discriminator:
-        propertyName: type
-        mapping:
-          reqRespPair: '#/components/schemas/RequestResponsePair'
-          unidirEvent: '#/components/schemas/UnidirectionalEvent'
-      description: Abstract representation of a Service or API exchange type (request/response, event based, ...)
-    Header:
-      description: Transport headers for both Requests and Responses
-      required:
-      - name
-      - values
-      type: object
-      properties:
-        name:
-          description: Unique distinct name of this Header
-          type: string
-        values:
-          description: Values for this Header
-          type: array
-          items:
-            type: string
-    Parameter:
-      description: Companion objects for Request representing query parameter
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
-          description: The name of the parameter
-          type: string
-        value:
-          description: The value of this parameter
-          type: string
-    Response:
-      description: A mock invocation or test response
-      allOf:
-      - type: object
-        properties:
-          status:
-            description: Status of this Response
-            type: string
-          mediaType:
-            description: Content type of this Response
-            type: string
-          dispatchCriteria:
-            description: Dispatch criteria of this Response (in case of a mock)
-            type: string
-          isFault:
-            description: Whether this Response represents a Fault
-            type: boolean
-      - $ref: '#/components/schemas/Message'
-    Service:
-      description: Represents a Service or API definition as registred into Microcks repository
-      required:
-      - name
-      - version
-      - type
-      - sourceArtifact
-      properties:
-        id:
-          description: Unique identifier for this Service or API
-          type: string
-        name:
-          description: Distinct name for this Service or API (maybe shared among many versions)
-          type: string
-        version:
-          description: Distinct version for a named Service or API
-          type: string
-        type:
-          description: Service or API Type
-          enum:
-          - REST
-          - SOAP_HTTP
-          - GENERIC_REST
-          - GENERIC_EVENT
-          - EVENT
-          - GRPC
-          - GRAPHQL
-          type: string
-        operations:
-          description: Set of Operations for Service or API
-          type: array
-          items:
-            $ref: '#/components/schemas/Operation'
-        xmlNS:
-          description: Associated Xml Namespace in case of Xml based Service
-          type: string
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-          description: Metadata of Service
-        sourceArtifact:
-          description: Short name of the main/primary artifact this service was created from
-          type: string
-    RequestResponsePair:
-      description: Request associated with corresponding Response
-      type: object
-      allOf:
-      - required:
-        - request
-        - response
-        type: object
-        properties:
-          request:
-            $ref: '#/components/schemas/Request'
-            description: The request part of the pair
-          response:
-            $ref: '#/components/schemas/Response'
-            description: The Response part of the pair
-      - $ref: '#/components/schemas/AbstractExchange'
-    Counter:
-      description: A simple Counter type.
-      type: object
-      properties:
-        counter:
-          format: int32
-          description: Number of items in a resource collection
-          type: integer
-      example: "{\n    \"counter\": 12\n}"
-    Request:
-      description: A mock invocation or test request
-      allOf:
-      - type: object
-        properties:
-          responseId:
-            description: Unique identifier of Response this Request is attached
-            type: string
-          queryParameters:
-            description: Query parameters for this Request if any
-            type: array
-            items:
-              $ref: '#/components/schemas/Parameter'
-      - $ref: '#/components/schemas/Message'
-    Metadata:
-      description: Commodity object for holding metadata on any entity. This object is inspired by Kubernetes metadata.
-      required:
-      - createdOn
-      - lastUpdate
-      type: object
-      properties:
-        createdOn:
-          description: Creation date of attached object
-          type: number
-          readOnly: true
-        lastUpdate:
-          description: Last update of attached object
-          type: number
-          readOnly: true
-        annotations:
-          description: Annotations of attached object
-          type: object
-          additionalProperties:
-            type: string
-        labels:
-          description: Labels put on attached object
-          type: object
-          additionalProperties:
-            type: string
-    AbstractExchange:
-      description: Abstract bean representing a Service or API Exchange.
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          description: Discriminant type for identifying kind of exchange
-          enum:
-          - reqRespPair
-          - unidirEvent
-          type: string
-    Message:
-      description: Common structure for Request, Response and EventMessage
-      required:
-      - name
-      - operationId
-      type: object
-      properties:
-        id:
-          description: Unique identifier of this message
-          type: string
-        name:
-          description: Unique distinct name of this message
-          type: string
-        content:
-          description: Body content for this message
-          type: string
-        operationId:
-          description: Identifier of Operation this message is associated to
-          type: string
-        testCaseId:
-          description: Unique identifier of TestCase this message is attached (in case of a test)
-          type: string
-        headers:
-          description: Headers for this message
-          type: array
-          items:
-            $ref: '#/components/schemas/Header'
-    ServiceView:
-      description: Aggregate bean for grouping a Service an its messages pairs
-      required:
-      - service
-      - messagesMap
-      type: object
-      properties:
-        service:
-          $ref: '#/components/schemas/Service'
-          description: Wrapped service description
-        messagesMap:
-          description: Map of messages for this Service. Keys are operation name, values are array of messages for this operation
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/MessageArray'
     Operation:
       description: An Operation of a Service or API
       required:
@@ -621,56 +331,130 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/CallbackInfo'
-    TriggerInfo:
-      description: Information on a sync-to-async trigger.
+    Exchange:
+      oneOf:
+      - $ref: '#/components/schemas/RequestResponsePair'
+      - $ref: '#/components/schemas/UnidirectionalEvent'
+      discriminator:
+        propertyName: type
+        mapping:
+          reqRespPair: '#/components/schemas/RequestResponsePair'
+          unidirEvent: '#/components/schemas/UnidirectionalEvent'
+      description: Abstract representation of a Service or API exchange type (request/response, event based, ...)
+    Service:
+      description: Represents a Service or API definition as registred into Microcks repository
       required:
-      - serviceName
-      - serviceVersion
-      - operationName
+      - name
+      - version
+      - type
+      - sourceArtifact
+      properties:
+        id:
+          description: Unique identifier for this Service or API
+          type: string
+        name:
+          description: Distinct name for this Service or API (maybe shared among many versions)
+          type: string
+        version:
+          description: Distinct version for a named Service or API
+          type: string
+        type:
+          description: Service or API Type
+          enum:
+          - REST
+          - SOAP_HTTP
+          - GENERIC_REST
+          - GENERIC_EVENT
+          - EVENT
+          - GRPC
+          - GRAPHQL
+          type: string
+        operations:
+          description: Set of Operations for Service or API
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        xmlNS:
+          description: Associated Xml Namespace in case of Xml based Service
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: Metadata of Service
+        sourceArtifact:
+          description: Short name of the main/primary artifact this service was created from
+          type: string
+    Message:
+      description: Common structure for Request, Response and EventMessage
+      required:
+      - name
+      - operationId
       type: object
       properties:
-        serviceName:
-          description: The name of the service that is triggered
+        id:
+          description: Unique identifier of this message
           type: string
-        serviceVersion:
-          description: The version of the service that is triggered
+        name:
+          description: Unique distinct name of this message
           type: string
-        operationName:
-          description: The name of the operation within the service that is triggered
+        content:
+          description: Body content for this message
           type: string
-    UnidirectionalEvent:
-      description: Representation of an unidirectional exchange as an event message
+        operationId:
+          description: Identifier of Operation this message is associated to
+          type: string
+        testCaseId:
+          description: Unique identifier of TestCase this message is attached (in case of a test)
+          type: string
+        headers:
+          description: Headers for this message
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+    Header:
+      description: Transport headers for both Requests and Responses
+      required:
+      - name
+      - values
       type: object
+      properties:
+        name:
+          description: Unique distinct name of this Header
+          type: string
+        values:
+          description: Values for this Header
+          type: array
+          items:
+            type: string
+    Response:
+      description: A mock invocation or test response
       allOf:
-      - required:
-        - eventMessage
-        type: object
+      - type: object
         properties:
-          eventMessage:
-            $ref: '#/components/schemas/EventMessage'
-            description: Asynchronous message for this unidirectional event
-      - $ref: '#/components/schemas/AbstractExchange'
-    EventMessage:
-      description: A simple event message published or received in an asynchronous exchange
-      type: object
-      allOf:
-      - required:
-        - id
-        - mediaType
-        type: object
-        properties:
+          status:
+            description: Status of this Response
+            type: string
           mediaType:
-            description: Content type of message
+            description: Content type of this Response
             type: string
           dispatchCriteria:
-            description: Dispatch criteria of this message (in case of a mock)
+            description: Dispatch criteria of this Response (in case of a mock)
             type: string
+          isFault:
+            description: Whether this Response represents a Fault
+            type: boolean
       - $ref: '#/components/schemas/Message'
-    MessageArray:
-      description: Array of Exchanges for Service operations
-      type: array
-      items:
-        $ref: '#/components/schemas/Exchange'
+    AbstractExchange:
+      description: Abstract bean representing a Service or API Exchange.
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          description: Discriminant type for identifying kind of exchange
+          enum:
+          - reqRespPair
+          - unidirEvent
+          type: string
     ParameterConstraint:
       description: Companion object for Operation that may be used to express constraints on request parameters
       required:
@@ -698,6 +482,149 @@ components:
           - cookie
           - formData
           type: string
+    CallbackInfo:
+      description: Information on a REST api/service callback
+      required:
+      - method
+      - callbackUrlExpression
+      type: object
+      properties:
+        method:
+          description: The HTTP method for this callback
+          type: string
+        callbackUrlExpression:
+          description: The expressiong to retrieve the callback url from incoming request
+          type: string
+        order:
+          description: The order of this callback within the chain
+          type: integer
+    Binding:
+      description: Protocol binding details for asynchronous operations
+      required:
+      - type
+      - destinationName
+      type: object
+      properties:
+        type:
+          description: Protocol binding identifier
+          enum:
+          - KAFKA
+          - MQTT
+          - WS
+          - AMQP
+          - NATS
+          - GOOGLEPUBSUB
+          type: string
+        keyType:
+          description: Type of key for Kafka messages
+          type: string
+        destinationType:
+          description: Type of destination for asynchronous messages of this operation
+          type: string
+        destinationName:
+          description: Name of destination for asynchronous messages of this operation
+          type: string
+        qoS:
+          description: Quality of Service attribute for MQTT binding
+          type: string
+        persistent:
+          description: Persistent attribute for MQTT binding
+          type: boolean
+        method:
+          description: HTTP method for WebSocket binding
+          type: string
+    OperationOverrideDTO:
+      description: Data Transfer object for grouping the mutable properties of an Operation
+      type: object
+      properties:
+        dispatcher:
+          description: Type of dispatcher to apply for this operation
+          type: string
+        dispatcherRules:
+          description: Rules of dispatcher for this operation
+          type: string
+        defaultDelay:
+          description: Default delay in milliseconds to apply to mock responses on this operation
+          type: integer
+        parameterConstraints:
+          description: Constraints that may apply to incoming parameters on this operation
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterConstraint'
+    UnidirectionalEvent:
+      description: Representation of an unidirectional exchange as an event message
+      type: object
+      allOf:
+      - required:
+        - eventMessage
+        type: object
+        properties:
+          eventMessage:
+            $ref: '#/components/schemas/EventMessage'
+            description: Asynchronous message for this unidirectional event
+      - $ref: '#/components/schemas/AbstractExchange'
+    Request:
+      description: A mock invocation or test request
+      allOf:
+      - type: object
+        properties:
+          responseId:
+            description: Unique identifier of Response this Request is attached
+            type: string
+          queryParameters:
+            description: Query parameters for this Request if any
+            type: array
+            items:
+              $ref: '#/components/schemas/Parameter'
+      - $ref: '#/components/schemas/Message'
+    TriggerInfo:
+      description: Information on a sync-to-async trigger.
+      required:
+      - serviceName
+      - serviceVersion
+      - operationName
+      type: object
+      properties:
+        serviceName:
+          description: The name of the service that is triggered
+          type: string
+        serviceVersion:
+          description: The version of the service that is triggered
+          type: string
+        operationName:
+          description: The name of the operation within the service that is triggered
+          type: string
+    EventMessage:
+      description: A simple event message published or received in an asynchronous exchange
+      type: object
+      allOf:
+      - required:
+        - id
+        - mediaType
+        type: object
+        properties:
+          mediaType:
+            description: Content type of message
+            type: string
+          dispatchCriteria:
+            description: Dispatch criteria of this message (in case of a mock)
+            type: string
+      - $ref: '#/components/schemas/Message'
+    ServiceView:
+      description: Aggregate bean for grouping a Service an its messages pairs
+      required:
+      - service
+      - messagesMap
+      type: object
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+          description: Wrapped service description
+        messagesMap:
+          description: Map of messages for this Service. Keys are operation name, values are array of messages for this operation
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MessageArray'
     SnapshotUpload:
       description: Upload of a repository snapshot file
       required:
@@ -708,6 +635,79 @@ components:
           format: binary
           description: The repository snapshot file
           type: string
+    Parameter:
+      description: Companion objects for Request representing query parameter
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          description: The name of the parameter
+          type: string
+        value:
+          description: The value of this parameter
+          type: string
+    StringArray:
+      description: A simple array of String
+      type: array
+      items:
+        type: string
+    RequestResponsePair:
+      description: Request associated with corresponding Response
+      type: object
+      allOf:
+      - required:
+        - request
+        - response
+        type: object
+        properties:
+          request:
+            $ref: '#/components/schemas/Request'
+            description: The request part of the pair
+          response:
+            $ref: '#/components/schemas/Response'
+            description: The Response part of the pair
+      - $ref: '#/components/schemas/AbstractExchange'
+    MessageArray:
+      description: Array of Exchanges for Service operations
+      type: array
+      items:
+        $ref: '#/components/schemas/Exchange'
+    Counter:
+      description: A simple Counter type.
+      type: object
+      properties:
+        counter:
+          format: int32
+          description: Number of items in a resource collection
+          type: integer
+      example: "{\n    \"counter\": 12\n}"
+    Metadata:
+      description: Commodity object for holding metadata on any entity. This object is inspired by Kubernetes metadata.
+      required:
+      - createdOn
+      - lastUpdate
+      type: object
+      properties:
+        createdOn:
+          description: Creation date of attached object
+          type: number
+          readOnly: true
+        lastUpdate:
+          description: Last update of attached object
+          type: number
+          readOnly: true
+        annotations:
+          description: Annotations of attached object
+          type: object
+          additionalProperties:
+            type: string
+        labels:
+          description: Labels put on attached object
+          type: object
+          additionalProperties:
+            type: string
   responses:
     ServiceResponse:
       content:

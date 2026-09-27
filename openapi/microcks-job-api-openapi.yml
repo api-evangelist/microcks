@@ -350,22 +350,6 @@ components:
         secretName:
           description: The name of a secret that can be used to authenticated when downloading remote artifact.
           type: string
-    ServiceRef:
-      description: Lightweight reference of an existing Service
-      required:
-      - serviceId
-      - name
-      - version
-      properties:
-        serviceId:
-          description: Unique reference of a Service
-          type: string
-        name:
-          description: The Service name
-          type: string
-        version:
-          description: The Service version
-          type: string
     Counter:
       description: A simple Counter type.
       type: object
@@ -400,6 +384,35 @@ components:
           type: object
           additionalProperties:
             type: string
+    ServiceRef:
+      description: Lightweight reference of an existing Service
+      required:
+      - serviceId
+      - name
+      - version
+      properties:
+        serviceId:
+          description: Unique reference of a Service
+          type: string
+        name:
+          description: The Service name
+          type: string
+        version:
+          description: The Service version
+          type: string
+    SecretRef:
+      description: Lightweight reference for an existing Secret
+      required:
+      - secretId
+      - name
+      properties:
+        secretId:
+          description: Unique identifier or referenced Secret
+          type: string
+        name:
+          description: Distinct name of the referenced Secret
+          type: string
+      example: "{\n    \"secretId\": \"5be58fb51ed744d1b87481bd\",\n    \"name\": \"Gogs internal\"\n}"
     ArtifactUpload:
       description: 'Artifact to be imported by Microcks.
 
@@ -464,19 +477,6 @@ components:
         mainArtifact:
           description: Flag telling if considered as primary or secondary artifact. Default to `true`
           type: boolean
-    SecretRef:
-      description: Lightweight reference for an existing Secret
-      required:
-      - secretId
-      - name
-      properties:
-        secretId:
-          description: Unique identifier or referenced Secret
-          type: string
-        name:
-          description: Distinct name of the referenced Secret
-          type: string
-      example: "{\n    \"secretId\": \"5be58fb51ed744d1b87481bd\",\n    \"name\": \"Gogs internal\"\n}"
   securitySchemes:
     jwt-bearer:
       flows:
