@@ -183,6 +183,53 @@ paths:
       summary: Get latest tests results
 components:
   schemas:
+    Trend:
+      description: Evolution trend qualifier
+      enum:
+      - DOWN
+      - LOW_DOWN
+      - STABLE
+      - LOW_UP
+      - UP
+      type: string
+    WeightedMetricValue:
+      description: Value of a metric with an associated weight
+      required:
+      - name
+      - weight
+      - value
+      type: object
+      properties:
+        name:
+          description: Metric name or serie name
+          type: string
+        weight:
+          description: Weight of this metric value (typically a percentage)
+          type: integer
+        value:
+          description: The value of this metric
+          type: integer
+    TestResultSummary:
+      description: 'Represents the summary result of a Service or API test run by Microcks. '
+      required:
+      - id
+      - testDate
+      - serviceId
+      - success
+      properties:
+        id:
+          description: Unique identifier of TestResult
+          type: string
+        testDate:
+          format: int64
+          description: Timestamp of creation date of this service
+          type: integer
+        serviceId:
+          description: Unique identifier of service tested
+          type: string
+        success:
+          description: Flag telling if test is a success
+          type: boolean
     DailyInvocationStatistic:
       description: The daily statistic of a service mock invocations
       required:
@@ -216,23 +263,6 @@ components:
           description: The number of service mock invocations per minute of the day (keys range from 0 to 1439)
           type: object
           additionalProperties: true
-    WeightedMetricValue:
-      description: Value of a metric with an associated weight
-      required:
-      - name
-      - weight
-      - value
-      type: object
-      properties:
-        name:
-          description: Metric name or serie name
-          type: string
-        weight:
-          description: Weight of this metric value (typically a percentage)
-          type: integer
-        value:
-          description: The value of this metric
-          type: integer
     TestConformanceMetric:
       description: Represents the test conformance metrics (current score, history and evolution trend) of a Service
       required:
@@ -270,36 +300,6 @@ components:
           type: object
           additionalProperties:
             type: number
-    TestResultSummary:
-      description: 'Represents the summary result of a Service or API test run by Microcks. '
-      required:
-      - id
-      - testDate
-      - serviceId
-      - success
-      properties:
-        id:
-          description: Unique identifier of TestResult
-          type: string
-        testDate:
-          format: int64
-          description: Timestamp of creation date of this service
-          type: integer
-        serviceId:
-          description: Unique identifier of service tested
-          type: string
-        success:
-          description: Flag telling if test is a success
-          type: boolean
-    Trend:
-      description: Evolution trend qualifier
-      enum:
-      - DOWN
-      - LOW_DOWN
-      - STABLE
-      - LOW_UP
-      - UP
-      type: string
     CounterMap:
       description: A generic map of counter
       type: object

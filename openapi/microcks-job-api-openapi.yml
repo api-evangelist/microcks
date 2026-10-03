@@ -335,96 +335,6 @@ paths:
       description: Uploads an artifact to be imported by Microcks.
 components:
   schemas:
-    ArtifactDownload:
-      description: Artifact Download specification to be imported by Microcks.
-      required:
-      - url
-      type: object
-      properties:
-        url:
-          description: The URL of remote artifact to download and import
-          type: string
-        mainArtifact:
-          description: Whether this remote artifact should be imported as main/primary or secondary artifact. Default is true.
-          type: boolean
-        secretName:
-          description: The name of a secret that can be used to authenticated when downloading remote artifact.
-          type: string
-    Counter:
-      description: A simple Counter type.
-      type: object
-      properties:
-        counter:
-          format: int32
-          description: Number of items in a resource collection
-          type: integer
-      example: "{\n    \"counter\": 12\n}"
-    Metadata:
-      description: Commodity object for holding metadata on any entity. This object is inspired by Kubernetes metadata.
-      required:
-      - createdOn
-      - lastUpdate
-      type: object
-      properties:
-        createdOn:
-          description: Creation date of attached object
-          type: number
-          readOnly: true
-        lastUpdate:
-          description: Last update of attached object
-          type: number
-          readOnly: true
-        annotations:
-          description: Annotations of attached object
-          type: object
-          additionalProperties:
-            type: string
-        labels:
-          description: Labels put on attached object
-          type: object
-          additionalProperties:
-            type: string
-    ServiceRef:
-      description: Lightweight reference of an existing Service
-      required:
-      - serviceId
-      - name
-      - version
-      properties:
-        serviceId:
-          description: Unique reference of a Service
-          type: string
-        name:
-          description: The Service name
-          type: string
-        version:
-          description: The Service version
-          type: string
-    SecretRef:
-      description: Lightweight reference for an existing Secret
-      required:
-      - secretId
-      - name
-      properties:
-        secretId:
-          description: Unique identifier or referenced Secret
-          type: string
-        name:
-          description: Distinct name of the referenced Secret
-          type: string
-      example: "{\n    \"secretId\": \"5be58fb51ed744d1b87481bd\",\n    \"name\": \"Gogs internal\"\n}"
-    ArtifactUpload:
-      description: 'Artifact to be imported by Microcks.
-
-        This structure represents a mime-multipart file upload (as specified here: https://swagger.io/docs/specification/describing-request-body/file-upload/)'
-      required:
-      - file
-      type: object
-      properties:
-        file:
-          format: binary
-          description: The artifact to upload
-          type: string
     ImportJob:
       description: An ImportJob allow defining a repository artifact to poll for discovering Services and APIs mocks and tests
       required:
@@ -477,6 +387,96 @@ components:
         mainArtifact:
           description: Flag telling if considered as primary or secondary artifact. Default to `true`
           type: boolean
+    SecretRef:
+      description: Lightweight reference for an existing Secret
+      required:
+      - secretId
+      - name
+      properties:
+        secretId:
+          description: Unique identifier or referenced Secret
+          type: string
+        name:
+          description: Distinct name of the referenced Secret
+          type: string
+      example: "{\n    \"secretId\": \"5be58fb51ed744d1b87481bd\",\n    \"name\": \"Gogs internal\"\n}"
+    Counter:
+      description: A simple Counter type.
+      type: object
+      properties:
+        counter:
+          format: int32
+          description: Number of items in a resource collection
+          type: integer
+      example: "{\n    \"counter\": 12\n}"
+    ServiceRef:
+      description: Lightweight reference of an existing Service
+      required:
+      - serviceId
+      - name
+      - version
+      properties:
+        serviceId:
+          description: Unique reference of a Service
+          type: string
+        name:
+          description: The Service name
+          type: string
+        version:
+          description: The Service version
+          type: string
+    ArtifactDownload:
+      description: Artifact Download specification to be imported by Microcks.
+      required:
+      - url
+      type: object
+      properties:
+        url:
+          description: The URL of remote artifact to download and import
+          type: string
+        mainArtifact:
+          description: Whether this remote artifact should be imported as main/primary or secondary artifact. Default is true.
+          type: boolean
+        secretName:
+          description: The name of a secret that can be used to authenticated when downloading remote artifact.
+          type: string
+    Metadata:
+      description: Commodity object for holding metadata on any entity. This object is inspired by Kubernetes metadata.
+      required:
+      - createdOn
+      - lastUpdate
+      type: object
+      properties:
+        createdOn:
+          description: Creation date of attached object
+          type: number
+          readOnly: true
+        lastUpdate:
+          description: Last update of attached object
+          type: number
+          readOnly: true
+        annotations:
+          description: Annotations of attached object
+          type: object
+          additionalProperties:
+            type: string
+        labels:
+          description: Labels put on attached object
+          type: object
+          additionalProperties:
+            type: string
+    ArtifactUpload:
+      description: 'Artifact to be imported by Microcks.
+
+        This structure represents a mime-multipart file upload (as specified here: https://swagger.io/docs/specification/describing-request-body/file-upload/)'
+      required:
+      - file
+      type: object
+      properties:
+        file:
+          format: binary
+          description: The artifact to upload
+          type: string
   securitySchemes:
     jwt-bearer:
       flows:
