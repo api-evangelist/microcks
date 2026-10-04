@@ -1,0 +1,25 @@
+slug: microcks
+provider: Microcks
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Test
+  spec_file: microcks-test-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.9
+  evidence: POST /tests 'Create a new Test'; GET /tests/{id} 'Get TestResult'; POST /tests/{id}/testCaseResult
+    'Report and create a new TestCaseResult'
+  reason: Operations create test runs against services and report test case results, with TestResult/TestCaseResult/TestRunnerType
+    schemas — plainly automated test execution and result stewardship, i.e. software quality engineering.

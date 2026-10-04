@@ -136,6 +136,9 @@ apis:
   - type: GettingStarted
     url: https://microcks.io/documentation/getting-started/
 common:
+  - type: CapabilityMap
+    url: capabilities/microcks-capability-edges.yml
+    name: Microcks Business Capability Map
   - type: Website
     url: https://www.microcks.io/
   - type: AgenticAccess
