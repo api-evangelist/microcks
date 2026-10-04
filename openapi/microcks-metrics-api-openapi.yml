@@ -192,6 +192,81 @@ components:
       - LOW_UP
       - UP
       type: string
+    CounterMap:
+      description: A generic map of counter
+      type: object
+      additionalProperties:
+        type: number
+    TestConformanceMetric:
+      description: Represents the test conformance metrics (current score, history and evolution trend) of a Service
+      required:
+      - id
+      - serviceId
+      - currentScore
+      - maxPossibleScore
+      type: object
+      properties:
+        id:
+          description: Unique identifier of coverage metric
+          type: string
+        serviceId:
+          description: Unique identifier of the Service this metric is related to
+          type: string
+        aggregationLabelValue:
+          description: Value of the label used for metrics aggregation (if any)
+          type: string
+        maxPossibleScore:
+          format: double
+          description: Maximum conformance score that can be reached (depends on samples expresiveness)
+          type: number
+        currentScore:
+          format: double
+          description: Current test conformance score for the related Service
+          type: number
+        lastUpdateDay:
+          description: The day of latest score update (in yyyyMMdd format)
+          type: string
+        latestTrend:
+          $ref: '#/components/schemas/Trend'
+          description: Evolution trend of currentScore
+        latestScores:
+          description: History of latest scores (key is date with format yyyyMMdd, value is score as double)
+          type: object
+          additionalProperties:
+            type: number
+    DailyInvocationStatistic:
+      description: The daily statistic of a service mock invocations
+      required:
+      - id
+      - day
+      - serviceName
+      - serviceVersion
+      - dailyCount
+      type: object
+      properties:
+        id:
+          description: Unique identifier of this statistic object
+          type: string
+        day:
+          description: The day (formatted as yyyyMMdd string) represented by this statistic
+          type: string
+        serviceName:
+          description: The name of the service this statistic is related to
+          type: string
+        serviceVersion:
+          description: The version of the service this statistic is related to
+          type: string
+        dailyCount:
+          description: The number of service mock invocations on this day
+          type: number
+        hourlyCount:
+          description: The number of service mock invocations per hour of the day (keys range from 0 to 23)
+          type: object
+          additionalProperties: true
+        minuteCount:
+          description: The number of service mock invocations per minute of the day (keys range from 0 to 1439)
+          type: object
+          additionalProperties: true
     WeightedMetricValue:
       description: Value of a metric with an associated weight
       required:
@@ -230,81 +305,6 @@ components:
         success:
           description: Flag telling if test is a success
           type: boolean
-    DailyInvocationStatistic:
-      description: The daily statistic of a service mock invocations
-      required:
-      - id
-      - day
-      - serviceName
-      - serviceVersion
-      - dailyCount
-      type: object
-      properties:
-        id:
-          description: Unique identifier of this statistic object
-          type: string
-        day:
-          description: The day (formatted as yyyyMMdd string) represented by this statistic
-          type: string
-        serviceName:
-          description: The name of the service this statistic is related to
-          type: string
-        serviceVersion:
-          description: The version of the service this statistic is related to
-          type: string
-        dailyCount:
-          description: The number of service mock invocations on this day
-          type: number
-        hourlyCount:
-          description: The number of service mock invocations per hour of the day (keys range from 0 to 23)
-          type: object
-          additionalProperties: true
-        minuteCount:
-          description: The number of service mock invocations per minute of the day (keys range from 0 to 1439)
-          type: object
-          additionalProperties: true
-    TestConformanceMetric:
-      description: Represents the test conformance metrics (current score, history and evolution trend) of a Service
-      required:
-      - id
-      - serviceId
-      - currentScore
-      - maxPossibleScore
-      type: object
-      properties:
-        id:
-          description: Unique identifier of coverage metric
-          type: string
-        serviceId:
-          description: Unique identifier of the Service this metric is related to
-          type: string
-        aggregationLabelValue:
-          description: Value of the label used for metrics aggregation (if any)
-          type: string
-        maxPossibleScore:
-          format: double
-          description: Maximum conformance score that can be reached (depends on samples expresiveness)
-          type: number
-        currentScore:
-          format: double
-          description: Current test conformance score for the related Service
-          type: number
-        lastUpdateDay:
-          description: The day of latest score update (in yyyyMMdd format)
-          type: string
-        latestTrend:
-          $ref: '#/components/schemas/Trend'
-          description: Evolution trend of currentScore
-        latestScores:
-          description: History of latest scores (key is date with format yyyyMMdd, value is score as double)
-          type: object
-          additionalProperties:
-            type: number
-    CounterMap:
-      description: A generic map of counter
-      type: object
-      additionalProperties:
-        type: number
   securitySchemes:
     jwt-bearer:
       flows:

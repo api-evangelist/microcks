@@ -202,15 +202,6 @@ paths:
       summary: Search for Secrets
 components:
   schemas:
-    Counter:
-      description: A simple Counter type.
-      type: object
-      properties:
-        counter:
-          format: int32
-          description: Number of items in a resource collection
-          type: integer
-      example: "{\n    \"counter\": 12\n}"
     KeycloakConfig:
       description: Representation of Keycloak / SSO configuration used by Microcks server
       required:
@@ -242,6 +233,15 @@ components:
         enabled:
           description: Whether Keycloak authentification and usage is enabled
           type: boolean
+    Counter:
+      description: A simple Counter type.
+      type: object
+      properties:
+        counter:
+          format: int32
+          description: Number of items in a resource collection
+          type: integer
+      example: "{\n    \"counter\": 12\n}"
     Secret:
       description: A Secret allows grouping informations on how to access a restricted resource such as a repsoitory URL. Secrets are typically used by ImpoortJobs.
       required:

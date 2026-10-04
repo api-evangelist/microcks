@@ -335,6 +335,22 @@ paths:
       description: Uploads an artifact to be imported by Microcks.
 components:
   schemas:
+    ServiceRef:
+      description: Lightweight reference of an existing Service
+      required:
+      - serviceId
+      - name
+      - version
+      properties:
+        serviceId:
+          description: Unique reference of a Service
+          type: string
+        name:
+          description: The Service name
+          type: string
+        version:
+          description: The Service version
+          type: string
     ImportJob:
       description: An ImportJob allow defining a repository artifact to poll for discovering Services and APIs mocks and tests
       required:
@@ -409,37 +425,6 @@ components:
           description: Number of items in a resource collection
           type: integer
       example: "{\n    \"counter\": 12\n}"
-    ServiceRef:
-      description: Lightweight reference of an existing Service
-      required:
-      - serviceId
-      - name
-      - version
-      properties:
-        serviceId:
-          description: Unique reference of a Service
-          type: string
-        name:
-          description: The Service name
-          type: string
-        version:
-          description: The Service version
-          type: string
-    ArtifactDownload:
-      description: Artifact Download specification to be imported by Microcks.
-      required:
-      - url
-      type: object
-      properties:
-        url:
-          description: The URL of remote artifact to download and import
-          type: string
-        mainArtifact:
-          description: Whether this remote artifact should be imported as main/primary or secondary artifact. Default is true.
-          type: boolean
-        secretName:
-          description: The name of a secret that can be used to authenticated when downloading remote artifact.
-          type: string
     Metadata:
       description: Commodity object for holding metadata on any entity. This object is inspired by Kubernetes metadata.
       required:
@@ -476,6 +461,21 @@ components:
         file:
           format: binary
           description: The artifact to upload
+          type: string
+    ArtifactDownload:
+      description: Artifact Download specification to be imported by Microcks.
+      required:
+      - url
+      type: object
+      properties:
+        url:
+          description: The URL of remote artifact to download and import
+          type: string
+        mainArtifact:
+          description: Whether this remote artifact should be imported as main/primary or secondary artifact. Default is true.
+          type: boolean
+        secretName:
+          description: The name of a secret that can be used to authenticated when downloading remote artifact.
           type: string
   securitySchemes:
     jwt-bearer:
