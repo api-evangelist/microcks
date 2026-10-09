@@ -170,6 +170,8 @@ common:
   - name: MCP Server
     url: https://github.com/microcks/microcks-mcp-server
     type: MCPServer
+  - type: SpectralRules
+    url: https://github.com/microcks/microcks-spectral-ruleset/blob/b42c0030c31e6fb64e66b6f17ebb8be1b75ceb3d/microcks-rules.yaml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
