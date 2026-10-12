@@ -135,3 +135,26 @@
     detected: '2026-10-12'
   status: not-a-workflow
   arazzo: null
+- slug: microcks-opentelemetry
+  label: OpenTelemetry
+  partner_name: OpenTelemetry
+  type: contract
+  channel: network-directory
+  evidence: https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/application-integration-java-microcks.yml
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: OpenTelemetry ecosystem + registry (opentelemetry.io data/)
+    spec_file: null
+    role: participant
+    registered_name: Microcks Authors
+    matched_domain: microcks.io
+    partner_match: domain
+    api_families:
+    - registry:application integration
+    records:
+    - registry: application-integration-java-microcks.yml
+    detected_by: sweep-observability.py
+    detected: '2026-10-13'
+  status: not-a-workflow
+  arazzo: null
