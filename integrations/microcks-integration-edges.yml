@@ -105,6 +105,23 @@ edges:
     detected: '2026-10-21'
   detected_by: sweep-graphql-ecosystem.py
   first_seen: '2026-10-21'
+- partner_name: Backstage (own)
+  partner: backstage
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://github.com/backstage/backstage/tree/d72327203d5d0812bee2eace8688fa5ab22867be/microsite/data/plugins/microcks.yaml
+  mirror_of: backstage/integrations/backstage-integration-edges.yml
+  apps:
+  - Microcks
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Discovery
 generated: '2026-10-12'
 method: searched
 checked:
@@ -119,6 +136,7 @@ checked:
 - https://graphql.landscape2.io/data/full.json
 - https://graphql.org/community/tools-and-libraries/
 - https://graphql.org/foundation/members/
+- backstage/integrations/backstage-integration-edges.yml
 marketplace_apps: []
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml

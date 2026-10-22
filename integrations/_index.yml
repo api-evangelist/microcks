@@ -91,7 +91,9 @@
   use_case: For every Microcks Service, materialize a matching Backstage Component entity with the mock URL, OpenAPI
     spec link, and latest test conformance metric so developers find mocks alongside the real API.
   source: curated
-  status: pending-generation
+  status: not-a-workflow
+  evidence: https://github.com/backstage/backstage/tree/d72327203d5d0812bee2eace8688fa5ab22867be/microsite/data/plugins/microcks.yaml
+  type: marketplace
   arazzo: null
 - slug: microcks-keycloak
   label: Use Keycloak realms to gate access to Microcks mocks
