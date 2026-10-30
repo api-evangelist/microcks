@@ -1,4 +1,4 @@
-# Microcks (microcks)
+# Microcks
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,57 +66,144 @@
 
 Microcks is an open source, cloud-native tool for API mocking and testing. It provides a platform for importing API contracts (OpenAPI, AsyncAPI, Postman Collections), generating mock responses, and running test suites. It shortens the feedback loop for API development teams.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/microcks/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/microcks/refs/heads/main/apis.yml)
+**Areas:** API Testing · Cloud-Native · DevOps · Mocking · Open Source
 
-## Scope
+## Microcks on APIs.io
 
-- **Type:** Index
+Everything profiled for Microcks is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/microcks/](https://apis.io/providers/microcks/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- API Testing
-- Cloud Native
-- DevOps
-- Mocking
-- Open Source
+- [Microcks Config API](https://apis.io/apis/microcks/microcks-config-api/) — Operations related to configuration
+- [Microcks Job API](https://apis.io/apis/microcks/microcks-job-api/) — Operations related to Jobs for discovering mocks and tests
+- [Microcks Metrics API](https://apis.io/apis/microcks/microcks-metrics-api/) — Operations related to metrics
+- [Microcks Mock API](https://apis.io/apis/microcks/microcks-mock-api/) — Operations related to API and Services mocks
+- [Microcks Resources API](https://apis.io/apis/microcks/microcks-resources-api/) — The Resources API from Microcks — 2 operation(s) for resources.
+- [Microcks Test API](https://apis.io/apis/microcks/microcks-test-api/) — Operations related to API and Services tests
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-01-08
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Microcks API
+Model Context Protocol servers that expose the API to agents.
 
-The Microcks platform API provides endpoints for managing services, test suites, and mock configurations programmatically. It supports integration into CI/CD pipelines for automated API testing and mocking.
+- [MCP Server](https://apis.io/servers/microcks/mcp-server/)
 
-- **Human URL:** [https://microcks.io/](https://microcks.io/)
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- API Testing
-- Mocking
+- [Microcks Agentic Access](https://apis.io/agentic-access/microcks/microcks-agentic-access/)
 
-#### Properties
+#### Collections (7)
 
+Postman and Open Collection request collections.
+
+- [Microcks API v1.14](https://apis.io/collections/microcks/open-microcks/)
+- [Microcks API v1.14 config API](https://apis.io/collections/microcks/open-microcks-config-api/)
+- [Microcks API v1.14 config job API](https://apis.io/collections/microcks/open-microcks-job-api/)
+- [Microcks API v1.14 config metrics API](https://apis.io/collections/microcks/open-microcks-metrics-api/)
+- [Microcks API v1.14 config mock API](https://apis.io/collections/microcks/open-microcks-mock-api/)
+- [Microcks API v1.14 config Resources API](https://apis.io/collections/microcks/open-microcks-resources-api/)
+- [Microcks API v1.14 config test API](https://apis.io/collections/microcks/open-microcks-test-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Microcks — microcks spectral ruleset rules](https://apis.io/rules/microcks/microcks-microcks-spectral-ruleset-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Microcks Authentication](https://apis.io/security/microcks/microcks-authentication/)
+- [Microcks Domain Security](https://apis.io/security/microcks/microcks-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Microcks Scopes](https://apis.io/scopes/microcks/microcks-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Microcks Plans Pricing](https://apis.io/plans/microcks/microcks-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Microcks Rate Limits](https://apis.io/rate-limits/microcks/microcks-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Microcks Finops](https://apis.io/finops/microcks/microcks-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.microcks.io/)
 - [Documentation](https://microcks.io/documentation/)
-- [Getting Started](https://microcks.io/documentation/getting-started/)
-- [OpenAPI](openapi/microcks-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/microcks.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/microcks.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/microcks)
-- [Portal](https://microcks.io/)
-- [Documentation](https://microcks.io/documentation/)
-- [GitHub Organization](https://github.com/microcks)
-- [Community](https://microcks.io/community/)
 - [Blog](https://microcks.io/blog/)
-- [M C P Server](https://github.com/microcks/microcks-mcp-server)
+- [GitHub](https://github.com/microcks)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 34.1** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 56.7 |
+| Contract quality | 46.3 |
+| Contract governance | 54.5 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 35.7 |
+| Access clarity | 7.9 |
+
+**Agent readiness 26.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/microcks/](https://apis.io/providers/microcks/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Microcks: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/microcks/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
